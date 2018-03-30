@@ -51,4 +51,5 @@ export default {
   height: 100vh;
   max-width: $g-page-max-width;
   overflow-x hidden
+  background-color $g-bgc-g
 </style >

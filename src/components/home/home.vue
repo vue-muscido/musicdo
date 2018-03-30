@@ -1,26 +1,20 @@
 <template >
   <div class="home" >
     <main-search></main-search>
-    
     <cube-slide
       v-if="slide.length"
       ref="slide"
       :data="slide"
       @change="_changePage" >
-      
       <cube-slide-item
         v-for="(item, index) in slide"
         :key="index"
         @click.native="_clickHandler(item, index)" >
-        
         <a class="link" >
           <img class="img" :src="item.image" >
         </a >
-        
       </cube-slide-item >
-      
     </cube-slide >
-    
   </div >
 </template >
 
