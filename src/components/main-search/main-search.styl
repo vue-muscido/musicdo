@@ -30,6 +30,7 @@
           width 100%
           height $g-search-inp-height
           background $g-col-white-g
+          font-size $g-fs-md
           &:focus
             outline none
             g-box-sd()
@@ -38,7 +39,6 @@
         height $g-fix-bar-height
         flex 0 0 5.5rem
         text-align center
-
         > img
           width $g-top-icon-w
           height $g-top-icon-w
@@ -47,11 +47,13 @@
           font-size $g-fs-min
           color $g-fc-white
       .search-btn
-        line-height $g-fix-bar-height
+        display flex
+        justify-content center
+        align-items center
         > span
           border-radius .2rem
           padding $g-padding-sm
-          font-size $g-fs-xxl
+          font-size $g-fs-xl
           color $g-fc-white
           background $g-col-red
   dl
@@ -63,17 +65,17 @@
       justify-content space-between
       align-items center
       position relative
-      height 4rem
-      padding 0 1rem
+      height $g-fix-bar-height
+      padding 0 $g-padding-normal
       > div
-        height 4rem
-        line-height 4rem
+        height $g-fix-bar-height
+        line-height $g-fix-bar-height
       .title
         font-size $g-fs-max
         font-weight 500
       .delete
-        width 2rem
-        height 2rem
+        width $g-top-icon-w
+        height $g-top-icon-w
         bg-image("img/shanchu")
     dd
       ul
@@ -81,17 +83,20 @@
         display flex
         flex-wrap wrap
         flex-direction row
+        padding .5rem
         li
           display inline-block
-          margin .5rem
-          padding .5rem
+          margin $g-padding-sm
           max-width 100%
           background $g-bgc-gray
           a
             display: inline-block
-            overflow hidden
-            height 1rem
+            text-overflow: ellipsis
+            overflow: hidden
+            white-space: nowrap
+            height $g-fs-lg
             max-width 10rem
             color $g-fc-normal
-            font-size $g-fs-md
+            font-size $g-fs-lg
+            margin  $g-padding-sm
 
