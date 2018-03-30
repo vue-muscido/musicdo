@@ -1,0 +1,71 @@
+@import '~common/stylus/variable.styl'
+@import '~common/stylus/mixin.styl'
+.tab
+  position fixed
+  bottom 0
+  z-index $g-zindex-fix
+  width 100%
+  height $g-bot-bar-height
+  max-width $g-page-max-width
+  background-color $g-bgc-con
+  > ul
+    display flex
+    justify-content space-between
+    align-items center
+    list-style none
+    height 100%
+    > li
+      flex 1
+      height 100%
+      .tab-item
+        display flex
+        flex-direction column
+        text-decoration none
+        align-items center
+        justify-content center
+        height 100%
+        &.router-link-active
+          .tab-txt
+            color $g-fc-red
+      .tab-img
+        width $g-bot-icon-w
+        height $g-bot-icon-w
+        margin-bottom $g-padding-xs
+      .tab-txt
+        font-size $g-fs-min
+        color $g-fc-black
+      &:nth-child(1)
+        .tab-item
+          .tab-img
+            bg-image("img/Shop")
+          &.router-link-active
+            .tab-img
+              bg-image("img/Shop-fill")
+      &:nth-child(2)
+        .tab-item
+          .tab-img
+            bg-image("img/brand")
+          &.router-link-active
+            .tab-img
+              bg-image("img/brand-fill")
+      &:nth-child(3)
+        .tab-item
+          .tab-img
+            bg-image("img/fenlei")
+          &.router-link-active
+            .tab-img
+              bg-image("img/fenlei-fill")
+      &:nth-child(4)
+        .tab-item
+          .tab-img
+            bg-image("img/che")
+          &.router-link-active
+            .tab-img
+              bg-image("img/che-fill")
+      &:nth-child(5)
+        .tab-item
+          .tab-img
+            bg-image("img/user")
+          &.router-link-active
+            .tab-img
+              bg-image("img/user-fill")
