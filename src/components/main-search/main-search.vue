@@ -3,7 +3,18 @@
     <div class="inner">
       <div class="top-bar" >
         <form class="search-form" action="#" >
-          <input id="main-search-input" class="search-input" type="search" placeholder="请输入要搜索的内容" >
+          <input id="main-search-input"
+                 class="search-input"
+                 v-model="mainSearch.value"
+                 :placeholder="mainSearch.placeholder"
+                 :type="mainSearch.type"
+                 :maxlength="mainSearch.maxlength"
+                 :readonly="mainSearch.readonly"
+                 :disabled="mainSearch.disabled"
+                 :autofocus="mainSearch.autofocus"
+                 :autocomplete="mainSearch.autocomplete"
+                 :clearable="mainSearch.clearable"
+          >
         </form >
         <!--<div class="msg-btn">-->
           <!--<img src="./img/xiaoxi@2x.png" />-->
@@ -81,20 +92,14 @@ export default {
     return {
       mainSearch: {
         value: '',
-        placeholder: '请输入内容',
+        placeholder: '请输入要搜索的内容',
         type: 'search',
         readonly: false,
         maxlength: 100,
         disabled: false,
         autofocus: true,
         autocomplete: true,
-        clearable: false,
-        /*
-         * 眼睛可见，且密码可见
-         * 如果为 false 则眼睛不可见，密码不可见
-         * 如果想要眼睛可见但是密码不可见，则配置为对象 { open: false }
-         */
-        eye: true
+        clearable: false
       }
     }
   }
