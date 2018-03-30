@@ -1,6 +1,5 @@
 <template >
   <div class="home" >
-    <main-search></main-search>
     <cube-slide
       v-if="slide.length"
       ref="slide"
@@ -31,7 +30,6 @@ export default {
     }
   },
   components: {
-    MainSearch
   },
   created () {
     this._getHomeFrist()
