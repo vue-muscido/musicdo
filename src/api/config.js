@@ -14,3 +14,10 @@ export const options = {
 export const ERR_OK = 0
 
 export const LOCAL_HOST = 'http://musicdo.cn'
+
+// 接口地址
+export const HOST = 'http://musicdo.cn'
+
+export const baseImgUrl = HOST
+
+
