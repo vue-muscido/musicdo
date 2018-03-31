@@ -100,11 +100,11 @@ export default {
         return this.historyData
       }
     },
-    // 本地保存
+    // 本地储存
     _localSave (key, val) {
       localSave(key, val)
     },
-    // 读取本地保存
+    // 读取本地储存
     _localTake (key) {
       return localTake(key)
     },
@@ -117,12 +117,20 @@ export default {
     _toSearch (val) {
       let productData = {} // 定义一个空对象
       productData.keyword = val // 定义此对象的 keyword
-      searchProduct(productData).then((res) => { // 把对象传入
+      searchProduct(productData).then((res) => { // 把对象（keyword）传入
         if (ERR_OK === res.Code) {
           this.searchData = res.ReturnData // 存搜索所得数据
           this.historyData = this._historyDataSet(val) // 设置历史搜索
           this._localSave('historySearch', this.historyData) // 保存本地数据
+          this._setRouter(val)
         }
+      })
+    },
+    // 路由跳转
+    _setRouter (keyword) {
+      this.$router.push({
+        path: `/search-list`,
+        query: {'keyword': keyword}
       })
     }
   }
