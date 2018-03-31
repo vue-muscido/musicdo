@@ -10,7 +10,7 @@
         :key="index"
         @click.native="_clickHandler(item, index)" >
         <a class="link" >
-          <img class="img" :src="item.image" >
+          <img class="img" :src="getImg(item.ImgUrl)" >
         </a >
       </cube-slide-item >
     </cube-slide >
@@ -19,6 +19,7 @@
 
 <script type="text/ecmascript-6" >
 import {getHomeFrist, getHomeSecond} from 'api/homedata'
+import {baseImgUrl} from 'api/config'
 export default {
   data () {
     return {
@@ -35,14 +36,13 @@ export default {
     this._getHomeSecond()
   },
   methods: {
+    getImg (img) {
+      return baseImgUrl + img
+    },
     _getHomeFrist () {
       getHomeFrist().then((res) => {
         this.homeFrist = res.Data
         this.slide = res.Data.AdInfoRun
-        for (var i = 0; i < this.slide.length; i++) {
-          this.slide[i].url = ''
-          this.slide[i].image = this.local + res.Data.AdInfoRun[i].ImgUrl
-        }
       })
     },
     _getHomeSecond () {
