@@ -1,6 +1,6 @@
 <template >
   <div class="main-search" >
-    <div class="inner">
+    <div class="inner" >
       <div class="top-bar" >
         <form class="search-form" action="#" >
           <input id="main-search-input"
@@ -17,76 +17,53 @@
           >
         </form >
         <!--<div class="msg-btn">-->
-          <!--<img src="./img/xiaoxi@2x.png" />-->
-          <!--<p >消息</p >-->
+        <!--<img src="./img/xiaoxi@2x.png" />-->
+        <!--<p >消息</p >-->
         <!--</div >-->
-        <div class="search-btn">
-          <span>搜索</span>
-        </div>
+        <div class="search-btn" >
+          <span @click="_toSearch">搜索</span >
+        </div >
       </div >
       <!--历史搜索 -begin -->
-      <dl class="search-log">
-        <dt class="search-title">
-          <div class="title">
-            <span>历史搜索</span>
-          </div>
-          <div class="delete"></div>
-        </dt>
-        <dd>
-          <ul>
-            <li>
-              <a>吉他</a>
-            </li>
-          </ul>
-        </dd>
-      </dl>
+      <dl class="search-log" >
+        <dt class="search-title" >
+          <div class="title" >
+            <span >历史搜索</span >
+          </div >
+          <div class="delete" ></div >
+        </dt >
+        <dd >
+          <ul >
+            <li >
+              <a >吉他</a >
+            </li >
+          </ul >
+        </dd >
+      </dl >
       <!--历史搜索 -end -->
-  
       <!--热门搜索 -begin -->
-      <dl class="search-hot">
-        <dt class="search-title">
-          <div class="title">
-            <span>热门搜索</span>
-          </div>
-        </dt>
-        <dd>
-          <ul>
-            <li>
-              <a>尤克里里</a>
-            </li>
-            <li>
-              <a>ROLAND罗兰电子鼓11K电鼓TD-11KV架子鼓TD-1</a>
-            </li>
-            <li>
-              <a>演唱会</a>
-            </li>
-            <li>
-              <a>吉他</a>
-            </li>
-            <li>
-              <a>音乐会门票</a>
-            </li>
-            <li>
-              <a>张学友</a>
-            </li>
-            <li>
-              <a>鼓</a>
-            </li>
-            <li>
-              <a>博兰斯勒</a>
-            </li>
-            <li>
-              <a>乐都</a>
-            </li>
-          </ul>
-        </dd>
-      </dl>
+      <dl class="search-hot" v-if="this.hotSearchData.length">
+        <dt class="search-title" >
+          <div class="title" >
+            <span >热门搜索</span >
+          </div >
+        </dt >
+        <dd >
+          <ul >
+            <li v-for="(item,index) in this.hotSearchData" :key="index">
+              <a >{{item.ShortName}}</a >
+            </li >
+          </ul >
+        </dd >
+      </dl >
       <!--热门搜索 -end -->
-    </div>
+    </div >
   </div >
 </template >
 
 <script type="text/ecmascript-6" >
+import { searchProduct } from 'api/searchData'
+import { ERR_OK } from 'api/config'
 export default {
   data () {
     return {
@@ -100,7 +77,33 @@ export default {
         autofocus: true,
         autocomplete: true,
         clearable: false
-      }
+      },
+      hotSearchData: []
+    }
+  },
+  created () {
+    this._hotSearch()
+  },
+  methods: {
+    _hotSearch () {
+      var oj = {}
+      oj.keyword = '雅马哈'
+      searchProduct(oj).then((res) => {
+        if (ERR_OK === res.Code) {
+          this.hotSearchData = res.ReturnData
+          console.log(this.hotSearchData)
+        }
+      })
+    },
+    _toSearch () {
+      var ooo = {}
+      ooo.keyword = this.mainSearch.value
+      searchProduct(ooo).then((res) => {
+        if (ERR_OK === res.Code) {
+          this.searchData = res.ReturnData
+          console.log(this.searchData)
+        }
+      })
     }
   }
 }

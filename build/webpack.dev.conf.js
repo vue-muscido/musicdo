@@ -56,6 +56,19 @@ const devWebpackConfig = merge(baseWebpackConfig, {
           console.log(e)
         })
       })
+      app.get('/api/searchProduct', function (req, res) {
+        var url = 'https://www.musicdo.cn:444/Product/SearchProduct'
+        axios.get(url, {
+          headers: {
+            host: 'www.musicdo.cn:444'
+          },
+          params: req.query
+        }).then((response) => {
+          res.json(response.data)
+        }).catch((e) => {
+          console.log(e)
+        })
+      })
     },
     // 后端代理 绕过host与referer --end
     clientLogLevel: 'warning',
