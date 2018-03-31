@@ -1,6 +1,10 @@
 <template >
   <div class="home" >
+    <div class="home-header">
+      <h2>musicdo</h2>
+    </div>
     <cube-slide
+      class="cube-slider"
       v-if="slide.length"
       ref="slide"
       :data="slide"
@@ -10,10 +14,23 @@
         :key="index"
         @click.native="_clickHandler(item, index)" >
         <a class="link" >
-          <img class="img" :src="getImg(item.ImgUrl)" >
+          <img class="slider-img" :src="getImg(item.ImgUrl)" >
         </a >
       </cube-slide-item >
     </cube-slide >
+    <div class="goods-list-container">
+      <div v-for="(list, index) in homeSecond" :key= "index" class="goods-item-list">
+        <div class="list-name">
+          <h2>{{list.Name}}</h2>
+        </div>
+        <div v-for="(goods, index) in list._List" :key= "index" class="goods-box">
+          <div class="goods-title">
+            {{goods.Name}}
+          </div>
+          <img :src="getImg(goods.SrcDetail)" alt="">
+        </div>
+      </div>
+    </div>
   </div >
 </template >
 
@@ -33,7 +50,6 @@ export default {
   },
   created () {
     this._getHomeFrist()
-    this._getHomeSecond()
   },
   methods: {
     getImg (img) {
@@ -43,6 +59,7 @@ export default {
       getHomeFrist().then((res) => {
         this.homeFrist = res.Data
         this.slide = res.Data.AdInfoRun
+        this._getHomeSecond()
       })
     },
     _getHomeSecond () {

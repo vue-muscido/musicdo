@@ -1,8 +1,39 @@
 @import '~common/stylus/variable.styl'
 @import '~common/stylus/mixin.styl'
 
-.cube-slide, .img
-  height auto
-  width 100%
-.cube-slide
-  margin-top $g-fix-bar-height
+.home
+	.home-header
+		position fixed
+		z-index 100
+		width 100%
+		max-width $g-page-max-width
+		height $g-fix-bar-height
+		line-height $g-fix-bar-height
+		background-color $g-col-red
+		h2
+			padding-left $g-padding-lg
+			font-size $g-fs-lg
+			color $g-col-white-g
+	.cube-slider
+		padding-top $g-fix-bar-height
+		width 100%
+		height auto
+		.slider-img
+			width 100%
+			height auto
+	.goods-list-container
+		background-color #fff
+		.list-name
+			width 100%
+			height 2rem
+			line-height 2rem
+			h2
+				padding-left 0.6rem
+				font-size 1.6rem
+		.goods-box
+			display inline-block
+			box-sizing border-box
+			padding 0 0.6rem 
+			width 50%
+			img
+				width: 100%
