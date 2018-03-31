@@ -21,37 +21,37 @@
         <!--<p >消息</p >-->
         <!--</div >-->
         <div class="search-btn" >
-          <span @click="_toSearch">搜索</span >
+          <span @click="_toSearch(mainSearch.value)" >搜索</span >
         </div >
       </div >
       <!--历史搜索 -begin -->
-      <dl class="search-log" >
+      <dl class="search-log" v-if="historyData.length" >
         <dt class="search-title" >
           <div class="title" >
             <span >历史搜索</span >
           </div >
-          <div class="delete" ></div >
+          <div class="delete" @click="_localremove ('historySearch')" ></div >
         </dt >
         <dd >
           <ul >
-            <li >
-              <a >吉他</a >
+            <li v-for="(item,index) in historyData" :key="index" >
+              <a @click="_toSearch (item)" >{{item}}</a >
             </li >
           </ul >
         </dd >
       </dl >
       <!--历史搜索 -end -->
       <!--热门搜索 -begin -->
-      <dl class="search-hot" v-if="this.hotSearchData.length">
+      <dl class="search-hot" >
         <dt class="search-title" >
           <div class="title" >
             <span >热门搜索</span >
           </div >
         </dt >
-        <dd >
+        <dd v-if="hotSearchData.length" >
           <ul >
-            <li v-for="(item,index) in this.hotSearchData" :key="index">
-              <a >{{item.ShortName}}</a >
+            <li v-for="(item,index) in hotSearchData" :key="index" >
+              <a @click="_toSearch (item)" >{{item}}</a >
             </li >
           </ul >
         </dd >
@@ -64,6 +64,7 @@
 <script type="text/ecmascript-6" >
 import { searchProduct } from 'api/searchData'
 import { ERR_OK } from 'api/config'
+import { localSave, localTake, localremove } from 'common/js/localStore'
 export default {
   data () {
     return {
@@ -78,30 +79,49 @@ export default {
         autocomplete: true,
         clearable: false
       },
-      hotSearchData: []
+      historyData: [],
+      hotSearchData: ['钢琴', '尤克里里', '吉他', '博兰斯勒', '德国', '鼓', '雅马哈', '欧米勒']
     }
   },
   created () {
-    this._hotSearch()
+    this._historyDataInit()
   },
   methods: {
-    _hotSearch () {
-      var oj = {}
-      oj.keyword = '雅马哈'
-      searchProduct(oj).then((res) => {
-        if (ERR_OK === res.Code) {
-          this.hotSearchData = res.ReturnData
-          console.log(this.hotSearchData)
-        }
-      })
+    // 初始化历史搜索
+    _historyDataInit () {
+      this.historyData = this._localTake('historySearch') ? this._localTake('historySearch') : []
     },
-    _toSearch () {
-      var ooo = {}
-      ooo.keyword = this.mainSearch.value
-      searchProduct(ooo).then((res) => {
+    // 历史搜索去空去重设置
+    _historyDataSet (val) {
+      if (val.replace(/\s/g, '') !== '') {
+        this.historyData.push(val)
+        return Array.from(new Set(this.historyData))
+      } else {
+        return this.historyData
+      }
+    },
+    // 本地保存
+    _localSave (key, val) {
+      localSave(key, val)
+    },
+    // 读取本地保存
+    _localTake (key) {
+      return localTake(key)
+    },
+    // 清除本地保存
+    _localremove (key) {
+      localremove(key)
+      this.historyData = []
+    },
+    // 进行搜索
+    _toSearch (val) {
+      let productData = {} // 定义一个空对象
+      productData.keyword = val // 定义此对象的 keyword
+      searchProduct(productData).then((res) => { // 把对象传入
         if (ERR_OK === res.Code) {
-          this.searchData = res.ReturnData
-          console.log(this.searchData)
+          this.searchData = res.ReturnData // 存搜索所得数据
+          this.historyData = this._historyDataSet(val) // 设置历史搜索
+          this._localSave('historySearch', this.historyData) // 保存本地数据
         }
       })
     }

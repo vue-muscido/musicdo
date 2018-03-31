@@ -1,6 +1,5 @@
 <template >
   <div class="home" >
-    <main-search></main-search>
     <cube-slide
       v-if="slide.length"
       ref="slide"
@@ -20,7 +19,6 @@
 
 <script type="text/ecmascript-6" >
 import {getHomeFrist, getHomeSecond} from 'api/homedata'
-import MainSearch from 'components/main-search/main-search'
 export default {
   data () {
     return {
@@ -31,7 +29,6 @@ export default {
     }
   },
   components: {
-    MainSearch
   },
   created () {
     this._getHomeFrist()
