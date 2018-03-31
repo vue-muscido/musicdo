@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import axios from 'axios'
 // By default we import all the components.
 // Only reserve the components on demand and remove the rest.
 // Style is always required.
@@ -56,6 +57,8 @@ Vue.use(Swipe)
 Vue.use(Upload)
 
 Vue.config.productionTip = false
+
+Vue.prototype.$http = axios
 
 /* eslint-disable no-new */
 new Vue({

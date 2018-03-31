@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export function searchProduct (oParams) {
-  const url = '/api/searchProduct'
+  const url = '/api/Product/searchProduct'
   const commonParams = {}
   const searchParams = oParams || {}
   const data = Object.assign({}, commonParams, {

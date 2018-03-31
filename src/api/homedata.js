@@ -4,7 +4,7 @@ import { commonParams } from './config' // 引入通用参数
 import axios from 'axios'
 
 export function getHomeFrist () {
-  const url = '/api/getHomeFrist'
+  const url = '/api/Home/GetHomeFirst'
 
   const data = Object.assign({}, commonParams, {})
 
@@ -14,8 +14,9 @@ export function getHomeFrist () {
     return Promise.resolve(res.data)
   })
 }
+
 export function getHomeSecond () {
-  const url = '/api/getHomeSecond'
+  const url = '/api/Home/getHomeSecond'
 
   const data = Object.assign({}, commonParams, {})
 
