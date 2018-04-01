@@ -22,8 +22,11 @@
 			width 100%
 			height auto
 	.goods-list-container
-		padding 0 1rem
-		background-color #fff
+		.goods-item-list
+			vertical-align top
+			margin-top 0.5rem
+			padding 0 1rem
+			background-color #fff
 		.list-title
 			position relative
 			padding 1.2rem 0.5rem
@@ -52,12 +55,13 @@
 				bg-image("img/jiantou", 0.6rem)
 				background-position center right
 		.list-box
+			display flex
 			width 100%
+			flex-wrap wrap
 		.goods-box
-			display inline-block
+			width 50%
 			box-sizing border-box
 			padding 0 0.5rem 1rem
-			width 50%
 			.goods-content
 				vertical-align top
 				box-sizing border-box
@@ -65,14 +69,14 @@
 				width 100%
 				.goods-img-box
 					width 100%
-					height auto
+					height: auto
 					.goods-img
 						width 100%
 						height auto
-						vertical-align top
 				.goods-title
-					height 3rem
-					vertical-align top
+					height 2rem
+					line-height 1rem
+					more-wrap()
 
 
 
