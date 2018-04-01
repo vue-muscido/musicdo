@@ -20,14 +20,24 @@
     </cube-slide >
     <div class="goods-list-container">
       <div v-for="(list, index) in homeSecond" :key= "index" class="goods-item-list">
-        <div class="list-name">
-          <h2>{{list.Name}}</h2>
-        </div>
-        <div v-for="(goods, index) in list._List" :key= "index" class="goods-box">
-          <div class="goods-title">
-            {{goods.Name}}
+        <div class="list-title">
+          <span class="title-tab"></span>
+          <h2 class="title-name">{{list.Name}}</h2>
+          <div class="title-more">
+            更多
           </div>
-          <img :src="getImg(goods.SrcDetail)" alt="">
+        </div>
+        <div class="list-box">
+          <div v-for="(goods, index) in list._List" :key= "index" class="goods-box">
+            <div class="goods-content">
+              <div class="goods-img-box">
+                <img class="goods-img" :src="getImg(goods.SrcDetail)" alt="">
+              </div>
+              <div class="goods-title">
+                <h2>{{goods.Name}}</h2>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
