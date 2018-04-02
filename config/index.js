@@ -4,7 +4,7 @@
 
 const path = require('path')
 
-// var proxyConfig = require('./proxyConfig')
+var proxyConfig = require('./proxyConfig')
 
 module.exports = {
   dev: {
@@ -12,7 +12,7 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: proxyConfig.proxy,
 
     // Various Dev Server settings
     host: '0.0.0.0',
