@@ -14,6 +14,20 @@
         </a >
       </cube-slide-item >
     </cube-slide >
+
+    <div class="goods-list-container">
+      <div v-for="(list, index) in homeSecond" :key= "index" class="goods-item-list">
+        <div class="list-name">
+          <h2>{{list.Name}}</h2>
+        </div>
+        <div v-for="(goods, index) in list._List" :key= "index" class="goods-box">
+          <div class="goods-title">
+            {{goods.Name}}
+          </div>
+          <img :src="getImg(goods.SrcDetail)" alt="">
+        </div>
+      </div>
+    </div>
   </div >
 </template >
 
