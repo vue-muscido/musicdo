@@ -2,7 +2,7 @@
   <div id="app" >
     <transition name="slide-fade" >
       <keep-alive >
-        <router-view ></router-view >
+        <router-view class="router-view" ></router-view >
       </keep-alive >
     </transition >
     <tab ></tab >
@@ -43,7 +43,7 @@ export default {
 </script >
 
 <style scoped lang="stylus" rel="stylesheet/stylus" >
-@import '~common/stylus/index.styl'
+@import "~common/stylus/index.styl"
 #app
   position: relative;
   margin: 0 auto;

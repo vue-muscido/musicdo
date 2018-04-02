@@ -9,24 +9,23 @@ body, html
   color: $g-fc-black
   overflow-x hidden
 
-// 五大主页 公共样式 -begin
-.home,.brands,.sort,.cart,.user
+// 路由视口 公共样式 -begin
+.router-view
   position absolute
   top 0
   width 100%
   height 100%
   overflow-x hidden
-// 五大主页 公共样式 -end
+// 路由视口 公共样式 -end
 
 // 路由跳转 进出场动画 -begin
 .slide-fade-enter-active
   transition: all .3s ease
 .slide-fade-leave-active
-  transition: all .5s ease
-.slide-fade-enter
-  transform: translateX(90%)
-  opacity: 0
-.slide-fade-leave-active
   transform: translateX(100%)
-  opacity: 0
+  transition: all .4s ease
+.slide-fade-enter
+  transform: translateX(100%)
+.slide-fade-leave-active
+  //transform: translateX(100%)
 // 路由跳转 进出场动画 -end
