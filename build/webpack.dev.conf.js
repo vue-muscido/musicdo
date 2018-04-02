@@ -12,11 +12,11 @@ const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 
 // 后端代理 绕过host与referer -begin
-// const express = require('express')
-// const axios = require('axios')
-// const app = express()
-// var apiRoutes = express.Router()
-// app.use('/api', apiRoutes)
+//const express = require('express')
+//const axios = require('axios')
+//const app = express()
+//var apiRoutes = express.Router()
+//app.use('/api', apiRoutes)
 // 后端代理 绕过host与referer -end
 
 const devWebpackConfig = merge(baseWebpackConfig, {
@@ -31,7 +31,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     // 后端代理 绕过host与referer --begin
     // before (app) {
     //   app.get('/api/getHomeFrist', function (req, res) {
-    //     var url = 'https://www.musicdo.cn:444/getHomeFirst'
+    //     var url = 'https://www.musicdo.cn:444/Home/GetHomeFirst'
     //     axios.get(url, {
     //       headers: {
     //         host: 'www.musicdo.cn:444'
@@ -44,7 +44,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     //     })
     //   })
     //   app.get('/api/getHomeSecond', function (req, res) {
-    //     var url = 'https://www.musicdo.cn:444/getHomeSecond'
+    //     var url = 'https://www.musicdo.cn:444/Home/GetHomeSecond'
     //     axios.get(url, {
     //       headers: {
     //         host: 'www.musicdo.cn:444'
@@ -57,7 +57,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     //     })
     //   })
     //   app.get('/api/searchProduct', function (req, res) {
-    //     var url = 'https://www.musicdo.cn:444/searchProduct'
+    //     var url = 'https://www.musicdo.cn:444/Product/SearchProduct'
     //     axios.get(url, {
     //       headers: {
     //         host: 'www.musicdo.cn:444'
