@@ -11,7 +11,7 @@
 
 <script type="text/ecmascript-6" >
 import Tab from 'components/tab/tab'
-import {rem} from 'common/js/rem'
+import { rem } from 'common/js/rem'
 export default {
   name: 'app',
   data () {
@@ -37,8 +37,7 @@ export default {
       })
     }
   },
-  watch: {
-  }
+  watch: {}
 }
 </script >
 
