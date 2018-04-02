@@ -1,5 +1,8 @@
 <template >
   <div class="home" >
+    <div class="home-header">
+      <h2>musicdo</h2>
+    </div>
     <cube-slide
       v-if="slide.length"
       ref="slide"
@@ -32,7 +35,7 @@
 </template >
 
 <script type="text/ecmascript-6" >
-import {getHomeFrist, getHomeSecond} from 'api/homedata'
+import {getHomeFirst, getHomeSecond} from 'api/homedata'
 import {baseImgUrl} from 'api/config'
 export default {
   data () {
@@ -46,15 +49,15 @@ export default {
   components: {
   },
   created () {
-    this._getHomeFrist()
+    this._getHomeFirst()
     this._getHomeSecond()
   },
   methods: {
     getImg (img) {
       return baseImgUrl + img
     },
-    _getHomeFrist () {
-      getHomeFrist().then((res) => {
+    _getHomeFirst () {
+      getHomeFirst().then((res) => {
         this.homeFrist = res.Data
         this.slide = res.Data.AdInfoRun
       })

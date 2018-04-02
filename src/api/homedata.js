@@ -3,7 +3,7 @@
 import { commonParams } from './config' // 引入通用参数
 import axios from 'axios'
 
-export function getHomeFrist () {
+export function getHomeFirst () {
   const url = '/api/Home/GetHomeFirst'
 
   const data = Object.assign({}, commonParams, {})
