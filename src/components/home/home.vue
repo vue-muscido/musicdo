@@ -4,6 +4,7 @@
       <h2>musicdo</h2>
     </div>
     <cube-slide
+      class="cube-slider"
       v-if="slide.length"
       ref="slide"
       :data="slide"
@@ -13,21 +14,30 @@
         :key="index"
         @click.native="_clickHandler(item, index)" >
         <a class="link" >
-          <img class="img" :src="getImg(item.ImgUrl)" >
+          <img class="slider-img" :src="getImg(item.ImgUrl)" >
         </a >
       </cube-slide-item >
     </cube-slide >
-
     <div class="goods-list-container">
       <div v-for="(list, index) in homeSecond" :key= "index" class="goods-item-list">
-        <div class="list-name">
-          <h2>{{list.Name}}</h2>
-        </div>
-        <div v-for="(goods, index) in list._List" :key= "index" class="goods-box">
-          <div class="goods-title">
-            {{goods.Name}}
+        <div class="list-title">
+          <span class="title-tab"></span>
+          <h2 class="title-name">{{list.Name}}</h2>
+          <div class="title-more">
+            更多
           </div>
-          <img :src="getImg(goods.SrcDetail)" alt="">
+        </div>
+        <div class="list-box">
+          <div v-for="(goods, index) in list._List" :key= "index" class="goods-box">
+            <div class="goods-content">
+              <div class="goods-img-box">
+                <img class="goods-img" :src="getImg(goods.SrcDetail)" alt="">
+              </div>
+              <div class="goods-title">
+                <h2>{{goods.Name}}</h2>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -35,7 +45,7 @@
 </template >
 
 <script type="text/ecmascript-6" >
-import {getHomeFirst, getHomeSecond} from 'api/homedata'
+import {getHomeFrist, getHomeSecond} from 'api/homedata'
 import {baseImgUrl} from 'api/config'
 export default {
   data () {
@@ -49,17 +59,17 @@ export default {
   components: {
   },
   created () {
-    this._getHomeFirst()
-    this._getHomeSecond()
+    this._getHomeFrist()
   },
   methods: {
     getImg (img) {
       return baseImgUrl + img
     },
-    _getHomeFirst () {
-      getHomeFirst().then((res) => {
+    _getHomeFrist () {
+      getHomeFrist().then((res) => {
         this.homeFrist = res.Data
         this.slide = res.Data.AdInfoRun
+        this._getHomeSecond()
       })
     },
     _getHomeSecond () {
