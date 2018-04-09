@@ -14,6 +14,7 @@
                  :autofocus="mainSearch.autofocus"
                  :autocomplete="mainSearch.autocomplete"
                  :clearable="mainSearch.clearable"
+                 @submit.prevent="_submit(mainSearch.value)"
           >
         </form >
         <!--<div class="msg-btn">-->
@@ -69,7 +70,7 @@ export default {
   data () {
     return {
       mainSearch: {
-        value: '',
+        value: this.$route.query.keyword === '' ? '' : this.$route.query.keyword,
         placeholder: '请输入要搜索的内容',
         type: 'search',
         readonly: false,
@@ -85,6 +86,7 @@ export default {
   },
   created () {
     this._historyDataInit()
+    this.mainSearch.value = this.$route.query.keyword === '' ? '' : this.$route.query.keyword
   },
   methods: {
     // 初始化历史搜索
@@ -122,17 +124,20 @@ export default {
           this.searchData = res.ReturnData // 存搜索所得数据
           this.historyData = this._historyDataSet(val) // 设置历史搜索
           this._localSave('historySearch', this.historyData) // 保存本地数据
-          this._setRouter(val)
+          this._submit(val)
         }
       })
     },
     // 路由跳转
-    _setRouter (keyword) {
+    _submit (keyword) {
       this.$router.push({
         path: `/search-list`,
         query: {'keyword': keyword}
       })
     }
+  },
+  destroyed () {
+    console.log(this.mainSearch.value)
   }
 }
 </script >
