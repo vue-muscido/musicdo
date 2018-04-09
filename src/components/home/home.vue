@@ -43,12 +43,14 @@
         </div>
       </div>
     </cube-scroll>
+    <loading v-show="!homeSecond.length" title="正在载入..."></loading>
   </div >
 </template >
 
 <script type="text/ecmascript-6" >
 import {getHomeFirst, getHomeSecond} from 'api/homedata'
 import {baseImgUrl} from 'api/config'
+import loading from 'base/loading/loading'
 export default {
   data () {
     return {
@@ -59,6 +61,7 @@ export default {
     }
   },
   components: {
+    loading
   },
   created () {
     this._getHomeFirst()
