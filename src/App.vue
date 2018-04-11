@@ -16,7 +16,6 @@ export default {
   name: 'app',
   data () {
     return {
-      vw: document.body.clientWidth,
       rfontSiz: 0 || document.getElementsByTagName('html')[0].style.fontSize
     }
   },
