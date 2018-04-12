@@ -1,6 +1,6 @@
 <template >
   <div id="app" >
-    <transition name="" >
+    <transition name="slide" >
       <keep-alive >
         <router-view class="router-view" ></router-view >
       </keep-alive >
@@ -11,7 +11,7 @@
 
 <script type="text/ecmascript-6" >
 import Tab from 'components/tab/tab'
-import {rem} from 'common/js/rem'
+import { rem } from 'common/js/rem'
 export default {
   name: 'app',
   data () {
@@ -36,8 +36,7 @@ export default {
       })
     }
   },
-  watch: {
-  }
+  watch: {}
 }
 </script >
 

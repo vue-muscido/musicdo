@@ -19,13 +19,40 @@ body, html
 // 路由视口 公共样式 -end
 
 // 路由跳转 进出场动画 -begin
-.slide-fade-enter-active
-  transition: all .3s ease
-.slide-fade-leave-active
-  transform: translateX(100%)
-  transition: all .4s ease
-.slide-fade-enter
-  transform: translateX(100%)
-.slide-fade-leave-active
-  //transform: translateX(100%)
+//.slide-fade-enter-active
+//  transition: all .3s ease
+//
+//.slide-fade-leave-active
+//  transform: translateX(100%)
+//  transition: all .4s ease
+//
+//.slide-fade-enter
+//  transform: translateX(100%)
+//
+//.slide-fade-leave-active
+//transform: translateX(100%)
 // 路由跳转 进出场动画 -end
+
+// 路由跳转 进出场动画(仿原生) -begin
+//.slide-left-enter,
+//.slide-right-leave-active {
+//  opacity: 0;
+//  -webkit-transform: translate(100%, 0);
+//  transform: translate(100%, 0);
+//}
+//
+//.slide-left-leave-active,
+//.slide-right-enter {
+//  opacity: 0;
+//  -webkit-transform: translate(-100%, 0);
+//  transform: translate(-100% 0);
+//}
+// 路由跳转 进出场动画(仿原生) -end
+
+// 路由跳转 进出场动画(滑入) -begin
+.slide-enter-active, .slide-leave-active
+  transition: all 0.3s
+
+.slide-enter, .slide-leave-to
+  transform: translate3d(100%, 0, 0)
+// 路由跳转 进出场动画(滑入) -end
