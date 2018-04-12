@@ -24,16 +24,14 @@ $g-search-list-fix-screen-bot-btn-h = 4rem//悬浮筛选列表底部按钮高度
 
 .search-list
   position fixed
-  top 0
   left 0
   z-index $g-zindex-fix + 1
   width 100vw
-  height 100%
+  height 100vh
   background $g-bgc-body
   .inner
     margin 0 auto $g-bot-bar-height
     width 100%
-    //height 100%
     max-width $g-page-max-width
     .top-bar
       display flex
@@ -53,10 +51,6 @@ $g-search-list-fix-screen-bot-btn-h = 4rem//悬浮筛选列表底部按钮高度
           height $g-search-inp-height
           background $g-col-white-g
           font-size $g-fs-md
-          transition box-shadow .5s
-          &:focus
-            outline none
-            g-box-sd()
       .change-btn
         display flex
         justify-content center
@@ -160,38 +154,16 @@ $g-search-list-fix-screen-bot-btn-h = 4rem//悬浮筛选列表底部按钮高度
 
 .search-products
   &.bigpic-mode
-    //background red
-    //display flex
-    //flex-wrap wrap
-    //justify-content center
-    //> li
-    //  flex 40%
-    //  background skyblue
-    //  .item-inner
-    //    width 100%
-    //    background yellowgreen
-    //    border 1px solid red
-    //    .imgbox
-    //      width 100%
-    //      background green
-    //      > a
-    //        > img
-    //          max-width 100%
-
-    //background: $g-search-page-bgc;
-    //padding: .5rem;
     display flex
     flex-wrap wrap
     width 100vw
+    padding 1%
     li
-      //display: inline-block;
-      //position: relative;
-      //width: 48%;
-      //padding: .25rem;
-      flex 0 0 48%
-      width 48%
-      padding 1%
+      padding: .25rem;
+      flex 0 0 50%
+      width 50%
       .item-inner
+        width 100%
         padding-bottom: $g-padding-sm;
         border: 1px solid $g-brc-normal;
         background: $g-search-con-bgc;
@@ -208,7 +180,7 @@ $g-search-list-fix-screen-bot-btn-h = 4rem//悬浮筛选列表底部按钮高度
             font-size: $g-fs-md;
             color: $g-fc-normal;
             height: 3rem;
-            line-height 1.5rem
+            line-height 1.55rem
 
             display: -webkit-box;
             overflow: hidden;

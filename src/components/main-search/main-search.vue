@@ -22,7 +22,7 @@
         <!--<p >消息</p >-->
         <!--</div >-->
         <div class="search-btn" >
-          <span @click="_toSearch(mainSearch.value)" >搜索</span >
+          <span @click="_submit(mainSearch.value)" >搜索</span >
         </div >
       </div >
       <!--历史搜索 -begin -->
@@ -36,7 +36,7 @@
         <dd >
           <ul >
             <li v-for="(item,index) in historyData" :key="index" >
-              <a @click="_toSearch (item)" >{{item}}</a >
+              <a @click="_submit (item)" >{{item}}</a >
             </li >
           </ul >
         </dd >
@@ -52,7 +52,7 @@
         <dd v-if="hotSearchData.length" >
           <ul >
             <li v-for="(item,index) in hotSearchData" :key="index" >
-              <a @click="_toSearch (item)" >{{item}}</a >
+              <a @click="_submit (item)" >{{item}}</a >
             </li >
           </ul >
         </dd >
@@ -63,8 +63,8 @@
 </template >
 
 <script type="text/ecmascript-6" >
-import { searchProduct } from 'api/searchData'
-import { ERR_OK } from 'api/config'
+// import { searchProduct } from 'api/searchData'
+// import { ERR_OK } from 'api/config'
 import { localSave, localTake, localremove } from 'common/js/localStore'
 export default {
   data () {
@@ -76,7 +76,7 @@ export default {
         readonly: false,
         maxlength: 100,
         disabled: false,
-        autofocus: true,
+        autofocus: false,
         autocomplete: true,
         clearable: false
       },
@@ -116,28 +116,33 @@ export default {
       this.historyData = []
     },
     // 进行搜索
-    _toSearch (val) {
-      let productData = {} // 定义一个空对象
-      productData.keyword = val // 定义此对象的 keyword
-      searchProduct(productData).then((res) => { // 把对象（keyword）传入
-        if (ERR_OK === res.Code) {
-          this.searchData = res.ReturnData // 存搜索所得数据
-          this.historyData = this._historyDataSet(val) // 设置历史搜索
-          this._localSave('historySearch', this.historyData) // 保存本地数据
-          this._submit(val)
-        }
-      })
-    },
+    //    _toSearch (val) {
+    //      let productData = {} // 定义一个空对象
+    //      productData.keyword = val // 定义此对象的 keyword
+    //      searchProduct(productData).then((res) => { // 把对象（keyword）传入
+    //        if (ERR_OK === res.Code) {
+    //          this.searchData = res.ReturnData // 存搜索所得数据
+    //          this.historyData = this._historyDataSet(val) // 设置历史搜索
+    //          this._localSave('historySearch', this.historyData) // 保存本地数据
+    //          this._submit(val)
+    //        }
+    //      })
+    //    },
     // 路由跳转
     _submit (keyword) {
       this.$router.push({
         path: `/search-list`,
         query: {'keyword': keyword}
       })
+      //      let productData = {} // 定义一个空对象
+      //      productData.keyword = keyword // 定义此对象的 keyword
+      this.historyData = this._historyDataSet(keyword) // 设置历史搜索
+      this._localSave('historySearch', this.historyData) // 保存本地数据
+      this.mainSearch.value = keyword
     }
   },
   destroyed () {
-    console.log(this.mainSearch.value)
+    //    console.log(this.mainSearch.value)
   }
 }
 </script >

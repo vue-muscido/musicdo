@@ -15,7 +15,7 @@
                  :autofocus="mainSearch.autofocus"
                  :autocomplete="mainSearch.autocomplete"
                  :clearable="mainSearch.clearable"
-                 @focus="_focus($route.query.keyword)"
+                 @focus="_focus()"
           >
         </form >
         <div class="change-btn"
@@ -81,13 +81,13 @@
             <li v-if="searchData.length" v-for="(item,index) in searchData" :key="index" >
               <div class="item-inner" >
                 <div class="imgbox" >
-                  <a href="page_details.html" >
+                  <a href="" >
                     <img :src="getImg (item.SrcDetail)" />
                   </a >
                 </div >
                 <div class="infobox" >
                   <p class="title" >
-                    <a href="page_details.html" >{{item.Name}}</a >
+                    <a href="" >{{item.Name}}</a >
                   </p >
                   <div class="price" >
                     <span >￥</span ><span class="int-num" >{{item.MemberPrice}}.</span ><span class="fl-num" >00</span >
@@ -96,7 +96,7 @@
                     <span >月销售<span class="sales-num" >{{item.Score}}</span ></span >
                   </div >
                   <!--<div class="address" >-->
-                    <!--<span >深圳</span >-->
+                  <!--<span >深圳</span >-->
                   <!--</div >-->
                 </div >
               </div >
@@ -133,9 +133,9 @@ export default {
     }
   },
   created () {
-    console.log(this.$route.query.keyword)
     this._toSearch(this.$route.query.keyword)
   },
+  mounted () {},
   methods: {
     getImg (img) {
       return baseImgUrl + img
@@ -144,10 +144,10 @@ export default {
       this.listMode = !this.listMode
     },
     // 聚焦时路由跳转与传参
-    _focus (keyword) {
+    _focus () {
       this.$router.push({
         path: '/main-search',
-        query: {'keyword': keyword}
+        query: {'keyword': this.$route.query.keyword}
       })
     },
     _toSearch (val) {
@@ -156,10 +156,18 @@ export default {
       searchProduct(productData).then((res) => { // 把对象（keyword）传入
         if (ERR_OK === res.Code) {
           this.searchData = res.ReturnData // 存搜索所得数据
-          console.log(this.searchData)
         }
       })
     }
+  },
+  watch: {
+    '$route' () {
+      this._toSearch(this.$route.query.keyword)
+    }
+  },
+  computed: {},
+  destroyed () {
+    this.searchData = []
   }
 }
 </script >
