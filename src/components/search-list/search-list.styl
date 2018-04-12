@@ -1,5 +1,27 @@
 @import '~common/stylus/variable.styl'
 @import '~common/stylus/mixin.styl'
+$g-search-page-bgc      = rgba(245,245,245,1)//页面背景色
+$g-search-con-bgc       = rgba(255,255,255,1)//内容背景色
+$g-search-list-fix-screen-cancel-btn-bgc = rgba(204,204,204,1)//取消按钮背景色
+$g-search-list-fix-screen-ok-btn-bgc = rgba(255,47,74,1)//取消按钮背景色
+
+$g-search-list-title-h  = 4rem//搜索列表标题
+
+$g-search-list-item-h   = 4rem//搜索列表标题
+$g-search-list-mode-item-min-h = 6rem//列表模式每项高度
+
+$g-search-list-fix-nav-w = 20rem//悬浮导航宽度
+$g-search-list-fix-nav-h = 6rem//悬浮导航高度
+
+$g-search-list-fix-nav-btn-w = 5rem//悬浮导航按钮宽度
+$g-search-list-fix-nav-btn-h = 4rem//悬浮导航按钮高度
+
+$g-search-list-fix-screen-w = 80%//悬浮筛选模块宽度
+
+$g-search-list-fix-screen-input-h = 3rem//悬浮筛选列表头部输入框高度
+$g-search-list-fix-screen-li-h    = 4rem//悬浮筛选列表每项高度
+$g-search-list-fix-screen-bot-btn-h = 4rem//悬浮筛选列表底部按钮高度
+
 .search-list
   position fixed
   top 0
@@ -7,12 +29,12 @@
   z-index $g-zindex-fix + 1
   width 100vw
   height 100%
+  background $g-bgc-body
   .inner
     margin 0 auto $g-bot-bar-height
     width 100%
-    height 100%
+    //height 100%
     max-width $g-page-max-width
-    background $g-bgc-body
     .top-bar
       display flex
       justify-content space-between
@@ -51,3 +73,173 @@
         &.list-mode
           .img
             bg-image("img/tupian")
+
+.screen-title
+  height $g-search-list-item-h
+  >ul
+    background $g-search-con-bgc
+    height $g-search-list-item-h
+    position absolute
+    width 100%
+    max-width $g-page-max-width
+    z-index 2
+    display flex
+    >li
+      flex 1
+      position relative
+      text-align center
+      height $g-search-list-item-h
+      line-height $g-search-list-item-h
+      font-size $g-fs-xxl
+      font-weight 500
+      color $g-fc-normal
+
+    .comprehensive
+      >i
+        img
+          display inline-block
+
+      >i.on-v
+        img
+          display none
+
+      .dropdown-list
+        display none
+        position absolute
+        top 100%
+        border-bottom-left-radius $g-con-padding-sm
+        border-bottom-right-radius $g-con-padding-sm
+        width 400%
+        height auto
+        background $g-bgc-con
+        box-shadow 0 0 2px 1px $g-brc-normal
+        overflow hidden
+        z-index 1
+        >ol
+          >li
+            position relative
+            padding 0 1rem
+            border-bottom 1px solid $g-brc-normal
+            text-align left
+          >.act:after
+            content ""
+            position absolute
+            top 50%
+            right 1rem
+            width 2rem
+            height 2rem
+            transform translate3d(0,-50%,0)
+            bg-image("img/xuanze")
+
+      .sup-tc
+        display none
+        position fixed
+        left 0
+        top $g-search-list-item-h + $g-fix-bar-height
+        width 100%
+        height 100%
+        background $g-black-07
+
+    .comprehensive.on
+      >i
+        img
+          display none
+      >i.on-v
+        img
+          display inline-block
+    .price.up
+      >.up
+        display inline-block
+      >.donw
+        display none
+    .price.donw
+      >.donw
+        display inline-block
+      >.up
+        display none
+
+.search-products
+  &.bigpic-mode
+    //background red
+    //display flex
+    //flex-wrap wrap
+    //justify-content center
+    //> li
+    //  flex 40%
+    //  background skyblue
+    //  .item-inner
+    //    width 100%
+    //    background yellowgreen
+    //    border 1px solid red
+    //    .imgbox
+    //      width 100%
+    //      background green
+    //      > a
+    //        > img
+    //          max-width 100%
+
+    //background: $g-search-page-bgc;
+    //padding: .5rem;
+    display flex
+    flex-wrap wrap
+    width 100vw
+    li
+      //display: inline-block;
+      //position: relative;
+      //width: 48%;
+      //padding: .25rem;
+      flex 0 0 48%
+      width 48%
+      padding 1%
+      .item-inner
+        padding-bottom: $g-padding-sm;
+        border: 1px solid $g-brc-normal;
+        background: $g-search-con-bgc;
+        img
+          width 100%
+          height auto
+      .infobox
+        padding: 0 .25rem;
+        .title
+          a
+            display inline-block
+            width 100%
+            //no-wrap()
+            font-size: $g-fs-md;
+            color: $g-fc-normal;
+            height: 3rem;
+            line-height 1.5rem
+
+            display: -webkit-box;
+            overflow: hidden;
+            white-space: normal !important;
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        .price
+          color: $g-fc-red;
+          span
+            font-size: $g-fs-sm;
+            font-weight: 500;
+            line-height 1.5rem
+          .int-num
+            font-size: $g-fs-xl;
+        .sales
+          position: relative;
+          span
+            font-size: $g-fs-sm;
+            color: $g-fc-gray-l;
+
+
+        //.address
+        //  position: absolute;
+        //  bottom: $g-padding-sm;
+        //  right: $g-padding-sm + $g-padding-sm;
+        //  span
+        //    font-size: $g-fs-sm;
+        //    color: $g-fc-gray-l;
+
+
+  &.list-mode
+    background yellow
