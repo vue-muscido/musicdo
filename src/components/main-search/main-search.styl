@@ -2,15 +2,14 @@
 @import '~common/stylus/mixin.styl'
 .main-search
   position fixed
-  top 0
   left 0
   z-index $g-zindex-fix + 1
   width 100vw
-  height 100%
+  height 100vh
+  background $g-bgc-body
   .inner
     margin 0 auto $g-bot-bar-height
     width 100%
-    height 100%
     max-width $g-page-max-width
     background $g-bgc-body
     .top-bar
@@ -21,20 +20,18 @@
       width 100%
       background $g-bgc-con
       margin-bottom 1px
+      transition all .5s
       .search-form
         flex 100%
         padding-left 1rem
         .search-input
           padding-left $g-padding-xl
+          padding-right $g-padding-lg
           border-radius $g-search-inp-height
           width 100%
           height $g-search-inp-height
           background $g-col-white-g
           font-size $g-fs-md
-          transition box-shadow .5s
-          &:focus
-            outline none
-            g-box-sd()
       .search-btn,
       .msg-btn
         height $g-fix-bar-height
