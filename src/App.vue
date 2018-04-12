@@ -15,7 +15,9 @@ import { rem } from 'common/js/rem'
 export default {
   name: 'app',
   data () {
-    return {}
+    return {
+      rfontSiz: 0 || document.getElementsByTagName('html')[0].style.fontSize
+    }
   },
   created () {
     this._rem()

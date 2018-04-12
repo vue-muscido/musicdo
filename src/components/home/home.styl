@@ -1,13 +1,6 @@
 @import '~common/stylus/variable.styl'
 @import '~common/stylus/mixin.styl'
 
-
-.cube-slide, .img
-  height auto
-  width 100%
-.cube-slide
-  margin-top $g-fix-bar-height
-
 .home
 	.home-header
 		position fixed
@@ -29,18 +22,60 @@
 			width 100%
 			height auto
 	.goods-list-container
-		background-color #fff
-		.list-name
+		.goods-item-list
+			vertical-align top
+			margin-top 0.5rem
+			padding 0 1rem
+			background-color #fff
+		.list-title
+			position relative
+			padding 1.2rem 0.5rem
+			font-size 0
+			.title-tab
+				display inline-block
+				margin-right 0.75rem
+				height 1.5rem
+				width 0.3rem
+				background-color rgb(18,86,105)
+			.title-name
+				vertical-align top
+				display inline-block
+				font-size 1.5rem
+				height 1.5rem
+				line-height 1.5rem
+			.title-more
+				position absolute
+				padding-right 1rem
+				top 1.2rem
+				right 0.5rem
+				font-size 1.3rem
+				height 1.5rem
+				line-height 1.5rem
+				color #666
+				bg-image("img/jiantou", 0.6rem)
+				background-position center right
+		.list-box
+			display flex
 			width 100%
-			height 2rem
-			line-height 2rem
-			h2
-				padding-left 0.6rem
-				font-size 1.6rem
+			flex-wrap wrap
 		.goods-box
-			display inline-block
-			box-sizing border-box
-			padding 0 0.6rem
 			width 50%
-			img
-				width: 100%
+			box-sizing border-box
+			padding 0 0.5rem 1rem
+			.goods-content
+				vertical-align top
+				box-sizing border-box
+				border 1px solid #f3f3f3
+				width 100%
+				.goods-img-box
+					width 100%
+					height: auto
+					.goods-img
+						width 100%
+						height auto
+				.goods-title
+					height 2rem
+					line-height 1rem
+					more-wrap()
+
+
