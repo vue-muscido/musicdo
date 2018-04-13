@@ -13,7 +13,6 @@ import MainSearch from 'components/main-search/main-search' // 搜索页
 
 import GoodsDetail from 'components/goods_detail/goods_detail' // 商品详情页
 
-
 Vue.use(Router)
 
 export default new Router({
@@ -45,7 +44,7 @@ export default new Router({
     {
       path: '/main-search',
       component: MainSearch
-
+    },
     {
       path: '/goods_detail',
       component: GoodsDetail
