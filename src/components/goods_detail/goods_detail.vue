@@ -1,6 +1,6 @@
 <template>
 	<div class="detail">
-		这里是详情页～
+		这里是详情页哦～
 		<h2>{{name}}</h2>
 	</div>
 </template>
