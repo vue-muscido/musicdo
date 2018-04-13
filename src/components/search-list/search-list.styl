@@ -23,14 +23,15 @@ $g-search-list-fix-screen-li-h    = 4rem//悬浮筛选列表每项高度
 $g-search-list-fix-screen-bot-btn-h = 4rem//悬浮筛选列表底部按钮高度
 
 .search-list
-  position fixed
+  position absolute
+  top 0
   left 0
-  z-index $g-zindex-fix + 1
+  //z-index $g-zindex-fix + 1
   width 100vw
-  height 100vh
+  //height 100vh
   background $g-bgc-body
   .inner
-    margin 0 auto $g-bot-bar-height
+    margin 0 auto $g-fix-bar-height
     width 100%
     max-width $g-page-max-width
     .top-bar
@@ -68,8 +69,22 @@ $g-search-list-fix-screen-bot-btn-h = 4rem//悬浮筛选列表底部按钮高度
           .img
             bg-image("img/tupian")
 
+.screen-tab
+  position fixed
+  top $g-fix-bar-height
+  z-index 10
+  border-top 1px solid $g-bgc-body
+  width 100%
+  background $g-bgc-con
 .screen-title
+  position relative
+  width 100%
+  max-width $g-page-max-width
+  margin 0 auto
+  border-top 1px solid transparent
+  //margin-top $g-fix-bar-height
   height $g-search-list-item-h
+
   >ul
     background $g-search-con-bgc
     height $g-search-list-item-h
@@ -152,6 +167,9 @@ $g-search-list-fix-screen-bot-btn-h = 4rem//悬浮筛选列表底部按钮高度
       >.up
         display none
 
+.products
+  position relative
+  top $g-fix-bar-height + $g-search-list-item-h
 .search-products
   &.bigpic-mode
     display flex

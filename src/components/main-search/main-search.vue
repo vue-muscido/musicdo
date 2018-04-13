@@ -15,18 +15,25 @@
                  :autocomplete="mainSearch.autocomplete"
                  :clearable="mainSearch.clearable"
                  @submit.prevent="_submit(mainSearch.value)"
+                 @focus="_focus()"
           >
         </form >
         <!--<div class="msg-btn">-->
         <!--<img src="./img/xiaoxi@2x.png" />-->
         <!--<p >消息</p >-->
         <!--</div >-->
-        <div class="search-btn" >
+        <div class="search-btn" v-show="!showList" >
           <span @click="_submit(mainSearch.value)" >搜索</span >
+        </div >
+        <div class="change-btn"
+             :class="listMode == true?'list-mode':'bigpic-mode'"
+             @click="_changeMode()"
+             v-show="showList" >
+          <div class="img" ></div >
         </div >
       </div >
       <!--历史搜索 -begin -->
-      <dl class="search-log" v-if="historyData.length" >
+      <dl v-show="!showList" class="search-log" v-if="historyData.length" >
         <dt class="search-title" >
           <div class="title" >
             <span >历史搜索</span >
@@ -43,7 +50,7 @@
       </dl >
       <!--历史搜索 -end -->
       <!--热门搜索 -begin -->
-      <dl class="search-hot" >
+      <dl v-show="!showList" class="search-hot" v-if="hotSearchData.length" >
         <dt class="search-title" >
           <div class="title" >
             <span >热门搜索</span >
@@ -58,13 +65,21 @@
         </dd >
       </dl >
       <!--热门搜索 -end -->
+      
+      
+      <!--搜索列表 插件 -begin-->
+      <search-list v-show="showList" ></search-list >
+      <!--搜索列表 插件 -end-->
+      
     </div >
+    
   </div >
 </template >
 
 <script type="text/ecmascript-6" >
 // import { searchProduct } from 'api/searchData'
 // import { ERR_OK } from 'api/config'
+import SearchList from 'components/search-list/search-list'
 import { localSave, localTake, localremove } from 'common/js/localStore'
 export default {
   data () {
@@ -80,9 +95,14 @@ export default {
         autocomplete: true,
         clearable: false
       },
+      listMode: false,
+      showList: false,
       historyData: [],
       hotSearchData: ['钢琴', '尤克里里', '吉他', '博兰斯勒', '德国', '鼓', '雅马哈', '欧米勒']
     }
+  },
+  components: {
+    SearchList
   },
   created () {
     this._historyDataInit()
@@ -130,15 +150,19 @@ export default {
     //    },
     // 路由跳转
     _submit (keyword) {
-      this.$router.push({
-        path: `/search-list`,
-        query: {'keyword': keyword}
-      })
+      //      this.$router.push({
+      //        path: `/search-list`,
+      //        query: {'keyword': keyword}
+      //      })
       //      let productData = {} // 定义一个空对象
       //      productData.keyword = keyword // 定义此对象的 keyword
+      this.showList = true
       this.historyData = this._historyDataSet(keyword) // 设置历史搜索
       this._localSave('historySearch', this.historyData) // 保存本地数据
       this.mainSearch.value = keyword
+    },
+    _focus () {
+      this.showList = false
     }
   },
   destroyed () {
