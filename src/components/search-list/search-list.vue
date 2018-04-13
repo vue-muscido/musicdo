@@ -2,32 +2,32 @@
   <div class="search-list" >
     <div class="inner" >
       <!--顶栏 begin -->
-      <div class="top-bar" >
-        <form class="search-form" action="#" >
-          <input id="main-search-input"
-                 class="search-input"
-                 v-model="$route.query.keyword"
-                 :placeholder="mainSearch.placeholder"
-                 :type="mainSearch.type"
-                 :maxlength="mainSearch.maxlength"
-                 :readonly="mainSearch.readonly"
-                 :disabled="mainSearch.disabled"
-                 :autofocus="mainSearch.autofocus"
-                 :autocomplete="mainSearch.autocomplete"
-                 :clearable="mainSearch.clearable"
-                 @focus="_focus()"
-          >
-        </form >
-        <div class="change-btn"
-             :class="listMode == true?'list-mode':'bigpic-mode'"
-             @click="_changeMode()" >
-          <div class="img" ></div >
-        </div >
-      </div >
+      <!--<div class="top-bar" >-->
+      <!--<form class="search-form" action="#" >-->
+      <!--<input id="main-search-input"-->
+      <!--class="search-input"-->
+      <!--v-model="$route.query.keyword"-->
+      <!--:placeholder="mainSearch.placeholder"-->
+      <!--:type="mainSearch.type"-->
+      <!--:maxlength="mainSearch.maxlength"-->
+      <!--:readonly="mainSearch.readonly"-->
+      <!--:disabled="mainSearch.disabled"-->
+      <!--:autofocus="mainSearch.autofocus"-->
+      <!--:autocomplete="mainSearch.autocomplete"-->
+      <!--:clearable="mainSearch.clearable"-->
+      <!--@focus="_focus()"-->
+      <!--&gt;-->
+      <!--</form >-->
+      <!--<div class="change-btn"-->
+      <!--:class="listMode == true?'list-mode':'bigpic-mode'"-->
+      <!--@click="_changeMode()" >-->
+      <!--<div class="img" ></div >-->
+      <!--</div >-->
+      <!--</div >-->
       <!--顶栏 end -->
       <dl >
         
-        <dt >
+        <dt class="screen-tab" >
           <!--筛选分类导航 -begin-->
           <div class="screen-title" >
             <ul >
@@ -75,33 +75,45 @@
         </dt >
         
         
-        <dd >
-          <ul class="search-products bigpic-mode" >
-            <!--<ul class="search-products list-mode">-->
-            <li v-if="searchData.length" v-for="(item,index) in searchData" :key="index" >
-              <div class="item-inner" >
-                <div class="imgbox" >
-                  <a href="" >
-                    <img :src="getImg (item.SrcDetail)" />
-                  </a >
-                </div >
-                <div class="infobox" >
-                  <p class="title" >
-                    <a href="" >{{item.Name}}</a >
-                  </p >
-                  <div class="price" >
-                    <span >￥</span ><span class="int-num" >{{item.MemberPrice}}.</span ><span class="fl-num" >00</span >
+        <dd class="products" >
+          <cube-scroll
+            ref="scroll"
+            :data="searchData"
+            :options="options"
+            @pulling-down="onPullingDown" >
+            
+            <ul class="search-products bigpic-mode" >
+              <!--<ul class="search-products list-mode">-->
+              <li v-if="searchData.length" v-for="(item,index) in searchData" :key="index" >
+                <div class="item-inner" >
+                  <div class="imgbox" >
+                    <a href="" >
+                      <img :src="getImg (item.SrcDetail)" />
+                    </a >
                   </div >
-                  <div class="sales" >
-                    <span >月销售<span class="sales-num" >{{item.Score}}</span ></span >
+                  <div class="infobox" >
+                    <p class="title" >
+                      <a href="" >{{item.Name}}</a >
+                    </p >
+                    <div class="price" >
+                      <span >￥</span ><span class="int-num" >{{item.MemberPrice}}.</span ><span
+                      class="fl-num" >00</span >
+                    </div >
+                    <div class="sales" >
+                      <span >月销售<span class="sales-num" >{{item.Score}}</span ></span >
+                    </div >
+                    <!--<div class="address" >-->
+                    <!--<span >深圳</span >-->
+                    <!--</div >-->
                   </div >
-                  <!--<div class="address" >-->
-                  <!--<span >深圳</span >-->
-                  <!--</div >-->
                 </div >
-              </div >
-            </li >
-          </ul >
+              </li >
+            </ul >
+            
+          </cube-scroll >
+          
+          
+          
         </dd >
         
         
@@ -118,22 +130,31 @@ import { ERR_OK, baseImgUrl } from 'api/config'
 export default {
   data () {
     return {
-      mainSearch: {
-        placeholder: '请输入要搜索的内容',
-        type: 'search',
-        readonly: false, // 只读
-        maxlength: 100, // 字数限制
-        disabled: false, // 禁用
-        autofocus: false, // 自动聚焦
-        autocomplete: false, // 自动补全
-        clearable: false // 清除按钮
+      //      mainSearch: {
+      //        placeholder: '请输入要搜索的内容',
+      //        type: 'search',
+      //        readonly: false, // 只读
+      //        maxlength: 100, // 字数限制
+      //        disabled: false, // 禁用
+      //        autofocus: false, // 自动聚焦
+      //        autocomplete: false, // 自动补全
+      //        clearable: false // 清除按钮
+      //      },
+      items: [1, 2, 3, 4, 5],
+      options: {
+        pullDownRefresh: {
+          threshold: 90,
+          stop: 40,
+          txt: '刷新222222222222222'
+        }
       },
       listMode: false,
       searchData: []
     }
   },
   created () {
-    this._toSearch(this.$route.query.keyword)
+    console.log(this.searchData)
+    this._toSearch('')
   },
   mounted () {},
   methods: {
@@ -145,10 +166,10 @@ export default {
     },
     // 聚焦时路由跳转与传参
     _focus () {
-      this.$router.push({
-        path: '/main-search',
-        query: {'keyword': this.$route.query.keyword}
-      })
+      //      this.$router.push({
+      //        path: '/main-search',
+      //        query: {'keyword': this.$route.query.keyword}
+      //      })
     },
     _toSearch (val) {
       let productData = {} // 定义一个空对象
@@ -158,20 +179,37 @@ export default {
           this.searchData = res.ReturnData // 存搜索所得数据
         }
       })
+    },
+    onPullingDown () {
+      console.log(111111111111111)
+      // 模拟更新数据
+      setTimeout(() => {
+        if (Math.random() > 0.5) {
+          // 如果有新数据
+          console.log(2222222222222)
+        } else {
+          // 如果没有新数据
+          this.$refs.scroll.forceUpdate()
+          console.log(3333333333333)
+        }
+      }, 1000)
     }
   },
   watch: {
-    '$route' () {
-      this._toSearch(this.$route.query.keyword)
-    }
+    //    '$route' () {
+    //      this._toSearch(this.$route.query.keyword)
+    //    }
   },
   computed: {},
   destroyed () {
-    this.searchData = []
+    //    this.searchData = []
   }
 }
 </script >
 
 <style scoped lang="stylus" rel="stylesheet/stylus" >
 @import 'search-list.styl'
+
+.cube-scroll-wrapper
+  height: 500px
 </style >

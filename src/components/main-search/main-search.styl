@@ -13,6 +13,9 @@
     max-width $g-page-max-width
     background $g-bgc-body
     .top-bar
+      position fixed
+      top 0
+      z-index 10
       display flex
       justify-content space-between
       align-items center
@@ -54,10 +57,29 @@
           font-size $g-fs-xl
           color $g-fc-white
           background $g-col-red
+      .change-btn
+        display flex
+        justify-content center
+        align-items center
+        height $g-fix-bar-height
+        flex 0 0 5.5rem
+        text-align center
+        .img
+          width $g-top-icon-w
+          height $g-top-icon-w
+        &.bigpic-mode
+          .img
+            bg-image("img/liebiao")
+        &.list-mode
+          .img
+            bg-image("img/tupian")
   dl
     margin-bottom $g-margin-sm
-    background $g-bgc-con
     padding-bottom $g-con-padding-normal
+    border-top 1px solid $g-bgc-body
+    background $g-bgc-con
+    &.search-log
+      margin-top $g-fix-bar-height
     dt
       display flex
       justify-content space-between
