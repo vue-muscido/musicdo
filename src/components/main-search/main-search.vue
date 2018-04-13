@@ -65,14 +65,14 @@
         </dd >
       </dl >
       <!--热门搜索 -end -->
-      
-      
+
+
       <!--搜索列表 插件 -begin-->
       <search-list v-show="showList" ></search-list >
       <!--搜索列表 插件 -end-->
-      
+
     </div >
-    
+
   </div >
 </template >
 
