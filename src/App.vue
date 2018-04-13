@@ -1,6 +1,6 @@
 <template >
   <div id="app" >
-    <transition name="slide" >
+    <transition >
       <keep-alive >
         <router-view class="router-view" ></router-view >
       </keep-alive >
@@ -16,7 +16,7 @@ export default {
   name: 'app',
   data () {
     return {
-      rfontSiz: 0 || document.getElementsByTagName('html')[0].style.fontSize
+      //      rfontSiz: 0 || document.getElementsByTagName('html')[0].style.fontSize
     }
   },
   created () {
