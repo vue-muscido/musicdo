@@ -8,7 +8,11 @@ import Cart from 'components/cart/cart' // 购物车组件
 import User from 'components/user/user' // 用户中心组件
 
 import MainSearch from 'components/main-search/main-search' // 搜索页
-// import SearchList from 'components/search-list/search-list' // 搜索列表
+
+// import SearchList from 'components/search-list/search-list' // 搜索列表Ω
+
+import GoodsDetail from 'components/goods_detail/goods_detail' // 商品详情页
+
 
 Vue.use(Router)
 
@@ -41,6 +45,10 @@ export default new Router({
     {
       path: '/main-search',
       component: MainSearch
+
+    {
+      path: '/goods_detail',
+      component: GoodsDetail
     }
     // {
     //   path: '/search-list',

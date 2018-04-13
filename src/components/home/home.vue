@@ -30,7 +30,7 @@
           </div>
           <div class="list-box">
             <div v-for="(goods, index) in list._List" :key= "index" class="goods-box">
-              <div class="goods-content">
+              <div class="goods-content" @click="gotoDetail(goods.Name)">
                 <div class="goods-img-box">
                   <img class="goods-img" :src="getImg(goods.SrcDetail)" alt="">
                 </div>
@@ -69,6 +69,12 @@ export default {
   methods: {
     getImg (img) {
       return baseImgUrl + img
+    },
+    gotoDetail (id) {
+      this.$router.push({
+        path: '/goods_detail',
+        query: {'goodsId': id}
+      })
     },
     _getHomeFirst () {
       getHomeFirst().then((res) => {
