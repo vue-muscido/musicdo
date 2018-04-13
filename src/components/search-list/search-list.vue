@@ -140,7 +140,6 @@ export default {
       //        autocomplete: false, // 自动补全
       //        clearable: false // 清除按钮
       //      },
-      items: [1, 2, 3, 4, 5],
       options: {
         pullDownRefresh: {
           threshold: 90,
@@ -186,6 +185,7 @@ export default {
       setTimeout(() => {
         if (Math.random() > 0.5) {
           // 如果有新数据
+          console.log(this.searchData)
           console.log(2222222222222)
         } else {
           // 如果没有新数据
