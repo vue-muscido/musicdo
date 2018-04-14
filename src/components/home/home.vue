@@ -1,9 +1,9 @@
 <template >
   <div class="home" >
-    <div class="home-header">
-      <h2>musicdo</h2>
-    </div>
-    <cube-scroll :data="homeSecond">
+    <div class="home-header" >
+      <h2 >musicdo</h2 >
+    </div >
+    <cube-scroll :data="homeSecond" >
       <cube-slide
         class="cube-slider"
         v-if="slide.length"
@@ -19,37 +19,37 @@
           </a >
         </cube-slide-item >
       </cube-slide >
-      <div class="goods-list-container">
-        <div v-for="(list, index) in homeSecond" :key= "index" class="goods-item-list">
-          <div class="list-title">
-            <span class="title-tab"></span>
-            <h2 class="title-name">{{list.Name}}</h2>
-            <div class="title-more">
+      <div class="goods-list-container" >
+        <div v-for="(list, index) in homeSecond" :key="index" class="goods-item-list" >
+          <div class="list-title" >
+            <span class="title-tab" ></span >
+            <h2 class="title-name" >{{list.Name}}</h2 >
+            <div class="title-more" >
               更多
-            </div>
-          </div>
-          <div class="list-box">
-            <div v-for="(goods, index) in list._List" :key= "index" class="goods-box">
-              <div class="goods-content" @click="gotoDetail(goods.Name)">
-                <div class="goods-img-box">
-                  <img class="goods-img" :src="getImg(goods.SrcDetail)" alt="">
-                </div>
-                <div class="goods-title">
-                  <h2>{{goods.Name}}</h2>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </cube-scroll>
-    <loading v-show="!homeSecond.length" title="正在载入..."></loading>
+            </div >
+          </div >
+          <div class="list-box" >
+            <div v-for="(goods, index) in list._List" :key="index" class="goods-box" >
+              <div class="goods-content" @click="gotoDetail(goods.Name)" >
+                <div class="goods-img-box" >
+                  <img class="goods-img" :src="getImg(goods.SrcDetail)" alt="" >
+                </div >
+                <div class="goods-title" >
+                  <h2 >{{goods.Name}}</h2 >
+                </div >
+              </div >
+            </div >
+          </div >
+        </div >
+      </div >
+    </cube-scroll >
+    <loading v-show="!homeSecond.length" title="正在载入..." ></loading >
   </div >
 </template >
 
 <script type="text/ecmascript-6" >
-import {getHomeFirst, getHomeSecond} from 'api/homedata'
-import {baseImgUrl} from 'api/config'
+import { getHomeFirst, getHomeSecond } from 'api/homedata'
+import { baseImgUrl } from 'api/config'
 import loading from 'base/loading/loading'
 export default {
   data () {
@@ -93,6 +93,11 @@ export default {
     },
     _clickHandler (item, index) {
       console.log(item, index)
+    },
+    _focus () { // 聚焦时路由跳转到搜索页
+      this.$router.push({
+        path: '/main-search'
+      })
     }
   }
 }
