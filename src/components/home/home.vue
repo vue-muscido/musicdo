@@ -30,7 +30,7 @@
           </div>
           <div class="list-box">
             <div v-for="(goods, index) in list._List" :key= "index" class="goods-box">
-              <div class="goods-content" @click="gotoDetail(goods.Name)">
+              <div class="goods-content" @click="gotoDetail(goods.ID)">
                 <div class="goods-img-box">
                   <img class="goods-img" :src="getImg(goods.SrcDetail)" alt="">
                 </div>
@@ -48,7 +48,7 @@
 </template >
 
 <script type="text/ecmascript-6" >
-import {getHomeFirst, getHomeSecond} from 'api/homedata'
+import {getHomeFirst, getHomeSecond} from 'api/homeData'
 import {baseImgUrl} from 'api/config'
 import loading from 'base/loading/loading'
 export default {
