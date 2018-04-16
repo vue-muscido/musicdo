@@ -3,7 +3,8 @@
     <div class="home-header" >
       <h2 >musicdo</h2 >
     </div >
-    <cube-scroll :data="homeSecond" >
+    <div class="scroll">
+      <cube-scroll :data="homeSecond" >
       <cube-slide
         class="cube-slider"
         v-if="slide.length"
@@ -43,6 +44,7 @@
         </div>
       </div>
     </cube-scroll>
+    </div>
     <loading v-show="!homeSecond.length" title="正在载入..."></loading>
   </div >
 </template >
