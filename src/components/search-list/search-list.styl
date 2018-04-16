@@ -31,6 +31,13 @@ $g-search-list-fix-screen-bot-btn-h = 4rem//悬浮筛选列表底部按钮高度
   width 100vw
   //height 100vh
   background $g-bgc-body
+  .mask
+    position: fixed
+    top:0
+    width 100vw
+    height 100vh
+    background rgba(0,0,0,.5)
+    z-index 10000
   .inner
     //margin 0 auto $g-fix-bar-height
     width 100%
@@ -69,7 +76,9 @@ $g-search-list-fix-screen-bot-btn-h = 4rem//悬浮筛选列表底部按钮高度
       font-size $g-fs-xxl
       font-weight 500
       color $g-fc-normal
-
+      .tit
+        &.act
+          color $g-fc-act
     .comprehensive
       >i
         img
@@ -123,11 +132,13 @@ $g-search-list-fix-screen-bot-btn-h = 4rem//悬浮筛选列表底部按钮高度
       >i.on-v
         img
           display inline-block
+    .sales-volume.up,
     .price.up
       >.up
         display inline-block
       >.donw
         display none
+    .sales-volume.donw,
     .price.donw
       >.donw
         display inline-block
@@ -142,7 +153,7 @@ $g-search-list-fix-screen-bot-btn-h = 4rem//悬浮筛选列表底部按钮高度
     display flex
     flex-wrap wrap
     width 100vw
-    padding 1%
+    padding 1% 1% $g-bot-bar-height 1%
     li
       padding: .25rem;
       flex 0 0 50%
@@ -190,6 +201,7 @@ $g-search-list-fix-screen-bot-btn-h = 4rem//悬浮筛选列表底部按钮高度
             color: $g-fc-gray-l;
 
   &.list-mode
+    padding 1% 1% $g-bot-bar-height 1%
     li
       .item-inner
         position relative
