@@ -1,30 +1,6 @@
 <template >
   <div class="search-list" >
     <div class="inner" >
-      <!--顶栏 begin -->
-      <!--<div class="top-bar" >-->
-      <!--<form class="search-form" action="#" >-->
-      <!--<input id="main-search-input"-->
-      <!--class="search-input"-->
-      <!--v-model="$route.query.keyword"-->
-      <!--:placeholder="mainSearch.placeholder"-->
-      <!--:type="mainSearch.type"-->
-      <!--:maxlength="mainSearch.maxlength"-->
-      <!--:readonly="mainSearch.readonly"-->
-      <!--:disabled="mainSearch.disabled"-->
-      <!--:autofocus="mainSearch.autofocus"-->
-      <!--:autocomplete="mainSearch.autocomplete"-->
-      <!--:clearable="mainSearch.clearable"-->
-      <!--@focus="_focus()"-->
-      <!--&gt;-->
-      <!--</form >-->
-      <!--<div class="change-btn"-->
-      <!--:class="listMode == true?'list-mode':'bigpic-mode'"-->
-      <!--@click="_changeMode()" >-->
-      <!--<div class="img" ></div >-->
-      <!--</div >-->
-      <!--</div >-->
-      <!--顶栏 end -->
       <dl >
         
         <dt class="screen-tab" >
@@ -74,23 +50,25 @@
           <!--筛选分类导航 -end-->
         </dt >
         
-        
         <dd class="products" >
+          
           <cube-scroll
             ref="scroll"
             :data="searchData"
-            :options="options"
-            @pulling-down="onPullingDown" >
+            :options="options" >
             
-            <ul class="search-products bigpic-mode" >
-              <!--<ul class="search-products list-mode">-->
-              <li v-if="searchData.length" v-for="(item,index) in searchData" :key="index" >
+            <!--<ul class="search-products list-mode">-->
+            <ul class="search-products"
+                :class="listMode == true?'list-mode':'bigpic-mode'" >
+              <li v-for="(item,index) in searchData" :key="index" >
                 <div class="item-inner" >
-                  <div class="imgbox" >
+                  
+                  <div class="imgbox" ref="imgbox" >
                     <a href="" >
-                      <img :src="getImg (item.SrcDetail)" />
+                      <img :src="getImg (item.SrcDetail)" ref="img" />
                     </a >
                   </div >
+                  
                   <div class="infobox" >
                     <p class="title" >
                       <a href="" >{{item.Name}}</a >
@@ -102,21 +80,15 @@
                     <div class="sales" >
                       <span >月销售<span class="sales-num" >{{item.Score}}</span ></span >
                     </div >
-                    <!--<div class="address" >-->
-                    <!--<span >深圳</span >-->
-                    <!--</div >-->
                   </div >
+                  
                 </div >
               </li >
             </ul >
             
           </cube-scroll >
           
-          
-          
         </dd >
-        
-        
         
       </dl >
       
@@ -125,91 +97,66 @@
 </template >
 
 <script type="text/ecmascript-6" >
-import { searchProduct } from 'api/searchData'
-import { ERR_OK, baseImgUrl } from 'api/config'
+import { baseImgUrl } from 'api/config'
 export default {
   data () {
     return {
-      //      mainSearch: {
-      //        placeholder: '请输入要搜索的内容',
-      //        type: 'search',
-      //        readonly: false, // 只读
-      //        maxlength: 100, // 字数限制
-      //        disabled: false, // 禁用
-      //        autofocus: false, // 自动聚焦
-      //        autocomplete: false, // 自动补全
-      //        clearable: false // 清除按钮
-      //      },
-      options: {
-        pullDownRefresh: {
-          threshold: 90,
-          stop: 40,
-          txt: '刷新222222222222222'
-        }
-      },
-      listMode: false,
-      searchData: []
+      options: {}
+    }
+  },
+  // 接收父组件传入的值
+  props: {
+    searchKeyword: {
+      type: String,
+      default: ''
+    },
+    searchData: {
+      type: Array,
+      default: []
+    },
+    listMode: {
+      type: Boolean,
+      default: false
     }
   },
   created () {
+    //    console.log(this.searchData)
+    //    this._toSearch('')
+    console.log(this.searchKeyword)
     console.log(this.searchData)
-    this._toSearch('')
+    console.log(this.listMode)
+    this.setImgHeight()
+  },
+  updated () {
+    //    this.$nextTick(function () {
+    //      console.log(this.$refs)
+    //    })
+    //    this.setImgHeight()
   },
   mounted () {},
   methods: {
     getImg (img) {
       return baseImgUrl + img
     },
-    _changeMode () {
-      this.listMode = !this.listMode
-    },
-    // 聚焦时路由跳转与传参
-    _focus () {
-      //      this.$router.push({
-      //        path: '/main-search',
-      //        query: {'keyword': this.$route.query.keyword}
-      //      })
-    },
-    _toSearch (val) {
-      let productData = {} // 定义一个空对象
-      productData.keyword = val // 定义此对象的 keyword
-      searchProduct(productData).then((res) => { // 把对象（keyword）传入
-        if (ERR_OK === res.Code) {
-          this.searchData = res.ReturnData // 存搜索所得数据
-        }
+    setImgHeight () {
+      this.$nextTick(function () {
+        console.log(this.$refs.imgbox)
+        this.$refs.imgbox.forEach(function (v, k) {
+          // TODO - 设置图片宽高相等
+          console.log(v.clientWidth)
+          console.log(v.clientHeight)
+          console.log(k)
+        })
       })
-    },
-    onPullingDown () {
-      console.log(111111111111111)
-      // 模拟更新数据
-      setTimeout(() => {
-        if (Math.random() > 0.5) {
-          // 如果有新数据
-          console.log(this.searchData)
-          console.log(2222222222222)
-        } else {
-          // 如果没有新数据
-          this.$refs.scroll.forceUpdate()
-          console.log(3333333333333)
-        }
-      }, 1000)
     }
   },
-  watch: {
-    //    '$route' () {
-    //      this._toSearch(this.$route.query.keyword)
-    //    }
-  },
+  watch: {},
   computed: {},
-  destroyed () {
-    //    this.searchData = []
-  }
+  destroyed () {}
 }
 </script >
 
 <style scoped lang="stylus" rel="stylesheet/stylus" >
 @import 'search-list.styl'
 
-.cube-scroll-wrapper
-  height: 500px
 </style >

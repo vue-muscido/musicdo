@@ -1,9 +1,9 @@
 <template >
   <div class="home" >
-    <div class="home-header">
-      <h2>musicdo</h2>
-    </div>
-    <cube-scroll :data="homeSecond">
+    <div class="home-header" >
+      <h2 >musicdo</h2 >
+    </div >
+    <cube-scroll :data="homeSecond" >
       <cube-slide
         class="cube-slider"
         v-if="slide.length"
@@ -19,12 +19,12 @@
           </a >
         </cube-slide-item >
       </cube-slide >
-      <div class="goods-list-container">
-        <div v-for="(list, index) in homeSecond" :key= "index" class="goods-item-list">
-          <div class="list-title">
-            <span class="title-tab"></span>
-            <h2 class="title-name">{{list.Name}}</h2>
-            <div class="title-more">
+      <div class="goods-list-container" >
+        <div v-for="(list, index) in homeSecond" :key="index" class="goods-item-list" >
+          <div class="list-title" >
+            <span class="title-tab" ></span >
+            <h2 class="title-name" >{{list.Name}}</h2 >
+            <div class="title-more" >
               更多
             </div>
           </div>
@@ -93,6 +93,11 @@ export default {
     },
     _clickHandler (item, index) {
       console.log(item, index)
+    },
+    _focus () { // 聚焦时路由跳转到搜索页
+      this.$router.push({
+        path: '/main-search'
+      })
     }
   }
 }
