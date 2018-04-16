@@ -16,7 +16,7 @@ export function getHomeFirst () {
 }
 
 export function getHomeSecond () {
-  const url = '/api/Home/getHomeSecond'
+  const url = '/api/Home/GetHomeSecond'
 
   const data = Object.assign({}, commonParams, {})
 

@@ -26,30 +26,30 @@
             <h2 class="title-name" >{{list.Name}}</h2 >
             <div class="title-more" >
               更多
-            </div >
-          </div >
-          <div class="list-box" >
-            <div v-for="(goods, index) in list._List" :key="index" class="goods-box" >
-              <div class="goods-content" @click="gotoDetail(goods.Name)" >
-                <div class="goods-img-box" >
-                  <img class="goods-img" :src="getImg(goods.SrcDetail)" alt="" >
-                </div >
-                <div class="goods-title" >
-                  <h2 >{{goods.Name}}</h2 >
-                </div >
-              </div >
-            </div >
-          </div >
-        </div >
-      </div >
-    </cube-scroll >
-    <loading v-show="!homeSecond.length" title="正在载入..." ></loading >
+            </div>
+          </div>
+          <div class="list-box">
+            <div v-for="(goods, index) in list._List" :key= "index" class="goods-box">
+              <div class="goods-content" @click="gotoDetail(goods.ID)">
+                <div class="goods-img-box">
+                  <img class="goods-img" :src="getImg(goods.SrcDetail)" alt="">
+                </div>
+                <div class="goods-title">
+                  <h2>{{goods.Name}}</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </cube-scroll>
+    <loading v-show="!homeSecond.length" title="正在载入..."></loading>
   </div >
 </template >
 
 <script type="text/ecmascript-6" >
-import { getHomeFirst, getHomeSecond } from 'api/homedata'
-import { baseImgUrl } from 'api/config'
+import {getHomeFirst, getHomeSecond} from 'api/homeData'
+import {baseImgUrl} from 'api/config'
 import loading from 'base/loading/loading'
 export default {
   data () {

@@ -46,7 +46,6 @@ export default {
   position: relative;
   margin: 0 auto;
   width: 100vw;
-  height: 100vh;
   max-width: $g-page-max-width;
   overflow-x hidden
   background-color $l-bgc-app
