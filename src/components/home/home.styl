@@ -14,6 +14,12 @@
 			padding-left $g-padding-lg
 			font-size $g-fs-lg
 			color $g-col-white-g
+	.scroll
+		top 0
+		bottom 4.5rem
+		width 100%
+		max-width 750px
+		background-color $l-bgc-app
 	.cube-slider
 		padding-top $g-fix-bar-height
 		width 100%
@@ -24,9 +30,11 @@
 	.goods-list-container
 		.goods-item-list
 			vertical-align top
-			margin-top 0.5rem
+			margin-bottom 0.5rem
 			padding 0 1rem
 			background-color #fff
+			&.goods-item-list:last-child
+				margin 0
 		.list-title
 			position relative
 			padding 1.2rem 0.5rem
