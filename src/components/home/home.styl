@@ -2,9 +2,11 @@
 @import '~common/stylus/mixin.styl'
 
 .home
+	con-top()
 	.home-header
 		position fixed
-		z-index 100
+		top 0
+		z-index $g-zindex-fix
 		width 100%
 		max-width $g-page-max-width
 		height $g-fix-bar-height
@@ -19,9 +21,7 @@
 		bottom 4.5rem
 		width 100%
 		max-width 750px
-		background-color $l-bgc-app
 	.cube-slider
-		padding-top $g-fix-bar-height
 		width 100%
 		height auto
 		.slider-img

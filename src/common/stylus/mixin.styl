@@ -34,3 +34,10 @@ extend-click()
 g-box-sd($x = 0, $y = 0,$b = .5rem, $r = .01rem, $c = $g-col-red)
   box-shadow $x $y $b $r $c
 
+//上填充
+con-top()
+  border-top $g-fix-bar-height solid $l-bgc-wx
+
+//下填充
+con-bottom()
+  border-bottom $g-bot-bar-height solid $l-bgc-wx

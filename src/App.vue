@@ -1,6 +1,6 @@
 <template >
   <div id="app" >
-    <transition >
+    <transition name="">
       <keep-alive >
         <router-view class="router-view" ></router-view >
       </keep-alive >
@@ -56,11 +56,11 @@ export default {
     top 0
     left 0
     bottom 0
-    background-color rgba(246,248,249,1)
+    background-color $l-bgc-wx
     font-size $g-fs-normal
     color $g-col-gray-w
     line-height 12rem
     text-align center
-    content "—— 欢迎访问乐都城 ——"/* 文案 */
+    content ""/* 文案 */
 
 </style >
