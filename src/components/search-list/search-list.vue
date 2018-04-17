@@ -74,18 +74,18 @@
             <!--<ul class="search-products list-mode">-->
             <ul class="search-products"
                 :class="listMode == true?'list-mode':'bigpic-mode'" >
-              <li v-for="(item,index) in retSearchData" :key="index" >
+              <li v-for="(item,index) in retSearchData" :key="index" @click="gotoDetail(item.ID)">
                 <div class="item-inner" >
 
                   <div class="imgbox" ref="imgbox" >
-                    <a href="" >
+                    <a>
                       <img :src="getImg (item.SrcDetail)" ref="img" />
                     </a >
                   </div >
 
                   <div class="infobox" >
                     <p class="title" >
-                      <a href="" >{{item.Name}}</a >
+                      <a>{{item.Name}}</a >
                     </p >
                     <div class="price" >
                       <span >￥</span ><span class="int-num" >{{item.MemberPrice}}.</span ><span
@@ -373,7 +373,7 @@ export default {
         this._toSearch({})
       }
     },
-    _isSalesVolumeUp (flag) { // TODO - 销量排序
+    _isSalesVolumeUp (flag) { // 销量排序
       if (flag) {
         this._toSearch({sort: 4})
         console.log('down')
@@ -384,7 +384,7 @@ export default {
       this.isSalesVolumeUp = !flag
       this.isPriceUp = false
     },
-    _isPriceUp (flag) { // TODO - 价格排序
+    _isPriceUp (flag) { // 价格排序
       if (flag) {
         this._toSearch({sort: 2})
         console.log('down')
@@ -395,8 +395,7 @@ export default {
       this.isPriceUp = !flag
       this.isSalesVolumeUp = false
     },
-    _screening (flag) {
-      console.log(1111111111111)
+    _screening (flag) { // TODO 筛选框
       console.log(this.searchData)
       console.log(2222222222222)
       this._GetBrandAndCategoryByKeyword()
@@ -405,6 +404,12 @@ export default {
       } else {
         this.screening = false
       }
+    },
+    gotoDetail (id) {
+      this.$router.push({
+        path: '/goods_detail',
+        query: {'goodsId': id}
+      })
     }
   },
   watch: {
