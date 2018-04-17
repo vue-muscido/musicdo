@@ -120,7 +120,7 @@ export default {
   },
   watch: {
     '$route' () {
-    	this.slide = []
+      this.slide = []
       this.goodsId = this.$route.query.goodsId
       this._getProductDetail(this.goodsId)
     }
