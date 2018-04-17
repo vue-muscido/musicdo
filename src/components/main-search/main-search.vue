@@ -155,6 +155,7 @@
            this.showList = true
            // 传值到搜索列表子组件（搜索的keyword、要渲染的列表数据this.searchData）
            this.searchKeyword = keyword
+           this.mainSearch.value = this.searchKeyword
          }
        })
      },

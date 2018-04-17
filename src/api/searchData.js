@@ -21,3 +21,19 @@ export function searchProduct (oParams) {
     return Promise.resolve(res.data)
   })
 }
+
+export function GetBrandAndCategoryByKeyword (oParams) {
+  const url = '/api/Product/GetBrandAndCategoryByKeyword'
+  const commonParams = {}
+  const searchParams = oParams || {}
+  const data = Object.assign({}, commonParams, {
+    type: searchParams.type || 1,
+    content: searchParams.content || ''
+  })
+
+  return axios.get(url, {
+    params: data
+  }).then((res) => {
+    return Promise.resolve(res.data)
+  })
+}

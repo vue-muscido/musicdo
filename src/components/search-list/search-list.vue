@@ -1,6 +1,5 @@
 <template >
   <div class="search-list" >
-    <div class="mask" v-show="ttttt" @click="_ttttt(false)"></div>
     <div class="inner" >
       <dl >
 
@@ -8,10 +7,10 @@
           <!--筛选分类导航 -begin-->
           <div class="screen-title" >
             <ul >
-              <li class="comprehensive" @click="isAct(0)">
+              <li class="comprehensive" @click="isAct(0)" >
                 <span class="tit"
                       :class="screenActIndex == 0?'act':''"
-                      >综合</span >
+                >综合</span >
                 <i >
                   <img src="" />
                 </i >
@@ -30,10 +29,10 @@
                 <div class="sup-tc" ></div >
               </li >
 
-              <li class="sales-volume" :class="isSalesVolumeUp?'up':'donw'" @click="isAct(1)">
+              <li class="sales-volume" :class="isSalesVolumeUp?'up':'donw'" @click="isAct(1)" >
                 <span class="tit"
                       :class="screenActIndex == 1?'act':''"
-                      >销量</span >
+                >销量</span >
                 <i class="donw" >
                   <img src="./img/gao@2x.png" />
                 </i >
@@ -45,7 +44,7 @@
               <li class="price" :class="isPriceUp?'up':'donw'" @click="isAct(2)" >
                 <span class="tit"
                       :class="screenActIndex == 2?'act':''"
-                      >价格</span >
+                >价格</span >
                 <i class="donw" >
                   <img src="./img/gao@2x.png" />
                 </i >
@@ -54,10 +53,10 @@
                 </i >
               </li >
 
-              <li class="screen" @click="isAct(3)">
+              <li class="screen" @click="isAct(3)" >
                 <span class="tit"
                       :class="screenActIndex == 3?'act':''"
-                      >筛选</span >
+                >筛选</span >
               </li >
 
             </ul >
@@ -75,7 +74,7 @@
             <!--<ul class="search-products list-mode">-->
             <ul class="search-products"
                 :class="listMode == true?'list-mode':'bigpic-mode'" >
-              <li v-for="(item,index) in searchData" :key="index" >
+              <li v-for="(item,index) in retSearchData" :key="index" >
                 <div class="item-inner" >
 
                   <div class="imgbox" ref="imgbox" >
@@ -108,11 +107,183 @@
       </dl >
 
     </div >
+    <div class="mask" v-show="screening" @click="_screening(false)" ></div >
+    <div class="fix-screen-list" v-show="screening" >
+      <div class="container" >
+        <div class="row" >
+          <dl class="price-range" >
+            <dt ><h3 >价位</h3 ></dt >
+            <dd >
+              <div class="" >价格区间(元)</div >
+              <div class="input-box" >
+                <input type="number" name="" placeholder="最低价" />
+              </div >
+              <span >-</span >
+
+              <div class="input-box" >
+                <input type="number" name="" placeholder="最高价" />
+              </div >
+            </dd >
+          </dl >
+
+          <dl class="sort-item" >
+            <dt ><h3 >品牌</h3 ><div class="obtn" ></div ></dt >
+            <dd >
+              <ul class="" >
+                <li class="act" >
+                  <a >博兰斯勒勒勒勒勒勒勒勒勒勒勒勒勒勒</a >
+                </li >
+                <li >
+                  <a >雅马哈哈哈哈哈哈哈哈</a >
+                </li >
+                <li >
+                  <a >欧米勒勒勒勒</a >
+                </li >
+                <li >
+                  <a >博兰斯勒</a >
+                </li >
+                <li >
+                  <a >雅马哈</a >
+                </li >
+                <li >
+                  <a >欧米勒</a >
+                </li >
+              </ul >
+            </dd >
+          </dl >
+          <!--<dl class="sort-item">-->
+          <!--<dt><h3>款式</h3><div class="obtn"></div></dt>-->
+          <!--<dd>-->
+          <!--<ul class="">-->
+          <!--<li>-->
+          <!--<a>立式</a>-->
+          <!--</li>-->
+          <!--<li>-->
+          <!--<a>三角式</a>-->
+          <!--</li>-->
+          <!--<li>-->
+          <!--<a>便携式</a>-->
+          <!--</li>-->
+          <!--</ul>-->
+          <!--</dd>-->
+          <!--</dl>-->
+          <!--<dl class="sort-item">-->
+          <!--<dt><h3>键数</h3><div class="obtn"></div></dt>-->
+          <!--<dd>-->
+          <!--<ul class="">-->
+          <!--<li>-->
+          <!--<a>88键</a>-->
+          <!--</li>-->
+          <!--<li>-->
+          <!--<a>108键</a>-->
+          <!--</li>-->
+          <!--<li>-->
+          <!--<a>128键</a>-->
+          <!--</li>-->
+          <!--</ul>-->
+          <!--</dd>-->
+          <!--</dl>-->
+          <!--<dl class="sort-item">-->
+          <!--<dt><h3>高度</h3><div class="obtn"></div></dt>-->
+          <!--<dd>-->
+          <!--<ul class="">-->
+          <!--<li>-->
+          <!--<a>1m</a>-->
+          <!--</li>-->
+          <!--<li>-->
+          <!--<a>1.2m</a>-->
+          <!--</li>-->
+          <!--<li>-->
+          <!--<a>1.25m</a>-->
+          <!--</li>-->
+          <!--<li>-->
+          <!--<a>1.5m</a>-->
+          <!--</li>-->
+          <!--</ul>-->
+          <!--</dd>-->
+          <!--</dl>-->
+          <!--<dl class="sort-item">-->
+          <!--<dt><h3>适用对象</h3><div class="obtn"></div></dt>-->
+          <!--<dd>-->
+          <!--<ul class="">-->
+          <!--<li>-->
+          <!--<a>初学者</a>-->
+          <!--</li>-->
+          <!--<li>-->
+          <!--<a>家庭教学</a>-->
+          <!--</li>-->
+          <!--<li>-->
+          <!--<a>专业演奏</a>-->
+          <!--</li>-->
+          <!--</ul>-->
+          <!--</dd>-->
+          <!--</dl>-->
+          <!--<dl class="sort-item">-->
+          <!--<dt><h3>折扣服务</h3><div class="obtn"></div></dt>-->
+          <!--<dd>-->
+          <!--<ul class="">-->
+          <!--<li>-->
+          <!--<a>包邮</a>-->
+          <!--</li>-->
+          <!--<li>-->
+          <!--<a>积分</a>-->
+          <!--</li>-->
+          <!--</ul>-->
+          <!--</dd>-->
+          <!--</dl>-->
+          <!--<dl class="sort-item">-->
+          <!--<dt><h3>折扣服务</h3><div class="obtn"></div></dt>-->
+          <!--<dd>-->
+          <!--<ul class="">-->
+          <!--<li>-->
+          <!--<a>包邮</a>-->
+          <!--</li>-->
+          <!--<li>-->
+          <!--<a>积分</a>-->
+          <!--</li>-->
+          <!--</ul>-->
+          <!--</dd>-->
+          <!--</dl>-->
+          <!--<dl class="sort-item">-->
+          <!--<dt><h3>折扣服务</h3><div class="obtn"></div></dt>-->
+          <!--<dd>-->
+          <!--<ul class="">-->
+          <!--<li>-->
+          <!--<a>包邮</a>-->
+          <!--</li>-->
+          <!--<li>-->
+          <!--<a>积分</a>-->
+          <!--</li>-->
+          <!--</ul>-->
+          <!--</dd>-->
+          <!--</dl>-->
+
+          <dl class="sort-item" >
+            <dt ><h3 >发货地</h3 ><div class="obtn" ></div ></dt >
+            <dd class="sort-item-address" >
+              <ul class="" >
+                <li >
+                  <a >广州</a ><span ></span ></li >
+              </ul >
+              <span class="reset-address" ></span >
+            </dd >
+          </dl >
+
+        </div >
+      </div >
+      <div class="btnbox" >
+        <div class="cancel-btn" >取消</div >
+        <div class="ok-btn" >确定</div >
+      </div >
+    </div >
+    <loading v-show="isLoading" title="正在载入..." ></loading >
   </div >
 </template >
 
 <script type="text/ecmascript-6" >
-import { baseImgUrl } from 'api/config'
+import { searchProduct, GetBrandAndCategoryByKeyword } from 'api/searchData'
+import { baseImgUrl, ERR_OK } from 'api/config'
+import loading from 'base/loading/loading'
 export default {
   data () {
     return {
@@ -120,7 +291,9 @@ export default {
       screenActIndex: 0,
       isSalesVolumeUp: false,
       isPriceUp: false,
-      ttttt: false
+      screening: false,
+      retSearchData: this.searchData,
+      isLoading: false
     }
   },
   // 接收父组件传入的值
@@ -138,6 +311,9 @@ export default {
       default: false
     }
   },
+  components: {
+    loading
+  },
   created () {
     //    console.log(this.searchData)
     //    this._toSearch('')
@@ -146,14 +322,31 @@ export default {
     console.log(this.listMode)
     this.setImgHeight()
   },
-  updated () {
-    //    this.$nextTick(function () {
-    //      console.log(this.$refs)
-    //    })
-    //    this.setImgHeight()
-  },
+  updated () {},
   mounted () {},
   methods: {
+    _toSearch (productData) { // 传入参数
+      this.isLoading = true
+      productData.keyword = this.searchKeyword
+      searchProduct(productData).then((res) => { // 传入参数
+        if (ERR_OK === res.Code) {
+          this.retSearchData = res.ReturnData // 存搜索所得数据
+          this.showList = true
+          this.isLoading = false
+        }
+      })
+    },
+    _GetBrandAndCategoryByKeyword () {
+      let params = {
+        type: 2,
+        content: this.searchKeyword
+      }
+      GetBrandAndCategoryByKeyword(params).then((res) => {
+        if (ERR_OK === res.Code) {
+          console.log(res)
+        }
+      })
+    },
     getImg (img) {
       return baseImgUrl + img
     },
@@ -162,52 +355,65 @@ export default {
         console.log(this.$refs.imgbox)
         this.$refs.imgbox.forEach(function (v, k) {
           // TODO - 设置图片宽高相等
-          console.log(v.clientWidth)
-          console.log(v.clientHeight)
-          console.log(k)
+          //          console.log(v.clientWidth)
+          //          console.log(v.clientHeight)
+          //          console.log(k)
         })
       })
     },
-    isAct (index) { // TODO - 排序
+    isAct (index) { // 选中状态
       this.screenActIndex = index
-      if (this.screenActIndex === 1) {
-        console.log(1)
+      if (this.screenActIndex === 1) { // 销量
         this._isSalesVolumeUp(this.isSalesVolumeUp)
-      } else if (this.screenActIndex === 2) {
-        console.log(2)
+      } else if (this.screenActIndex === 2) { // 价格
         this._isPriceUp(this.isPriceUp)
-      } else if (this.screenActIndex === 3) {
-        this._ttttt(true)
-        console.log(3)
-      } else {
-        console.log(this.screenActIndex)
+      } else if (this.screenActIndex === 3) { // 开启悬浮筛选框
+        this._screening(true)
+      } else { // 综合
+        this._toSearch({})
       }
     },
-    _isSalesVolumeUp (flag) { // TODO - 排序
+    _isSalesVolumeUp (flag) { // TODO - 销量排序
       if (flag) {
+        this._toSearch({sort: 4})
         console.log('down')
       } else {
+        this._toSearch({sort: 3})
         console.log('up')
       }
       this.isSalesVolumeUp = !flag
+      this.isPriceUp = false
     },
-    _isPriceUp (flag) { // TODO - 排序
+    _isPriceUp (flag) { // TODO - 价格排序
       if (flag) {
+        this._toSearch({sort: 2})
         console.log('down')
       } else {
+        this._toSearch({sort: 1})
         console.log('up')
       }
       this.isPriceUp = !flag
+      this.isSalesVolumeUp = false
     },
-    _ttttt (ooo) {
-      if (ooo) {
-        this.ttttt = true
+    _screening (flag) {
+      console.log(1111111111111)
+      console.log(this.searchData)
+      console.log(2222222222222)
+      this._GetBrandAndCategoryByKeyword()
+      if (flag) {
+        this.screening = true
       } else {
-        this.ttttt = false
+        this.screening = false
       }
     }
   },
-  watch: {},
+  watch: {
+    retSearchData (val) {
+      this.retSearchData = val
+      console.log(this.retSearchData)
+      console.log('searchData is change')
+    }
+  },
   computed: {},
   destroyed () {}
 }
