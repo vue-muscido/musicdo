@@ -124,6 +124,7 @@ export default {
   z-index 99999999
   height 10000px
   .top-bar-select
+  	max-width $g-page-max-width
   	display flex
   	z-index $g-zindex-fix
   	position fixed
@@ -214,6 +215,7 @@ export default {
 			font-size $g-fs-normal
 			color $g-fc-gray
 	.bottom-bar-action
+		max-width $g-page-max-width
 		display flex
 		z-index 999
 		position fixed

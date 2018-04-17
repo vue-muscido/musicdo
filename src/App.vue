@@ -43,10 +43,24 @@ export default {
 <style lang="stylus" rel="stylesheet/stylus" >
 @import "~common/stylus/index.styl"
 #app
-  position: relative;
   margin: 0 auto;
   width: 100vw;
   max-width: $g-page-max-width;
   overflow-x hidden
   background-color $l-bgc-app
+  min-height 100%
+#app:after
+    z-index $g-zindex-bot
+    position fixed
+    width 100%
+    top 0
+    left 0
+    bottom 0
+    background-color rgba(246,248,249,1)
+    font-size $g-fs-normal
+    color $g-col-gray-w
+    line-height 12rem
+    text-align center
+    content "—— 欢迎访问乐都城 ——"/* 文案 */
+
 </style >

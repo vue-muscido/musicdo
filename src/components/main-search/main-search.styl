@@ -2,10 +2,10 @@
 @import '~common/stylus/mixin.styl'
 .main-search
   position fixed
-  left 0
   z-index $g-zindex-fix + 1
   width 100vw
   height 100vh
+  max-width $g-page-max-width
   background $g-bgc-body
   .inner
     margin 0 auto $g-bot-bar-height
@@ -17,6 +17,7 @@
       top 0
       z-index 10
       display flex
+      max-width $g-page-max-width
       justify-content space-between
       align-items center
       height $g-fix-bar-height
