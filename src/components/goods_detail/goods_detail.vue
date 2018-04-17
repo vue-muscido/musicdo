@@ -18,6 +18,7 @@
 			<!-- 商品图片 -->
 			<div class="goods-img">
 				<cube-slide
+          :loop="loopFlag"
 	        class="cube-slider"
 	        v-if="slide.length"
 	        ref="slide"
@@ -59,12 +60,12 @@
 					</div>
 					<div class="btn-action">
 						<span class="icon icon-shop"></span>
-						<p>店铺</p>	
+						<p>店铺</p>
 					</div>
 					<div class="btn-action">
 						<span class="icon icon-start"></span>
 						<p>收藏</p>
-					</div>	
+					</div>
 				</div>
 				<div class="action-right">
 					<div class="btn-action btn-add-cart">加入购物车</div>
@@ -83,7 +84,8 @@ export default {
     return {
       goodsId: '',
       goodsData: {},
-      slide: []
+      slide: [1],
+      loopFlag: true
     }
   },
   created () {
@@ -102,6 +104,11 @@ export default {
         if (res.Flag === true) {
           this.goodsData = res.ReturnData
           this.slide = res.ReturnData.ImgUrl.split(',')
+          if (this.slide.length > 1) {
+            this.loopFlag = true
+          } else {
+            this.loopFlag = false
+          }
           console.log(this.slide)
         }
       })
@@ -120,9 +127,9 @@ export default {
 @import '~common/stylus/variable.styl'
 @import '~common/stylus/mixin.styl'
 .goods-detail
+  con-bottom()
   background-color $l-bgc-app
-  z-index 99999999
-  height 10000px
+  z-index $g-zindex-default
   .top-bar-select
   	max-width $g-page-max-width
   	display flex
@@ -154,7 +161,7 @@ export default {
   		flex 1
   		text-align center
   	.select-item
-  		margin-left 2rem
+  		margin 0 1rem
   		display inline-block
   		padding 1.1rem 0
   		font-size 1.5rem
@@ -163,7 +170,7 @@ export default {
 			border-bottom 0.2rem solid $g-col-red
 			color $g-col-red
   .goods-img
-  	padding-top $g-fix-bar-height
+  	con-top()
   	border-bottom 1px solid $g-brc-default
 	  .cube-slider
 	  	width 100%
@@ -197,11 +204,11 @@ export default {
 		text-align bottom
 		.price-now
 			color	$g-col-red
-			span 
+			span
 				font-size $g-fs-tit-xs
 		.price-old
 			padding-left 1rem
-			color $g-col-gray-w 
+			color $g-col-gray-w
 			vertical-align bottom
 	.goods-about
 		display flex
