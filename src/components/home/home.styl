@@ -2,7 +2,6 @@
 @import '~common/stylus/mixin.styl'
 
 .home
-	con-top()
 	.home-header
 		position fixed
 		top 0
@@ -17,8 +16,9 @@
 			font-size $g-fs-lg
 			color $g-col-white-g
 	.scroll
-		top 0
-		bottom 4.5rem
+		position fixed
+		top $g-fix-bar-height
+		bottom $g-bot-bar-height
 		width 100%
 		max-width 750px
 	.cube-slider

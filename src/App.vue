@@ -1,11 +1,11 @@
 <template >
   <div id="app" >
-    <transition name="">
+    <transition :name="transitionName">
       <keep-alive >
         <router-view class="router-view" ></router-view >
       </keep-alive >
     </transition >
-    <tab ></tab >
+    <tab v-if="true"></tab >
   </div >
 </template >
 
@@ -16,6 +16,7 @@ export default {
   name: 'app',
   data () {
     return {
+      transitionName: 'fade'
       //      rfontSiz: 0 || document.getElementsByTagName('html')[0].style.fontSize
     }
   },
@@ -36,7 +37,22 @@ export default {
       })
     }
   },
-  watch: {}
+  watch: {
+    '$route' (to, from) {
+      const toDepth = to.path.split('/')
+      const fromDepth = from.path.split('/')
+      this.transitionName = toDepth[1] === 'goods-detail' ? 'slide' : 'fade'
+      if (toDepth[1] === 'goods-detail') {
+        this.transitionName = 'slideIn'
+        return
+      }
+      if (fromDepth[1] === 'goods-detail') {
+        this.transitionName = 'slideOut'
+        return
+      }
+      this.transitionName = 'fade'
+    }
+  }
 }
 </script >
 
@@ -48,7 +64,6 @@ export default {
   max-width: $g-page-max-width;
   overflow-x hidden
   background-color $l-bgc-app
-  min-height 100%
 #app:after
     z-index $g-zindex-bot
     position fixed

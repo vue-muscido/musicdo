@@ -9,6 +9,5 @@
 
 <style scoped lang="stylus" rel="stylesheet/stylus" >
 @import 'sort.styl'
-.sort
-  background yellowgreen
+
 </style >
