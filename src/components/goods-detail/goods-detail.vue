@@ -105,10 +105,10 @@ export default {
           this.goodsData = res.ReturnData
           this.slide = []
           this.slide = res.ReturnData.ImgUrl.split(',')
-          if (this.slide.length > 1) {
-            this.loopFlag = true
-          } else {
+          if (this.slide.length === 1) {
             this.loopFlag = false
+          } else {
+            this.loopFlag = true
           }
           console.log(this.slide)
         }
