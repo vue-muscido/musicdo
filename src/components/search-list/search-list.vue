@@ -407,7 +407,7 @@ export default {
     },
     gotoDetail (id) {
       this.$router.push({
-        path: '/goods_detail',
+        path: '/goods-detail',
         query: {'goodsId': id}
       })
     }
