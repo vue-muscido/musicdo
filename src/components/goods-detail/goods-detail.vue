@@ -27,7 +27,7 @@
 	          v-for="(item, index) in slide"
 	          :key="index">
 	          <a class="link" >
-	            <img class="slider-img" :src="getImg(item)" >
+	            <img class="slider-img" v-lazy="getImg(item)" >
 	          </a >
 	        </cube-slide-item >
 	      </cube-slide >
@@ -119,7 +119,7 @@ export default {
     this.slide = []
   },
   watch: {
-    '$route' () {
+    '$route.query.goodsId' () {
       this.slide = []
       this.goodsId = this.$route.query.goodsId
       this._getProductDetail(this.goodsId)
@@ -132,6 +132,7 @@ export default {
 @import '~common/stylus/variable.styl'
 @import '~common/stylus/mixin.styl'
 .goods-detail
+  overflow-x hidden
   con-bottom()
   min-height 140%
   .top-bar-select
