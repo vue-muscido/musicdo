@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import axios from 'axios'
+import VueLazyload from 'vue-lazyload'
 // By default we import all the components.
 // Only reserve the components on demand and remove the rest.
 // Style is always required.
@@ -60,6 +61,10 @@ Vue.config.productionTip = false
 
 Vue.prototype.$http = axios
 /* eslint-disable no-new */
+Vue.use(VueLazyload, {
+  loading: require('common/image/default.png')
+})
+
 new Vue({
   el: '#app',
   router,

@@ -35,7 +35,7 @@
               <div v-for="(goods, index) in list._List" :key= "index" class="goods-box">
                 <div class="goods-content" @click="gotoDetail(goods.ID)">
                   <div class="goods-img-box">
-                    <img class="goods-img" :src="getImg(goods.SrcDetail)" alt="">
+                    <img class="goods-img" v-lazy="getImg(goods.SrcDetail)" alt="">
                   </div>
                   <div class="goods-title">
                     <h2>{{goods.Name}}</h2>
@@ -44,7 +44,7 @@
               </div>
             </div>
           </div>
-        </div>      
+        </div>
       </cube-scroll>
     </div>
     <loading v-show="!homeSecond.length" title="正在载入..."></loading>
