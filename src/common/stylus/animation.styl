@@ -1,0 +1,58 @@
+// 路由跳转 进出场动画 -begin
+//.slide-fade-enter-active
+//  transition: all .3s ease
+//
+//.slide-fade-leave-active
+//  transform: translateX(100%)
+//  transition: all .4s ease
+//
+//.slide-fade-enter
+//  transform: translateX(100%)
+//
+//.slide-fade-leave-active
+//transform: translateX(100%)
+// 路由跳转 进出场动画 -end
+
+// 路由跳转 进出场动画(仿原生) -begin
+//.slide-left-enter,
+//.slide-right-leave-active {
+//  opacity: 0;
+//  -webkit-transform: translate(100%, 0);
+//  transform: translate(100%, 0);
+//}
+//
+//.slide-left-leave-active,
+//.slide-right-enter {
+//  opacity: 0;
+//  -webkit-transform: translate(-100%, 0);
+//  transform: translate(-100% 0);
+//}
+// 路由跳转 进出场动画(仿原生) -end
+
+
+// 路由跳转 淡入淡出 -begin -----------------------------------------------
+.fade-enter-active, .fade-leave-active
+  transition: opacity .3s;
+
+.fade-enter, .fade-leave-to
+  opacity 0
+// 路由跳转 淡入淡出 -end  ------------------------------------------------
+
+
+
+// 路由跳转 进场动画(滑入) -begin ------------------------------------------
+.slideIn-enter-active, .slideIn-leave-active
+  transition: all 0.3s
+.slideIn-enter
+  transform: translate3d(100%, 0, 0)
+.slideIn-leave-to
+  transform: translate3d(-60%, 0, 0)
+// 路由跳转 出场动画(滑入) -end
+// 路由跳转 退场动画(滑出) -begin
+.slideOut-enter-active, .slideOut-leave-active
+  transition: all 0.3s
+.slideOut-enter
+  transform: translate3d(-100%, 0, 0)
+.slideOut-leave-to
+  transform: translate3d(40%, 0, 0)
+// 路由跳转 退场动画(滑出) -end --------------------------------------------

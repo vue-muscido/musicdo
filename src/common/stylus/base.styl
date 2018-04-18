@@ -17,61 +17,7 @@ body, html
   min-height 100%
   max-width $g-page-max-width
   overflow-x hidden
-  background-color $l-bgc-app 
+  background-color $l-bgc-app
 // 路由视口 公共样式 -end
 
-// 路由跳转 进出场动画 -begin
-//.slide-fade-enter-active
-//  transition: all .3s ease
-//
-//.slide-fade-leave-active
-//  transform: translateX(100%)
-//  transition: all .4s ease
-//
-//.slide-fade-enter
-//  transform: translateX(100%)
-//
-//.slide-fade-leave-active
-//transform: translateX(100%)
-// 路由跳转 进出场动画 -end
 
-// 路由跳转 进出场动画(仿原生) -begin
-//.slide-left-enter,
-//.slide-right-leave-active {
-//  opacity: 0;
-//  -webkit-transform: translate(100%, 0);
-//  transform: translate(100%, 0);
-//}
-//
-//.slide-left-leave-active,
-//.slide-right-enter {
-//  opacity: 0;
-//  -webkit-transform: translate(-100%, 0);
-//  transform: translate(-100% 0);
-//}
-// 路由跳转 进出场动画(仿原生) -end
-
-// 路由跳转 进出场动画(滑入) -begin
-//.slide-enter-active, .slide-leave-active
-//transition: all 0.3s
-
-//.slide-enter, .slide-leave-to
-//transform: translate3d(100%, 0, 0)
-
-// 路由跳转 进场动画(滑入) -begin
-.slideIn-enter-active, .slideIn-leave-active
-  transition: all 0.3s
-
-.slideIn-enter
-  transform: translate3d(100%, 0, 0)
-.slideIn-leave-to
-  transform: translate3d(-60%, 0, 0)
-
-// 路由跳转 出场动画(滑入) -begin
-.slideOut-enter-active, .slideOut-leave-active
-  transition: all 0.3s
-
-.slideOut-enter
-  transform: translate3d(-100%, 0, 0)
-.slideOut-leave-to
-  transform: translate3d(40%, 0, 0)
