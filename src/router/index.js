@@ -10,7 +10,7 @@ import User from 'components/user/user' // 用户中心组件
 import MainSearch from 'components/main-search/main-search' // 搜索页
 import SearchList from 'components/search-list/search-list' // 搜索列表Ω
 
-import GoodsDetail from 'components/goods_detail/goods_detail' // 商品详情页
+import GoodsDetail from 'components/goods-detail/goods-detail' // 商品详情页
 
 Vue.use(Router)
 
@@ -49,7 +49,7 @@ export default new Router({
       component: SearchList
     },
     {
-      path: '/goods_detail',
+      path: '/goods-detail',
       component: GoodsDetail
     }
   ],

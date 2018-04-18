@@ -9,6 +9,5 @@
 
 <style scoped lang="stylus" rel="stylesheet/stylus" >
 @import 'cart.styl'
-.cart
-  background wheat
+
 </style >

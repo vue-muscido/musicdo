@@ -9,6 +9,5 @@
 
 <style scoped lang="stylus" rel="stylesheet/stylus" >
 @import 'brands.styl'
-.brands
-  background lightskyblue
+
 </style >

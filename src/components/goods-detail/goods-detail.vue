@@ -84,7 +84,7 @@ export default {
     return {
       goodsId: '',
       goodsData: {},
-      slide: [1],
+      slide: [],
       loopFlag: true
     }
   },
@@ -103,6 +103,7 @@ export default {
       getProductDetail(goodsId).then((res) => {
         if (res.Flag === true) {
           this.goodsData = res.ReturnData
+          this.slide = []
           this.slide = res.ReturnData.ImgUrl.split(',')
           if (this.slide.length > 1) {
             this.loopFlag = true
@@ -114,8 +115,12 @@ export default {
       })
     }
   },
+  beforeDestroy () {
+    this.slide = []
+  },
   watch: {
     '$route' () {
+      this.slide = []
       this.goodsId = this.$route.query.goodsId
       this._getProductDetail(this.goodsId)
     }
@@ -128,13 +133,13 @@ export default {
 @import '~common/stylus/mixin.styl'
 .goods-detail
   con-bottom()
-  background-color $l-bgc-app
-  z-index $g-zindex-default
+  min-height 140%
   .top-bar-select
   	max-width $g-page-max-width
   	display flex
-  	z-index $g-zindex-fix
   	position fixed
+  	z-index $g-zindex-fix
+  	top 0
   	padding 0 1.5rem
   	border-bottom 1px solid $g-brc-default
   	width 100%
@@ -174,10 +179,10 @@ export default {
   	border-bottom 1px solid $g-brc-default
 	  .cube-slider
 	  	width 100%
-	  	height auto
+	  	height 100%
 	  	.slider-img
 	  		width 100%
-	  		height auto
+	  		height 32rem
   .goods-title
   	display flex
   	padding 1.5rem
@@ -224,8 +229,8 @@ export default {
 	.bottom-bar-action
 		max-width $g-page-max-width
 		display flex
-		z-index 999
 		position fixed
+		z-index $g-zindex-mask
 		bottom 0
 		width 100%
 		height $g-bot-bar-height

@@ -1,5 +1,5 @@
 @import "variable.styl"
-@import 'mixin.styl'
+@import "mixin.styl"
 
 body, html
   line-height: 1
@@ -11,11 +11,13 @@ body, html
   overflow-x hidden
 
 // 路由视口 公共样式 -begin
-.home, .brands, .cart, .main-search, .user
-  con-bottom()
+.home, .brands, .sort, .cart, .main-search, .user, .goods-detail
+  position absolute
   width 100%
+  min-height 100%
   max-width $g-page-max-width
   overflow-x hidden
+  background-color $l-bgc-app 
 // 路由视口 公共样式 -end
 
 // 路由跳转 进出场动画 -begin
@@ -50,9 +52,26 @@ body, html
 // 路由跳转 进出场动画(仿原生) -end
 
 // 路由跳转 进出场动画(滑入) -begin
-.slide-enter-active, .slide-leave-active
+//.slide-enter-active, .slide-leave-active
+//transition: all 0.3s
+
+//.slide-enter, .slide-leave-to
+//transform: translate3d(100%, 0, 0)
+
+// 路由跳转 进场动画(滑入) -begin
+.slideIn-enter-active, .slideIn-leave-active
   transition: all 0.3s
 
-.slide-enter, .slide-leave-to
+.slideIn-enter
   transform: translate3d(100%, 0, 0)
-// 路由跳转 进出场动画(滑入) -end
+.slideIn-leave-to
+  transform: translate3d(-60%, 0, 0)
+
+// 路由跳转 出场动画(滑入) -begin
+.slideOut-enter-active, .slideOut-leave-active
+  transition: all 0.3s
+
+.slideOut-enter
+  transform: translate3d(-100%, 0, 0)
+.slideOut-leave-to
+  transform: translate3d(40%, 0, 0)
