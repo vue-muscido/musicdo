@@ -2,19 +2,59 @@
 @import '~common/stylus/mixin.styl'
 
 .home
-	.home-header
-		position fixed
-		top 0
-		z-index $g-zindex-fix
-		width 100%
-		max-width $g-page-max-width
-		height $g-fix-bar-height
-		line-height $g-fix-bar-height
-		background-color $g-col-red
-		h2
-			padding-left $g-padding-lg
-			font-size $g-fs-lg
-			color $g-col-white-g
+  .top-bar
+    display flex
+    justify-content space-between
+    align-items center
+    position fixed
+    top 0
+    z-index 10
+    height $g-fix-bar-height
+    width 100%
+    max-width $g-page-max-width
+    background url("./img/topbar-bg.png") no-repeat center
+    margin-bottom 1px
+    transition all .5s
+    .search-form
+      flex 100%
+      padding-left 1rem
+      .search-input
+        padding-left $g-padding-xl
+        padding-right $g-padding-lg
+        border-radius $g-search-inp-height
+        width 100%
+        height $g-search-inp-height
+        background $g-col-white-g
+        font-size $g-fs-md
+    .msg-btn
+      display flex
+      flex-direction column
+      justify-content center
+      align-items center
+      height $g-fix-bar-height
+      flex 0 0 5.5rem
+      text-align center
+      > img
+        width $g-top-icon-w
+        height $g-top-icon-w
+      > p
+        text-align center
+        font-size $g-fs-min
+        color $g-fc-white
+	//.home-header
+	//	position fixed
+	//	top 0
+	//	z-index $g-zindex-fix
+	//	width 100%
+	//	max-width $g-page-max-width
+	//	height $g-fix-bar-height
+	//	line-height $g-fix-bar-height
+	//	background-color $g-col-red
+	//	h2
+	//		padding-left $g-padding-lg
+	//		font-size $g-fs-lg
+	//		color $g-col-white-g
+
 	.scroll
 		position fixed
 		top $g-fix-bar-height

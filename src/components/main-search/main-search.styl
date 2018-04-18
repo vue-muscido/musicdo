@@ -29,13 +29,25 @@
         flex 100%
         padding-left 1rem
         .search-input
-          padding-left $g-padding-xl
+          position relative
+          padding-left $g-padding-xxl
           padding-right $g-padding-lg
           border-radius $g-search-inp-height
           width 100%
           height $g-search-inp-height
+          line-height $g-search-inp-height
           background $g-col-white-g
           font-size $g-fs-md
+        .search-icon
+          content ''
+          position absolute
+          left 2rem
+          top 50%
+          width $g-fs-md
+          height $g-fs-md
+          bg-image("./img/search")
+          transform translate3d(0,-50%,0)
+
       .search-btn,
       .msg-btn
         height $g-fix-bar-height
@@ -70,53 +82,53 @@
           height $g-top-icon-w
         &.bigpic-mode
           .img
-            bg-image("img/liebiao")
+            bg-image("./img/liebiao")
         &.list-mode
           .img
-            bg-image("img/tupian")
-  dl
-    margin-bottom $g-margin-sm
-    padding-bottom $g-con-padding-normal
-    border-top 1px solid $g-bgc-body
-    background $g-bgc-con
-    &.search-log
-      margin-top $g-fix-bar-height
-    dt
-      display flex
-      justify-content space-between
-      align-items center
-      position relative
-      height $g-fix-bar-height
-      padding 0 $g-padding-normal
-      > div
-        height $g-fix-bar-height
-        line-height $g-fix-bar-height
-      .title
-        font-size $g-fs-max
-        font-weight 500
-      .delete
-        width $g-top-icon-w
-        height $g-top-icon-w
-        bg-image("img/shanchu")
-    dd
-      ul
-        list-style none
+            bg-image("./img/tupian")
+  .quick-search
+    margin-top $g-fix-bar-height
+    dl
+      margin-bottom $g-margin-sm
+      padding-bottom $g-con-padding-normal
+      border-top 1px solid $g-bgc-body
+      background $g-bgc-con
+      dt
         display flex
-        flex-wrap wrap
-        flex-direction row
-        padding .5rem
-        li
-          display inline-block
-          margin $g-padding-sm
-          max-width 100%
-          background $g-bgc-gray
-          a
-            display: inline-block
-            text-overflow: ellipsis
-            overflow: hidden
-            white-space: nowrap
-            height $g-fs-lg
-            max-width 10rem
-            color $g-fc-normal
-            font-size $g-fs-lg
-            margin  $g-padding-sm
+        justify-content space-between
+        align-items center
+        position relative
+        height $g-fix-bar-height
+        padding 0 $g-padding-normal
+        > div
+          height $g-fix-bar-height
+          line-height $g-fix-bar-height
+        .title
+          font-size $g-fs-max
+          font-weight 500
+        .delete
+          width $g-top-icon-w
+          height $g-top-icon-w
+          bg-image("./img/shanchu")
+      dd
+        ul
+          list-style none
+          display flex
+          flex-wrap wrap
+          flex-direction row
+          padding .5rem
+          li
+            display inline-block
+            margin $g-padding-sm
+            max-width 100%
+            background $g-bgc-gray
+            a
+              display: inline-block
+              text-overflow: ellipsis
+              overflow: hidden
+              white-space: nowrap
+              height $g-fs-lg
+              max-width 10rem
+              color $g-fc-normal
+              font-size $g-fs-lg
+              margin  $g-padding-sm

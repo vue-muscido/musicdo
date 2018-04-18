@@ -74,18 +74,18 @@
             <!--<ul class="search-products list-mode">-->
             <ul class="search-products"
                 :class="listMode == true?'list-mode':'bigpic-mode'" >
-              <li v-for="(item,index) in retSearchData" :key="index" @click="gotoDetail(item.ID)">
+              <li v-for="(item,index) in retSearchData" :key="index" @click="gotoDetail(item.ID)" >
                 <div class="item-inner" >
 
                   <div class="imgbox" ref="imgbox" >
-                    <a>
+                    <a >
                       <img :src="getImg (item.SrcDetail)" ref="img" />
                     </a >
                   </div >
 
                   <div class="infobox" >
                     <p class="title" >
-                      <a>{{item.Name}}</a >
+                      <a >{{item.Name}}</a >
                     </p >
                     <div class="price" >
                       <span >￥</span ><span class="int-num" >{{item.MemberPrice}}.</span ><span
@@ -107,182 +107,190 @@
       </dl >
 
     </div >
-    <div class="mask" v-show="screening" @click="_screening(false)" ></div >
-    <div class="fix-screen-list" v-show="screening" >
-      <div class="container" >
-        <div class="row" >
-          <dl class="price-range" >
-            <dt ><h3 >价位</h3 ></dt >
-            <dd >
-              <div class="" >价格区间(元)</div >
-              <div class="input-box" >
-                <input type="number" name="" placeholder="最低价" />
-              </div >
-              <span >-</span >
-
-              <div class="input-box" >
-                <input type="number" name="" placeholder="最高价" />
-              </div >
-            </dd >
-          </dl >
-
-          <dl class="sort-item" >
-            <dt ><h3 >品牌</h3 ><div class="obtn" ></div ></dt >
-            <dd >
-              <ul class="" >
-                <li class="act" >
-                  <a >博兰斯勒勒勒勒勒勒勒勒勒勒勒勒勒勒</a >
-                </li >
-                <li >
-                  <a >雅马哈哈哈哈哈哈哈哈</a >
-                </li >
-                <li >
-                  <a >欧米勒勒勒勒</a >
-                </li >
-                <li >
-                  <a >博兰斯勒</a >
-                </li >
-                <li >
-                  <a >雅马哈</a >
-                </li >
-                <li >
-                  <a >欧米勒</a >
-                </li >
-              </ul >
-            </dd >
-          </dl >
-          <!--<dl class="sort-item">-->
-          <!--<dt><h3>款式</h3><div class="obtn"></div></dt>-->
-          <!--<dd>-->
-          <!--<ul class="">-->
-          <!--<li>-->
-          <!--<a>立式</a>-->
-          <!--</li>-->
-          <!--<li>-->
-          <!--<a>三角式</a>-->
-          <!--</li>-->
-          <!--<li>-->
-          <!--<a>便携式</a>-->
-          <!--</li>-->
-          <!--</ul>-->
-          <!--</dd>-->
-          <!--</dl>-->
-          <!--<dl class="sort-item">-->
-          <!--<dt><h3>键数</h3><div class="obtn"></div></dt>-->
-          <!--<dd>-->
-          <!--<ul class="">-->
-          <!--<li>-->
-          <!--<a>88键</a>-->
-          <!--</li>-->
-          <!--<li>-->
-          <!--<a>108键</a>-->
-          <!--</li>-->
-          <!--<li>-->
-          <!--<a>128键</a>-->
-          <!--</li>-->
-          <!--</ul>-->
-          <!--</dd>-->
-          <!--</dl>-->
-          <!--<dl class="sort-item">-->
-          <!--<dt><h3>高度</h3><div class="obtn"></div></dt>-->
-          <!--<dd>-->
-          <!--<ul class="">-->
-          <!--<li>-->
-          <!--<a>1m</a>-->
-          <!--</li>-->
-          <!--<li>-->
-          <!--<a>1.2m</a>-->
-          <!--</li>-->
-          <!--<li>-->
-          <!--<a>1.25m</a>-->
-          <!--</li>-->
-          <!--<li>-->
-          <!--<a>1.5m</a>-->
-          <!--</li>-->
-          <!--</ul>-->
-          <!--</dd>-->
-          <!--</dl>-->
-          <!--<dl class="sort-item">-->
-          <!--<dt><h3>适用对象</h3><div class="obtn"></div></dt>-->
-          <!--<dd>-->
-          <!--<ul class="">-->
-          <!--<li>-->
-          <!--<a>初学者</a>-->
-          <!--</li>-->
-          <!--<li>-->
-          <!--<a>家庭教学</a>-->
-          <!--</li>-->
-          <!--<li>-->
-          <!--<a>专业演奏</a>-->
-          <!--</li>-->
-          <!--</ul>-->
-          <!--</dd>-->
-          <!--</dl>-->
-          <!--<dl class="sort-item">-->
-          <!--<dt><h3>折扣服务</h3><div class="obtn"></div></dt>-->
-          <!--<dd>-->
-          <!--<ul class="">-->
-          <!--<li>-->
-          <!--<a>包邮</a>-->
-          <!--</li>-->
-          <!--<li>-->
-          <!--<a>积分</a>-->
-          <!--</li>-->
-          <!--</ul>-->
-          <!--</dd>-->
-          <!--</dl>-->
-          <!--<dl class="sort-item">-->
-          <!--<dt><h3>折扣服务</h3><div class="obtn"></div></dt>-->
-          <!--<dd>-->
-          <!--<ul class="">-->
-          <!--<li>-->
-          <!--<a>包邮</a>-->
-          <!--</li>-->
-          <!--<li>-->
-          <!--<a>积分</a>-->
-          <!--</li>-->
-          <!--</ul>-->
-          <!--</dd>-->
-          <!--</dl>-->
-          <!--<dl class="sort-item">-->
-          <!--<dt><h3>折扣服务</h3><div class="obtn"></div></dt>-->
-          <!--<dd>-->
-          <!--<ul class="">-->
-          <!--<li>-->
-          <!--<a>包邮</a>-->
-          <!--</li>-->
-          <!--<li>-->
-          <!--<a>积分</a>-->
-          <!--</li>-->
-          <!--</ul>-->
-          <!--</dd>-->
-          <!--</dl>-->
-
-          <dl class="sort-item" >
-            <dt ><h3 >发货地</h3 ><div class="obtn" ></div ></dt >
-            <dd class="sort-item-address" >
-              <ul class="" >
-                <li >
-                  <a >广州</a ><span ></span ></li >
-              </ul >
-              <span class="reset-address" ></span >
-            </dd >
-          </dl >
-
+    
+    <transition name="fade">
+      <div class="mask" v-show="screening" @click="_screening(false)" ></div >
+    </transition>
+    
+    
+    <transition name="slide">
+      <div class="fix-screen-list" v-show="screening" >
+        <div class="container" >
+          <div class="row" >
+            <dl class="price-range" >
+              <dt ><h3 >价位</h3 ></dt >
+              <dd >
+                <div class="" >价格区间(元)</div >
+                <div class="input-box" >
+                  <input type="number" placeholder="最低价" />
+                </div >
+                <span >-</span >
+  
+                <div class="input-box" >
+                  <input type="number" placeholder="最高价" />
+                </div >
+              </dd >
+            </dl >
+  
+            <dl class="sort-item" >
+              <dt ><h3 >品牌</h3 ><div class="obtn" ></div ></dt >
+              <dd >
+                <ul class="" >
+                  <li class="act" >
+                    <a >博兰斯勒勒勒勒勒勒勒勒勒勒勒勒勒勒</a >
+                  </li >
+                  <li >
+                    <a >雅马哈哈哈哈哈哈哈哈</a >
+                  </li >
+                  <li >
+                    <a >欧米勒勒勒勒</a >
+                  </li >
+                  <li >
+                    <a >博兰斯勒</a >
+                  </li >
+                  <li >
+                    <a >雅马哈</a >
+                  </li >
+                  <li >
+                    <a >欧米勒</a >
+                  </li >
+                </ul >
+              </dd >
+            </dl >
+            <!--<dl class="sort-item">-->
+            <!--<dt><h3>款式</h3><div class="obtn"></div></dt>-->
+            <!--<dd>-->
+            <!--<ul class="">-->
+            <!--<li>-->
+            <!--<a>立式</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a>三角式</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a>便携式</a>-->
+            <!--</li>-->
+            <!--</ul>-->
+            <!--</dd>-->
+            <!--</dl>-->
+            <!--<dl class="sort-item">-->
+            <!--<dt><h3>键数</h3><div class="obtn"></div></dt>-->
+            <!--<dd>-->
+            <!--<ul class="">-->
+            <!--<li>-->
+            <!--<a>88键</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a>108键</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a>128键</a>-->
+            <!--</li>-->
+            <!--</ul>-->
+            <!--</dd>-->
+            <!--</dl>-->
+            <!--<dl class="sort-item">-->
+            <!--<dt><h3>高度</h3><div class="obtn"></div></dt>-->
+            <!--<dd>-->
+            <!--<ul class="">-->
+            <!--<li>-->
+            <!--<a>1m</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a>1.2m</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a>1.25m</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a>1.5m</a>-->
+            <!--</li>-->
+            <!--</ul>-->
+            <!--</dd>-->
+            <!--</dl>-->
+            <!--<dl class="sort-item">-->
+            <!--<dt><h3>适用对象</h3><div class="obtn"></div></dt>-->
+            <!--<dd>-->
+            <!--<ul class="">-->
+            <!--<li>-->
+            <!--<a>初学者</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a>家庭教学</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a>专业演奏</a>-->
+            <!--</li>-->
+            <!--</ul>-->
+            <!--</dd>-->
+            <!--</dl>-->
+            <!--<dl class="sort-item">-->
+            <!--<dt><h3>折扣服务</h3><div class="obtn"></div></dt>-->
+            <!--<dd>-->
+            <!--<ul class="">-->
+            <!--<li>-->
+            <!--<a>包邮</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a>积分</a>-->
+            <!--</li>-->
+            <!--</ul>-->
+            <!--</dd>-->
+            <!--</dl>-->
+            <!--<dl class="sort-item">-->
+            <!--<dt><h3>折扣服务</h3><div class="obtn"></div></dt>-->
+            <!--<dd>-->
+            <!--<ul class="">-->
+            <!--<li>-->
+            <!--<a>包邮</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a>积分</a>-->
+            <!--</li>-->
+            <!--</ul>-->
+            <!--</dd>-->
+            <!--</dl>-->
+            <!--<dl class="sort-item">-->
+            <!--<dt><h3>折扣服务</h3><div class="obtn"></div></dt>-->
+            <!--<dd>-->
+            <!--<ul class="">-->
+            <!--<li>-->
+            <!--<a>包邮</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a>积分</a>-->
+            <!--</li>-->
+            <!--</ul>-->
+            <!--</dd>-->
+            <!--</dl>-->
+  
+            <dl class="sort-item" >
+              <dt ><h3 >发货地</h3 ><div class="obtn" ></div ></dt >
+              <dd class="sort-item-address" >
+                <ul class="" >
+                  <li >
+                    <a >广州</a ><span ></span ></li >
+                </ul >
+                <span class="reset-address" ></span >
+              </dd >
+            </dl >
+  
+          </div >
+        </div >
+        <div class="btnbox" >
+          <div class="cancel-btn" >取消</div >
+          <div class="ok-btn" >确定</div >
         </div >
       </div >
-      <div class="btnbox" >
-        <div class="cancel-btn" >取消</div >
-        <div class="ok-btn" >确定</div >
-      </div >
-    </div >
+    </transition>
+    
     <loading v-show="isLoading" title="正在载入..." ></loading >
   </div >
 </template >
 
 <script type="text/ecmascript-6" >
 import { searchProduct, GetBrandAndCategoryByKeyword } from 'api/searchData'
-import { baseImgUrl, ERR_OK } from 'api/config'
+import { LOCAL_HOST, ERR_OK } from 'api/config'
 import loading from 'base/loading/loading'
 export default {
   data () {
@@ -348,7 +356,7 @@ export default {
       })
     },
     getImg (img) {
-      return baseImgUrl + img
+      return LOCAL_HOST + img
     },
     setImgHeight () {
       this.$nextTick(function () {
