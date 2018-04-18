@@ -1,18 +1,24 @@
 <template >
   <div class="home" >
-    <div class="home-header" >
-      <h2 >musicdo</h2 >
+    <div class="top-bar" >
+      <form class="search-form" action="#" >
+        <input class="search-input" readonly placeholder="请输入要搜索的内容" type="text" @focus.stop.prevent="_focus()">
+      </form >
+      <div class="msg-btn">
+        <img src="./img/xiaoxi@2x.png" />
+        <p >消息</p >
+      </div >
     </div >
-    <div class="scroll">
+    <div class="scroll" >
       <cube-scroll
         ref="scroll"
-        :data="homeSecond">
+        :data="homeSecond" >
          <cube-slide
-          class="cube-slider"
-          v-if="slide.length"
-          ref="slide"
-          :data="slide"
-          @change="_changePage" >
+           class="cube-slider"
+           v-if="slide.length"
+           ref="slide"
+           :data="slide"
+           @change="_changePage" >
           <cube-slide-item
             v-for="(item, index) in slide"
             :key="index"
@@ -29,36 +35,35 @@
               <h2 class="title-name" >{{list.Name}}</h2 >
               <div class="title-more" >
                 更多
-              </div>
-            </div>
-            <div class="list-box">
-              <div v-for="(goods, index) in list._List" :key= "index" class="goods-box">
-                <div class="goods-content" @click="gotoDetail(goods.ID)">
-                  <div class="goods-img-box">
-                    <img class="goods-img" v-lazy="getImg(goods.SrcDetail)" alt="">
-                  </div>
-                  <div class="goods-title">
-                    <h2>{{goods.Name}}</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </cube-scroll>
-    </div>
-    <loading v-show="!homeSecond.length" title="正在载入..."></loading>
+              </div >
+            </div >
+            <div class="list-box" >
+              <div v-for="(goods, index) in list._List" :key="index" class="goods-box" >
+                <div class="goods-content" @click="gotoDetail(goods.ID)" >
+                  <div class="goods-img-box" >
+                    <img class="goods-img" v-lazy="getImg(goods.SrcDetail)" alt="" >
+                  </div >
+                  <div class="goods-title" >
+                    <h2 >{{goods.Name}}</h2 >
+                  </div >
+                </div >
+              </div >
+            </div >
+          </div >
+        </div >
+      </cube-scroll >
+    </div >
+    <loading v-show="!homeSecond.length" title="正在载入..." ></loading >
   </div >
 </template >
 
 <script type="text/ecmascript-6" >
-import {getHomeFirst, getHomeSecond} from 'api/homeData'
-import {baseImgUrl} from 'api/config'
+import { getHomeFirst, getHomeSecond } from 'api/homeData'
+import { LOCAL_HOST } from 'api/config'
 import loading from 'base/loading/loading'
 export default {
   data () {
     return {
-      local: 'http://musicdo.cn',
       homeFrist: [],
       homeSecond: [],
       slide: []
@@ -72,7 +77,7 @@ export default {
   },
   methods: {
     getImg (img) {
-      return baseImgUrl + img
+      return LOCAL_HOST + img
     },
     gotoDetail (id) {
       this.$router.push({

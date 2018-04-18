@@ -5,6 +5,7 @@
         <form class="search-form" action="#" >
           <input id="main-search-input"
                  class="search-input"
+                 ref="input"
                  v-model="mainSearch.value"
                  :placeholder="mainSearch.placeholder"
                  :type="mainSearch.type"
@@ -16,12 +17,10 @@
                  :clearable="mainSearch.clearable"
                  @submit.prevent="_toSearch(mainSearch.value)"
                  @focus="_focus()"
+                 @keyup.13.prevent="_toSearch(mainSearch.value)"
           >
+          <div class="search-icon"></div>
         </form >
-        <!--<div class="msg-btn">-->
-        <!--<img src="./img/xiaoxi@2x.png" />-->
-        <!--<p >消息</p >-->
-        <!--</div >-->
         <div class="search-btn" v-show="!showList" >
           <span @click="_toSearch(mainSearch.value)" >搜索</span >
         </div >
@@ -32,39 +31,43 @@
           <div class="img" ></div >
         </div >
       </div >
-      <!--历史搜索 -begin -->
-      <dl v-show="!showList" class="search-log" v-if="historyData.length" >
-        <dt class="search-title" >
-          <div class="title" >
-            <span >历史搜索</span >
-          </div >
-          <div class="delete" @click="_localremove ('historySearch')" ></div >
-        </dt >
-        <dd >
-          <ul >
-            <li v-for="(item,index) in historyData" :key="index" >
-              <a @click="_toSearch (item)" >{{item}}</a >
-            </li >
-          </ul >
-        </dd >
-      </dl >
-      <!--历史搜索 -end -->
-      <!--热门搜索 -begin -->
-      <dl v-show="!showList" class="search-hot" v-if="hotSearchData.length" >
-        <dt class="search-title" >
-          <div class="title" >
-            <span >热门搜索</span >
-          </div >
-        </dt >
-        <dd v-if="hotSearchData.length" >
-          <ul >
-            <li v-for="(item,index) in hotSearchData" :key="index" >
-              <a @click="_toSearch (item)" >{{item}}</a >
-            </li >
-          </ul >
-        </dd >
-      </dl >
-      <!--热门搜索 -end -->
+      
+      <div class="quick-search">
+        <!--历史搜索 -begin -->
+        <dl v-show="!showList" class="search-log" v-if="historyData.length" >
+          <dt class="search-title" >
+            <div class="title" >
+              <span >历史搜索</span >
+            </div >
+            <div class="delete" @click="_localremove ('historySearch')" ></div >
+          </dt >
+          <dd >
+            <ul >
+              <li v-for="(item,index) in historyData" :key="index" >
+                <a @click="_toSearch (item)" >{{item}}</a >
+              </li >
+            </ul >
+          </dd >
+        </dl >
+        <!--历史搜索 -end -->
+        <!--热门搜索 -begin -->
+        <dl v-show="!showList" class="search-hot" v-if="hotSearchData.length" >
+          <dt class="search-title" >
+            <div class="title" >
+              <span >热门搜索</span >
+            </div >
+          </dt >
+          <dd v-if="hotSearchData.length" >
+            <ul >
+              <li v-for="(item,index) in hotSearchData" :key="index" >
+                <a @click="_toSearch (item)" >{{item}}</a >
+              </li >
+            </ul >
+          </dd >
+        </dl >
+        <!--热门搜索 -end -->
+      </div>
+      
       <!--搜索列表 插件 -begin-->
       <!--传值到搜索列表子组件（搜索的keyword、要渲染的列表数据this.searchData、大图和列表模式this.listMode）-->
       <search-list
@@ -91,7 +94,7 @@
          //         value: this.$route.query.keyword === '' ? '' : this.$route.query.keyword,
          value: '',
          placeholder: '请输入要搜索的内容',
-         type: 'search',
+         type: 'text',
          readonly: false,
          maxlength: 100,
          disabled: false,
@@ -156,6 +159,7 @@
            // 传值到搜索列表子组件（搜索的keyword、要渲染的列表数据this.searchData）
            this.searchKeyword = keyword
            this.mainSearch.value = this.searchKeyword
+           this.$refs.input.blur()
          }
        })
      },
