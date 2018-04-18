@@ -183,7 +183,6 @@ export default {
 	  	height 100%
 	  	.slider-img
 	  		width 100%
-	  		height 32rem
   .goods-title
   	display flex
   	padding 1.5rem
