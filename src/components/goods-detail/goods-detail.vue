@@ -17,6 +17,8 @@
 			</div >
       <!-- 商品图片 -->
 			<div class="goods-img" >
+				<div v-if="!slide.length" class="img-loading">
+				</div>
 				<cube-slide
           :loop="loopFlag"
           class="cube-slider"
@@ -25,9 +27,9 @@
           :data="slide" >
 	        <cube-slide-item
             v-for="(item, index) in slide"
-            :key="index" >
+            :key="index">
 	          <a class="link" >
-	            <img class="slider-img" v-lazy="getImg(item)" >
+	            <img class="slider-img" :src="getImg(item)" >
 	          </a >
 	        </cube-slide-item >
 	      </cube-slide >
@@ -103,24 +105,24 @@ export default {
       getProductDetail(goodsId).then((res) => {
         if (res.Flag === true) {
           this.goodsData = res.ReturnData
-          this.slide = []
           this.slide = res.ReturnData.ImgUrl.split(',')
           if (this.slide.length === 1) {
             this.loopFlag = false
           } else {
             this.loopFlag = true
           }
-          console.log(this.slide)
         }
       })
     }
   },
   beforeDestroy () {
-    this.slide = []
   },
   watch: {
-    '$route.query.goodsId' () {
-      this.slide = []
+    '$route' (to, from) {
+      const toDepth = to.path.split('/')
+      if (toDepth[1] === 'goods-detail') {
+        this.slide = []
+      }
       this.goodsId = this.$route.query.goodsId
       this._getProductDetail(this.goodsId)
     }
@@ -178,6 +180,10 @@ export default {
   .goods-img
     con-top()
     border-bottom 1px solid $g-brc-default
+    .img-loading
+    	width 100%
+    	height 32rem
+    	bg-image("img/default")
     .cube-slider
       width 100%
       height 100%
