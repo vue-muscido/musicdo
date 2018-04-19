@@ -10,7 +10,7 @@
               <li class="comprehensive" @click="isAct(0)" >
                 <span class="tit"
                       :class="screenActIndex == 0?'act':''"
-                >综合</span >
+                >综合{{retSearchData.length}}</span >
                 <i >
                   <img src="" />
                 </i >
@@ -70,7 +70,7 @@
             ref="scroll"
             :data="searchData"
             :options="options"
-          >
+            @pulling-up="onPullingUp" >
 
             <!--<ul class="search-products list-mode">-->
             <ul class="search-products"
@@ -123,12 +123,12 @@
               <dd >
                 <div class="" >价格区间(元)</div >
                 <div class="input-box" >
-                  <input type="number" placeholder="最低价" />
+                  <input type="number" placeholder="最低价" v-model="screenData.price_min" />
                 </div >
                 <span >-</span >
   
                 <div class="input-box" >
-                  <input type="number" placeholder="最高价" />
+                  <input type="number" placeholder="最高价" v-model="screenData.price_max" />
                 </div >
               </dd >
             </dl >
@@ -279,8 +279,8 @@
           </div >
         </div >
         <div class="btnbox" >
-          <div class="cancel-btn" >取消</div >
-          <div class="ok-btn" >确定</div >
+          <div class="cancel-btn" @click="_cancel()" >取消</div >
+          <div class="ok-btn" @click="_ok()" >确定</div >
         </div >
       </div >
     </transition >
@@ -300,20 +300,31 @@ export default {
         scrollbar: {
           fade: true,
           nteractive: false // 1.8.0 新增
+        },
+        pullUpLoad: {
+          threshold: 0,
+          txt: {
+            more: '加载更多' + this.searchKeyword + '相关',
+            noMore: '已无更多' + this.searchKeyword + '相关'
+          }
         }
-        //        pullUpLoad: {
-        //          threshold: 0,
-        //          txt: {
-        //            more: 'Load more',
-        //            noMore: 'No more data'
-        //          }
-        //        }
       },
       screenActIndex: 0,
       isSalesVolumeUp: false,
       isPriceUp: false,
       screening: false,
       retSearchData: this.searchData,
+      sortType: 2,
+      screenData: {
+        keyword: this.searchKeyword || '',
+        categoryID: '',
+        price_min: '',
+        price_max: '',
+        brandID: '',
+        sort: this.sortType || 1,
+        pageIndex: 1,
+        pageSize: 20
+      },
       isLoading: false
     }
   },
@@ -391,15 +402,26 @@ export default {
       } else if (this.screenActIndex === 3) { // 开启悬浮筛选框
         this._screening(true)
       } else { // 综合
-        this._toSearch({})
+        this._toSearch({
+          sort: 4,
+          pageSize: this.retSearchData.length
+        })
       }
     },
     _isSalesVolumeUp (flag) { // 销量排序
       if (flag) {
-        this._toSearch({sort: 4})
+        this._toSearch({
+          sort: 4,
+          pageSize: this.retSearchData.length
+        })
+        this.sortType = 4
         console.log('down')
       } else {
-        this._toSearch({sort: 3})
+        this._toSearch({
+          sort: 3,
+          pageSize: this.retSearchData.length
+        })
+        this.sortType = 3
         console.log('up')
       }
       this.isSalesVolumeUp = !flag
@@ -407,10 +429,18 @@ export default {
     },
     _isPriceUp (flag) { // 价格排序
       if (flag) {
-        this._toSearch({sort: 2})
+        this._toSearch({
+          sort: 2,
+          pageSize: this.retSearchData.length
+        })
+        this.sortType = 2
         console.log('down')
       } else {
-        this._toSearch({sort: 1})
+        this._toSearch({
+          sort: 1,
+          pageSize: this.retSearchData.length
+        })
+        this.sortType = 1
         console.log('up')
       }
       this.isPriceUp = !flag
@@ -433,17 +463,12 @@ export default {
       })
     },
     onPullingUp () {
+      this._toSearch({
+        sort: this.sortType,
+        pageSize: this.setItemLen(10)
+      })
       setTimeout(() => {
-        if (Math.random() > 0.5) {
-          // 如果有新数据
-          //          let newPage = []
-          //          this.items = this.items.concat(newPage)
-          this.showAlert('刷新')
-        } else {
-          // 如果没有新数据
-          this.showAlert('无数据')
-          this.$refs.scroll.forceUpdate()
-        }
+        this.$refs.scroll.forceUpdate()
       }, 1000)
     },
     showAlert (con) {
@@ -453,6 +478,23 @@ export default {
         content: con,
         icon: 'cubeic-alert'
       }).show()
+    },
+    setItemLen (n) {
+      let len = this.retSearchData.length
+      let addLen = len + n
+      return addLen
+    },
+    _cancel () {
+      this.screenData = {
+        price_min: '',
+        price_max: ''
+      }
+      this.screening = false
+    },
+    _ok () {
+      console.log(this.screenData)
+      this._toSearch(this.screenData)
+      this.screening = false
     }
   },
   watch: {
