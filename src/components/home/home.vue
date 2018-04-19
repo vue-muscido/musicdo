@@ -14,7 +14,8 @@
         ref="scroll"
         :data="homeSecond"
         :options="options">
-         <cube-slide
+        <div>
+          <cube-slide
            class="cube-slider"
            v-if="slide.length"
            ref="slide"
@@ -50,6 +51,7 @@
             </div >
           </div >
         </div >
+        </div>
       </cube-scroll >
     </div >
     <loading v-show="!homeSecond.length" title="正在载入..." ></loading >
