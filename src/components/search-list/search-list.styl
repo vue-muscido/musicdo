@@ -138,9 +138,9 @@ $g-search-list-fix-screen-bot-btn-h = 4rem//悬浮筛选列表底部按钮高度
         display none
 
 .products
-  position relative
+  position fixed
   top $g-fix-bar-height + $g-search-list-item-h
-  //background yellowgreen
+  bottom 0
 .search-products
   padding 1%
   //background red
@@ -148,7 +148,7 @@ $g-search-list-fix-screen-bot-btn-h = 4rem//悬浮筛选列表底部按钮高度
     display flex
     flex-wrap wrap
     width 100vw
-    //padding 1% 1% $g-bot-bar-height 1%
+    padding 1%
     max-width $g-page-max-width
     li
       padding .25rem
@@ -197,7 +197,7 @@ $g-search-list-fix-screen-bot-btn-h = 4rem//悬浮筛选列表底部按钮高度
             color $g-fc-gray-l
 
   &.list-mode
-    //padding 1% 1% $g-bot-bar-height 1%
+    padding 1%
     li
       .item-inner
         position relative
