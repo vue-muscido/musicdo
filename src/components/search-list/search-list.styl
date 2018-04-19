@@ -139,9 +139,12 @@ $g-search-list-fix-screen-bot-btn-h = 4rem//悬浮筛选列表底部按钮高度
 
 .products
   position fixed
-  top $g-fix-bar-height + $g-search-list-item-h
+  //top $g-fix-bar-height + $g-search-list-item-h
+  top 0
   bottom 0
+  padding-top $g-fix-bar-height + $g-search-list-item-h
 .search-products
+  padding 1%
   &.bigpic-mode
     display flex
     flex-wrap wrap
@@ -251,6 +254,7 @@ $g-search-list-fix-screen-bot-btn-h = 4rem//悬浮筛选列表底部按钮高度
 
 .cube-scroll-wrapper
   //height 95vh - ($g-search-list-title-h + $g-search-list-title-h)
+  height calc(100vh - 8rem)
 .mask
   position fixed
   top 0
@@ -350,11 +354,11 @@ $g-search-list-fix-screen-bot-btn-h = 4rem//悬浮筛选列表底部按钮高度
           height 1.5rem
           bg-image("./img/dingwei")
   .btnbox
-    position fixed
-    right -100%
+    position absolute
+    right 0
     bottom 0
     height $g-search-list-fix-screen-bot-btn-h
-    width $g-search-list-fix-screen-w
+    width 100%
     >div
       width 50%
       position absolute
@@ -364,9 +368,9 @@ $g-search-list-fix-screen-bot-btn-h = 4rem//悬浮筛选列表底部按钮高度
       text-align center
       color $g-fc-white
       font-size $g-fs-md
-      .cancel-btn
-        left 0
-        background $g-search-list-fix-screen-cancel-btn-bgc
-      .ok-btn
-        right 0
-        background $g-search-list-fix-screen-ok-btn-bgc
+    .cancel-btn
+      left 0
+      background $g-search-list-fix-screen-cancel-btn-bgc
+    .ok-btn
+      right 0
+      background $g-search-list-fix-screen-ok-btn-bgc
