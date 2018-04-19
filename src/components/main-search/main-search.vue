@@ -3,8 +3,8 @@
     <div class="inner" >
       <div class="top-bar" >
         <form class="search-form" action="#" >
-          <input id="main-search-input"
-                 class="search-input"
+          <!--@submit.prevent="_toSearch(mainSearch.value)"-->
+          <input class="search-input"
                  ref="input"
                  v-model="mainSearch.value"
                  :placeholder="mainSearch.placeholder"
@@ -15,11 +15,9 @@
                  :autofocus="mainSearch.autofocus"
                  :autocomplete="mainSearch.autocomplete"
                  :clearable="mainSearch.clearable"
-                 @submit.prevent="_toSearch(mainSearch.value)"
                  @focus="_focus()"
-                 @keyup.13.prevent="_toSearch(mainSearch.value)"
-          >
-          <div class="search-icon"></div>
+                 @keyup.13.prevent="_toSearch(mainSearch.value)" >
+          <div class="search-icon" ></div >
         </form >
         <div class="search-btn" v-show="!showList" >
           <span @click="_toSearch(mainSearch.value)" >搜索</span >
@@ -32,7 +30,7 @@
         </div >
       </div >
       
-      <div class="quick-search">
+      <div class="quick-search" >
         <!--历史搜索 -begin -->
         <dl v-show="!showList" class="search-log" v-if="historyData.length" >
           <dt class="search-title" >
@@ -66,8 +64,7 @@
           </dd >
         </dl >
         <!--热门搜索 -end -->
-      </div>
-      
+      </div >
       <!--搜索列表 插件 -begin-->
       <!--传值到搜索列表子组件（搜索的keyword、要渲染的列表数据this.searchData、大图和列表模式this.listMode）-->
       <search-list
@@ -184,9 +181,7 @@
        this.listMode = !this.listMode
      }
    },
-   destroyed () {
-     //    console.log(this.mainSearch.value)
-   }
+   destroyed () {}
  }
 </script >
 

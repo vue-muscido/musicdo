@@ -19,13 +19,24 @@
       flex 100%
       padding-left 1rem
       .search-input
-        padding-left $g-padding-xl
+        position relative
+        padding-left $g-padding-xxl
         padding-right $g-padding-lg
         border-radius $g-search-inp-height
         width 100%
         height $g-search-inp-height
+        line-height $g-search-inp-height
         background $g-col-white-g
         font-size $g-fs-md
+      .search-icon
+        content ''
+        position absolute
+        left 2rem
+        top 50%
+        width $g-fs-md
+        height $g-fs-md
+        bg-image("./img/search")
+        transform translate3d(0,-50%,0)
     .msg-btn
       display flex
       flex-direction column

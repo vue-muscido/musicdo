@@ -69,7 +69,8 @@
           <cube-scroll
             ref="scroll"
             :data="searchData"
-            :options="options" >
+            :options="options"
+          >
 
             <!--<ul class="search-products list-mode">-->
             <ul class="search-products"
@@ -108,12 +109,12 @@
 
     </div >
     
-    <transition name="fade">
+    <transition name="fade" >
       <div class="mask" v-show="screening" @click="_screening(false)" ></div >
-    </transition>
+    </transition >
     
     
-    <transition name="slide">
+    <transition name="slide" >
       <div class="fix-screen-list" v-show="screening" >
         <div class="container" >
           <div class="row" >
@@ -282,7 +283,7 @@
           <div class="ok-btn" >确定</div >
         </div >
       </div >
-    </transition>
+    </transition >
     
     <loading v-show="isLoading" title="正在载入..." ></loading >
   </div >
@@ -300,6 +301,13 @@ export default {
           fade: true,
           nteractive: false // 1.8.0 新增
         }
+        //        pullUpLoad: {
+        //          threshold: 0,
+        //          txt: {
+        //            more: 'Load more',
+        //            noMore: 'No more data'
+        //          }
+        //        }
       },
       screenActIndex: 0,
       isSalesVolumeUp: false,
@@ -423,6 +431,28 @@ export default {
         path: '/goods-detail',
         query: {'goodsId': id}
       })
+    },
+    onPullingUp () {
+      setTimeout(() => {
+        if (Math.random() > 0.5) {
+          // 如果有新数据
+          //          let newPage = []
+          //          this.items = this.items.concat(newPage)
+          this.showAlert('刷新')
+        } else {
+          // 如果没有新数据
+          this.showAlert('无数据')
+          this.$refs.scroll.forceUpdate()
+        }
+      }, 1000)
+    },
+    showAlert (con) {
+      this.$createDialog({
+        type: 'alert',
+        title: '我是标题',
+        content: con,
+        icon: 'cubeic-alert'
+      }).show()
     }
   },
   watch: {
