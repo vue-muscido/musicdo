@@ -2,7 +2,12 @@
   <div class="home" >
     <div class="top-bar" >
       <form class="search-form" action="#" >
-        <input class="search-input" readonly placeholder="请输入要搜索的内容" type="text" @focus.stop.prevent="_focus()">
+        <input class="search-input"
+               readonly
+               placeholder="请输入要搜索的内容"
+               type="text"
+               @focus.prevent="_focus()">
+        <div class="search-icon"></div>
       </form >
       <div class="msg-btn">
         <img src="./img/xiaoxi@2x.png" />
