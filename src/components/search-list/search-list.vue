@@ -79,7 +79,7 @@
 
                   <div class="imgbox" ref="imgbox" >
                     <a >
-                      <img :src="getImg (item.SrcDetail)" ref="img" />
+                      <img v-lazy="getImg (item.SrcDetail)" ref="img" />
                     </a >
                   </div >
 
@@ -295,7 +295,12 @@ import loading from 'base/loading/loading'
 export default {
   data () {
     return {
-      options: {},
+      options: {
+        scrollbar: {
+          fade: true,
+          nteractive: false // 1.8.0 新增
+        }
+      },
       screenActIndex: 0,
       isSalesVolumeUp: false,
       isPriceUp: false,

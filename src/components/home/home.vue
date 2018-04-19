@@ -12,17 +12,16 @@
     <div class="scroll" >
       <cube-scroll
         ref="scroll"
-        :data="homeSecond" >
+        :data="homeSecond"
+        :options="options">
          <cube-slide
            class="cube-slider"
            v-if="slide.length"
            ref="slide"
-           :data="slide"
-           @change="_changePage" >
+           :data="slide">
           <cube-slide-item
             v-for="(item, index) in slide"
-            :key="index"
-            @click.native="_clickHandler(item, index)" >
+            :key="index">
             <a class="link" >
               <img class="slider-img" :src="getImg(item.ImgUrl)" >
             </a >
@@ -66,7 +65,13 @@ export default {
     return {
       homeFrist: [],
       homeSecond: [],
-      slide: []
+      slide: [],
+      options: {
+        scrollbar: {
+          fade: true,
+          nteractive: false // 1.8.0 新增
+        }
+      }
     }
   },
   components: {
