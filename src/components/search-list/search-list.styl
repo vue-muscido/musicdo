@@ -139,10 +139,8 @@ $g-search-list-fix-screen-bot-btn-h = 4rem//悬浮筛选列表底部按钮高度
 
 .products
   position fixed
-  //top $g-fix-bar-height + $g-search-list-item-h
-  top 0
+  top $g-fix-bar-height + $g-search-list-item-h
   bottom 0
-  padding-top $g-fix-bar-height + $g-search-list-item-h
   .imgbox
     >a
       display: flex;
@@ -261,7 +259,7 @@ $g-search-list-fix-screen-bot-btn-h = 4rem//悬浮筛选列表底部按钮高度
 
 .cube-scroll-wrapper
   //height 95vh - ($g-search-list-title-h + $g-search-list-title-h)
-  height calc(100vh - 8rem)
+  //height calc(100vh - 8rem)
 .mask
   position fixed
   top 0
