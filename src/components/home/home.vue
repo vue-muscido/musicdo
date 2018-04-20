@@ -57,7 +57,6 @@
             </div >
           </div >
         </div>
-
       </cube-scroll >
     </div >
     <loading v-show="!homeSecond.length" title="正在载入..." ></loading >
