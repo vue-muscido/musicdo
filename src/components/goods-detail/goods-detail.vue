@@ -19,7 +19,8 @@
       <div class="scroll">
         <cube-scroll
           ref="scroll"
-          :data="slide">
+          :data="slide"
+          :options="options">
           <!-- 商品图片 -->
           <div class="goods-img" >
             <div v-if="!slide.length" class="img-loading">
@@ -58,6 +59,10 @@
             <div class="about-item goods-count" >月销:{{goodsData.SaleCount}}</div >
             <div v-show="goodsData.ProducingArea" class="about-item goods-area" >{{goodsData.ProducingArea}}</div >
           </div >
+          <!-- 其他 -->
+          <div class="others">
+            商品详情~
+          </div>
         </cube-scroll>
       </div>
       <!-- 底部操作按钮 -->
@@ -94,7 +99,13 @@ export default {
       goodsId: '',
       goodsData: [],
       slide: [],
-      loopFlag: true
+      loopFlag: true,
+      options: {
+        scrollbar: {
+          fade: true,
+          nteractive: false // 1.8.0 新增
+        }
+      }
     }
   },
   created () {
@@ -241,6 +252,9 @@ export default {
         text-align center
         font-size $g-fs-normal
         color $g-fc-gray
+    .others
+      padding 1.5rem
+      height 400px
   .bottom-bar-action
     max-width $g-page-max-width
     display flex
