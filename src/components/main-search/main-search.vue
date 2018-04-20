@@ -112,7 +112,6 @@
    },
    created () {
      this._historyDataInit()
-     //     this.mainSearch.value = this.$route.query.keyword === '' ? '' : this.$route.query.keyword
    },
    methods: {
      // 初始化历史搜索
@@ -160,19 +159,6 @@
          }
        })
      },
-     // 路由跳转
-     //    _submit (keyword) {
-     //      this.$router.push({
-     //        path: `/search-list`,
-     //        query: {'keyword': keyword}
-     //      })
-     //      let productData = {} // 定义一个空对象
-     //      productData.keyword = keyword // 定义此对象的 keyword
-     //      this.showList = true
-     //      this.historyData = this._historyDataSet(keyword) // 设置历史搜索
-     //      this._localSave('historySearch', this.historyData) // 保存本地数据
-     //      this.mainSearch.value = keyword
-     //    },
      _focus () {
        // 显示历史搜索、热门搜索、搜索按钮，隐藏搜索列表子组件、大图和列表切换按钮
        this.showList = false
