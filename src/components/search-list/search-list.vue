@@ -279,13 +279,17 @@
           </div >
         </div >
         <div class="btnbox" >
-          <div class="cancel-btn" @click="_cancel()" >取消</div >
-          <div class="ok-btn" @click="_ok()" >确定</div >
+          <div class="cancel-btn" @click="confirmScreen(false)" >取消</div >
+          <div class="ok-btn" @click="confirmScreen(true)" >确定</div >
         </div >
       </div >
     </transition >
     
     <loading v-show="isLoading" title="正在载入..." ></loading >
+    <!--<cube-popup type="my-popup" :center="false" ref="tipsPopup" >-->
+    <!--{{popupText}}-->
+    <!--</cube-popup >-->
+    <!--<cube-button @click="showToastType">Toast - type</cube-button>-->
   </div >
 </template >
 
@@ -304,8 +308,8 @@ export default {
         pullUpLoad: {
           threshold: 0,
           txt: {
-            more: '加载更多' + this.searchKeyword + '相关',
-            noMore: '已无更多' + this.searchKeyword + '相关'
+            more: '加载更多' + this.searchKeyword + '相关'
+            //            noMore: '已无更多' + this.searchKeyword + '相关'
           }
         }
       },
@@ -325,7 +329,9 @@ export default {
         pageIndex: 1,
         pageSize: 20
       },
-      isLoading: false
+      isLoading: false,
+      popupText: '已无更多',
+      imgW: 0
     }
   },
   // 接收父组件传入的值
@@ -347,17 +353,12 @@ export default {
     loading
   },
   created () {
-    //    console.log(this.searchData)
-    //    this._toSearch('')
-    console.log(this.searchKeyword)
-    console.log(this.searchData)
-    console.log(this.listMode)
     this.setImgHeight()
   },
   updated () {},
   mounted () {},
   methods: {
-    _toSearch (productData) { // 传入参数
+    _toSearch (productData) { // 搜索
       this.isLoading = true
       productData.keyword = this.searchKeyword
       searchProduct(productData).then((res) => { // 传入参数
@@ -368,7 +369,7 @@ export default {
         }
       })
     },
-    _GetBrandAndCategoryByKeyword () {
+    _GetBrandAndCategoryByKeyword () { // TODO 接口暂时无用 筛选项目
       let params = {
         type: 2,
         content: this.searchKeyword
@@ -379,21 +380,23 @@ export default {
         }
       })
     },
-    getImg (img) {
+    getImg (img) { // 请求的图片路径补全
       return LOCAL_HOST + img
     },
-    setImgHeight () {
+    getImgWidth () {
+      this.imgW = this.$refs.img[0].clientWidth
+      return this.imgW
+    },
+    setImgHeight () { // 设置图片宽高
       this.$nextTick(function () {
-        console.log(this.$refs.imgbox)
-        this.$refs.imgbox.forEach(function (v, k) {
-          // TODO - 设置图片宽高相等
-          //          console.log(v.clientWidth)
-          //          console.log(v.clientHeight)
-          //          console.log(k)
+        let that = this.$refs.img
+        let imgWidth = this.getImgWidth()
+        this.$refs.img.forEach(function (v, k) {
+          that[k].style.height = imgWidth + 'px'
         })
       })
     },
-    isAct (index) { // 选中状态
+    isAct (index) { // 选中状态（点击综合，价格，销量，筛选等按钮的选中状态）
       this.screenActIndex = index
       if (this.screenActIndex === 1) { // 销量
         this._isSalesVolumeUp(this.isSalesVolumeUp)
@@ -408,7 +411,9 @@ export default {
         })
       }
     },
-    _isSalesVolumeUp (flag) { // 销量排序
+    _isSalesVolumeUp (flag) { // 销量排序（传入true-排序为4，传入false-排序为3）
+      //        销量升序 = 3,
+      //        销量降序 = 4
       if (flag) {
         this._toSearch({
           sort: 4,
@@ -427,7 +432,9 @@ export default {
       this.isSalesVolumeUp = !flag
       this.isPriceUp = false
     },
-    _isPriceUp (flag) { // 价格排序
+    _isPriceUp (flag) { // 价格排序（传入true-排序为2，传入false-排序为1）
+      //        价格升序 = 1,
+      //        价格降序 = 2,
       if (flag) {
         this._toSearch({
           sort: 2,
@@ -446,62 +453,68 @@ export default {
       this.isPriceUp = !flag
       this.isSalesVolumeUp = false
     },
-    _screening (flag) { // TODO 筛选框
-      console.log(this.searchData)
-      console.log(2222222222222)
-      this._GetBrandAndCategoryByKeyword()
+    _screening (flag) { // （传入true-显示，传入false-隐藏）
       if (flag) {
+        this._GetBrandAndCategoryByKeyword() // TODO 接口无法获取数据
         this.screening = true
       } else {
         this.screening = false
       }
     },
-    gotoDetail (id) {
+    gotoDetail (id) { // 跳转详情页
       this.$router.push({
         path: '/goods-detail',
         query: {'goodsId': id}
       })
     },
-    onPullingUp () {
+    onPullingUp () { // 上拉加载
       this._toSearch({
         sort: this.sortType,
-        pageSize: this.setItemLen(10)
+        pageSize: this.addItemLen(10)
       })
       setTimeout(() => {
+        console.log(this.retSearchData)
         this.$refs.scroll.forceUpdate()
       }, 1000)
     },
-    showAlert (con) {
-      this.$createDialog({
-        type: 'alert',
-        title: '我是标题',
-        content: con,
-        icon: 'cubeic-alert'
-      }).show()
-    },
-    setItemLen (n) {
+    addItemLen (n) { // 添加上拉加载个数（传入n-每次额外添加的个数）
       let len = this.retSearchData.length
       let addLen = len + n
       return addLen
     },
-    _cancel () {
-      this.screenData = {
-        price_min: '',
-        price_max: ''
+    confirmScreen (flag) { // 筛选确认按钮（传入true-确定，传入false-取消）
+      if (flag) {
+        console.log(this.screenData)
+        this._toSearch(this.screenData)
+      } else {
+        this.screenData = {
+          price_min: '',
+          price_max: ''
+        }
       }
       this.screening = false
     },
-    _ok () {
-      console.log(this.screenData)
-      this._toSearch(this.screenData)
-      this.screening = false
+    showToast () { // 提示
+      const toast = this.$createToast({
+        txt: this.popupText,
+        type: 'correct',
+        time: 1000
+      })
+      toast.show()
     }
   },
   watch: {
-    retSearchData (val) {
-      this.retSearchData = val
-      console.log(this.retSearchData)
-      console.log('searchData is change')
+    retSearchData (newVal, oldVal) {
+      if (newVal.length === oldVal.length) {
+        this.showToast()
+      } else {
+        console.log('nonono')
+        this.retSearchData = newVal
+      }
+    },
+    listMode (val) {
+      this.getImgWidth()
+      this.setImgHeight()
     }
   },
   computed: {},
