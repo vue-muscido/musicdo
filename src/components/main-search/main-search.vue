@@ -167,7 +167,14 @@
        this.listMode = !this.listMode
      }
    },
-   destroyed () {}
+   destroyed () {
+
+   },
+   watch: {
+     '$route' () {
+       this.$refs.scroll.refresh()
+     }
+   }
  }
 </script >
 

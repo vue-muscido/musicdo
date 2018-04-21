@@ -120,6 +120,11 @@ export default {
   },
   components: {
     loading
+  },
+  watch: {
+    '$route' () {
+      this.$refs.scroll.refresh()
+    }
   }
 }
 </script >
