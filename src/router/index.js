@@ -7,6 +7,8 @@ import Sort from 'components/sort/sort' // 分类页组件
 import Cart from 'components/cart/cart' // 购物车组件
 import User from 'components/user/user' // 用户中心组件
 
+import UserSignIn from 'components/user-sign-in/user-sign-in' // 用户登录组件
+
 import MainSearch from 'components/main-search/main-search' // 搜索页
 import SearchList from 'components/search-list/search-list' // 搜索列表Ω
 
@@ -39,6 +41,10 @@ export default new Router({
     {
       path: '/user',
       component: User
+    },
+    {
+      path: '/user-sign-in',
+      component: UserSignIn
     },
     {
       path: '/main-search',
