@@ -89,8 +89,8 @@
                       <a >{{item.Name}}</a >
                     </p >
                     <div class="price" >
-                      <span >￥</span ><span class="int-num" >{{item.MemberPrice}}.</span ><span
-                      class="fl-num" >00</span >
+                      <span >￥</span ><span class="int-num" >{{item.MemberPrice.toFixed(2)}}</span >
+                      <!--<span class="fl-num" >00</span >-->
                     </div >
                     <div class="sales" >
                       <span >月销售<span class="sales-num" >{{item.Score}}</span ></span >
@@ -108,12 +108,12 @@
       </dl >
 
     </div >
-    
+
     <transition name="fade" >
       <div class="mask" v-show="screening" @click="_screening(false)" ></div >
     </transition >
-    
-    
+
+
     <transition name="slide" >
       <div class="fix-screen-list" v-show="screening" >
         <div class="container" >
@@ -126,13 +126,13 @@
                   <input type="number" placeholder="最低价" v-model="screenData.price_min" />
                 </div >
                 <span >-</span >
-  
+
                 <div class="input-box" >
                   <input type="number" placeholder="最高价" v-model="screenData.price_max" />
                 </div >
               </dd >
             </dl >
-  
+
             <dl class="sort-item" >
               <dt ><h3 >品牌</h3 ><div class="obtn" ></div ></dt >
               <dd >
@@ -264,7 +264,7 @@
             <!--</ul>-->
             <!--</dd>-->
             <!--</dl>-->
-  
+
             <dl class="sort-item" >
               <dt ><h3 >发货地</h3 ><div class="obtn" ></div ></dt >
               <dd class="sort-item-address" >
@@ -275,7 +275,7 @@
                 <span class="reset-address" ></span >
               </dd >
             </dl >
-  
+
           </div >
         </div >
         <div class="btnbox" >
@@ -284,7 +284,7 @@
         </div >
       </div >
     </transition >
-    
+
     <loading v-show="isLoading" title="正在载入..." ></loading >
     <!--<cube-popup type="my-popup" :center="false" ref="tipsPopup" >-->
     <!--{{popupText}}-->
@@ -308,8 +308,8 @@ export default {
         pullUpLoad: {
           threshold: 0,
           txt: {
-            more: '加载更多' + this.searchKeyword + '相关'
-            //            noMore: '已无更多' + this.searchKeyword + '相关'
+            more: '加载更多' + this.searchKeyword + '相关',
+            noMore: '加载完成'
           }
         }
       },
@@ -317,6 +317,7 @@ export default {
       isSalesVolumeUp: false,
       isPriceUp: false,
       screening: false,
+      isScroll: false,
       retSearchData: this.searchData,
       sortType: 2,
       screenData: {
@@ -331,7 +332,7 @@ export default {
       },
       isLoading: false,
       popupText: '已无更多',
-      imgW: 0
+      ImgSize: 0
     }
   },
   // 接收父组件传入的值
@@ -353,7 +354,8 @@ export default {
     loading
   },
   created () {
-    this.setImgHeight()
+    this.setImgSize()
+    this.watchAPPresize()
   },
   updated () {},
   mounted () {},
@@ -383,28 +385,49 @@ export default {
     getImg (img) { // 请求的图片路径补全
       return LOCAL_HOST + img
     },
-    getImgWidth () {
-      this.imgW = this.$refs.img[0].clientWidth
-      return this.imgW
+    getImgSize () {
+      if (this.listMode) {
+        this.ImgSize = this.$refs.img[0].clientWidth
+        console.log(this.ImgSize)
+        return this.ImgSize
+      } else {
+        this.ImgSize = this.$refs.img[0].clientWidth
+        console.log(this.ImgSize)
+        return this.ImgSize
+      }
     },
-    setImgHeight () { // 设置图片宽高
+    setImgSize () { // 设置图片宽高
       this.$nextTick(function () {
         let that = this.$refs.img
-        let imgWidth = this.getImgWidth()
-        this.$refs.img.forEach(function (v, k) {
-          that[k].style.height = imgWidth + 'px'
-        })
+        if (this.listMode) {
+          let setSize = this.getImgSize()
+          this.$refs.img.forEach(function (v, k) {
+            that[k].style.height = setSize + 'px'
+            // that[k].style.width = '100%'
+            that[k].style.width = ''
+          })
+        } else {
+          let setSize = this.getImgSize()
+          this.$refs.img.forEach(function (v, k) {
+            that[k].style.height = setSize + 'px'
+            that[k].style.width = '100%'
+          })
+        }
       })
     },
     isAct (index) { // 选中状态（点击综合，价格，销量，筛选等按钮的选中状态）
       this.screenActIndex = index
       if (this.screenActIndex === 1) { // 销量
+        this.isScroll = false
         this._isSalesVolumeUp(this.isSalesVolumeUp)
       } else if (this.screenActIndex === 2) { // 价格
+        this.isScroll = false
         this._isPriceUp(this.isPriceUp)
       } else if (this.screenActIndex === 3) { // 开启悬浮筛选框
+        this.isScroll = false
         this._screening(true)
       } else { // 综合
+        this.isScroll = false
         this._toSearch({
           sort: 4,
           pageSize: this.retSearchData.length
@@ -468,6 +491,7 @@ export default {
       })
     },
     onPullingUp () { // 上拉加载
+      this.isScroll = true
       this._toSearch({
         sort: this.sortType,
         pageSize: this.addItemLen(10)
@@ -484,8 +508,15 @@ export default {
     },
     confirmScreen (flag) { // 筛选确认按钮（传入true-确定，传入false-取消）
       if (flag) {
-        console.log(this.screenData)
-        this._toSearch(this.screenData)
+        if (this.screenData.price_min !== '' || this.screenData.price_min !== '') {
+          console.log(this.screenData)
+          this._toSearch(this.screenData)
+        } else {
+          this.screenData = {
+            price_min: '',
+            price_max: ''
+          }
+        }
       } else {
         this.screenData = {
           price_min: '',
@@ -501,20 +532,31 @@ export default {
         time: 1000
       })
       toast.show()
+    },
+    watchAPPresize () {
+      window.addEventListener('resize', () => {
+        this.getImgSize()
+        this.setImgSize()
+      })
     }
   },
   watch: {
     retSearchData (newVal, oldVal) {
-      if (newVal.length === oldVal.length) {
+      if (newVal.length === oldVal.length && this.isScroll) {
         this.showToast()
+        this.options.pullUpLoad.txt.noMore = '已无更多'
       } else {
-        console.log('nonono')
         this.retSearchData = newVal
+        // this.options.pullUpLoad.txt.noMore = '上拉加载'
       }
+      this.getImgSize()
+      this.setImgSize()
     },
     listMode (val) {
-      this.getImgWidth()
-      this.setImgHeight()
+      console.log(this.listMode)
+      console.log(val)
+      this.getImgSize()
+      this.setImgSize()
     }
   },
   computed: {},
