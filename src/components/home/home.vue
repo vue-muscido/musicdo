@@ -41,22 +41,22 @@
                 <div class="title-more" >
                   更多
                 </div >
-                <div class="list-box" >
-                  <div v-for="(goods, index) in list._List" :key="index" class="goods-box" >
-                    <div class="goods-content" @click="gotoDetail(goods.ID)" >
-                      <div class="goods-img-box" >
-                        <img class="goods-img" v-lazy="getImg(goods.SrcDetail)" alt="" >
-                      </div >
-                      <div class="goods-title" >
-                        <h2 >{{goods.Name}}</h2 >
-                      </div >
+              </div >
+              <div class="list-box" >
+                <div v-for="(goods, index) in list._List" :key="index" class="goods-box" >
+                  <div class="goods-content" @click="gotoDetail(goods.ID)" >
+                    <div class="goods-img-box" >
+                      <img class="goods-img" v-lazy="getImg(goods.SrcDetail)" alt="" >
+                    </div >
+                    <div class="goods-title" >
+                      <h2 >{{goods.Name}}</h2 >
                     </div >
                   </div >
                 </div >
               </div >
             </div >
           </div >
-        </div>
+        </div >
       </cube-scroll >
     </div >
     <loading v-show="!homeSecond.length" title="正在载入..." ></loading >
@@ -80,9 +80,6 @@ export default {
         }
       }
     }
-  },
-  components: {
-    loading
   },
   created () {
     this._getHomeFirst()
@@ -120,6 +117,9 @@ export default {
         path: '/main-search'
       })
     }
+  },
+  components: {
+    loading
   }
 }
 </script >

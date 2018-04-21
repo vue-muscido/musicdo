@@ -5,7 +5,7 @@
         <router-view class="router-view" ></router-view >
       </keep-alive >
     </transition >
-    <tab v-if="true"></tab >
+    <tab v-show="tabFlag"></tab >
   </div >
 </template >
 
@@ -16,6 +16,7 @@ export default {
   name: 'app',
   data () {
     return {
+      tabFlag: true,
       transitionName: 'fade'
       //      rfontSiz: 0 || document.getElementsByTagName('html')[0].style.fontSize
     }
@@ -42,6 +43,11 @@ export default {
       const toDepth = to.path.split('/')
       const fromDepth = from.path.split('/')
       this.transitionName = toDepth[1] === 'goods-detail' ? 'slide' : 'fade'
+      if (toDepth[1] === 'goods-detail' || toDepth[1] === 'main-search') {
+        this.tabFlag = false
+      } else {
+        this.tabFlag = true
+      }
       if (toDepth[1] === 'goods-detail') {
         this.transitionName = 'slideIn'
         return

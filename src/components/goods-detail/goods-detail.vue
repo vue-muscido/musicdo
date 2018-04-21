@@ -16,15 +16,13 @@
         </div >
       </div >
       <!-- 滚动 -->
-      <div class="scroll">
+      <div v-if="slide.length" class="scroll">
         <cube-scroll
           ref="scroll"
           :data="slide"
           :options="options">
           <!-- 商品图片 -->
           <div class="goods-img" >
-            <div v-if="!slide.length" class="img-loading">
-            </div>
             <cube-slide
               :loop="loopFlag"
               class="cube-slider"
@@ -35,7 +33,7 @@
                 v-for="(item, index) in slide"
                 :key="index">
                 <a class="link" >
-                  <img class="slider-img" :src="getImg(item)" >
+                  <img style="width 100% " class="slider-img" :src="getImg(item)" >
                 </a >
               </cube-slide-item >
             </cube-slide >
@@ -86,6 +84,8 @@
           <div class="btn-action btn-buy" >立即购买</div >
         </div >
       </div>
+      <!-- loading -->
+      <loading v-show="!slide.length" title="正在载入..." ></loading >
 		</div>
 	</transition >
 </template >
@@ -93,11 +93,12 @@
 <script type="text/ecmascript-6" >
 import { getProductDetail } from 'api/goodsDetail'
 import { LOCAL_HOST } from 'api/config'
+import loading from 'base/loading/loading'
 export default {
   data () {
     return {
       goodsId: '',
-      goodsData: [],
+      goodsData: {},
       slide: [],
       loopFlag: true,
       options: {
@@ -135,10 +136,14 @@ export default {
   },
   beforeDestroy () {
   },
+  components: {
+    loading
+  },
   watch: {
     '$route' (to, from) {
       const toDepth = to.path.split('/')
       if (toDepth[1] === 'goods-detail') {
+        this.goodsData = {}
         this.slide = []
       }
       this.goodsId = this.$route.query.goodsId
@@ -196,19 +201,18 @@ export default {
   .scroll
     position fixed
     width 100%
-    top 4rem
-    bottom 4.5rem
+    max-width $g-page-max-width
+    top $g-fix-bar-height
+    bottom $g-bot-bar-height
     .goods-img
       border-bottom 1px solid $g-brc-default
-      .img-loading
-      	width 100%
-      	height 32rem
-      	bg-image("img/default")
       .cube-slider
         width 100%
         height 100%
         .slider-img
           width 100%
+          height auto
+          max-width $g-page-max-width
     .goods-title
       display flex
       padding 1.5rem
