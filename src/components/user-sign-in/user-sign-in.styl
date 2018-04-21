@@ -1,0 +1,33 @@
+@import '~common/stylus/variable.styl'
+@import '~common/stylus/mixin.styl'
+.user-sign-in
+  background red
+  .logo-bar
+    background yellow
+    width 100%
+    height 21rem
+    .logo
+      position relative
+      top 9rem
+      margin 0 auto
+      width 10rem
+      height 4.5rem
+      bg-image('./img/logo',100% 100%)
+  .input-bar
+    background skyblue
+    width 100%
+    padding 0 1rem 1rem
+.input-account
+  .cube-input-clear,
+  .cube-input-eye
+    position absolute
+    right 1rem
+    top 50%
+    padding 0
+    margin 0
+    width auto
+    height auto
+    line-height 1
+    color #999
+    transform translate3d(0,-50%,0)
+    background red

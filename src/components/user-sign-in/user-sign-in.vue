@@ -3,8 +3,20 @@
     <div class="logo-bar" >
       <div class="logo" ></div >
     </div >
-    
+
     <div class="input-bar">
+      <!--<input class="input-account"-->
+             <!--v-model="userAccount.value"-->
+             <!--:placeholder="userAccount.placeholder"-->
+             <!--:type="userAccount.type"-->
+             <!--:maxlength="userAccount.maxlength"-->
+             <!--:readonly="userAccount.readonly"-->
+             <!--:disabled="userAccount.disabled"-->
+             <!--:autofocus="userAccount.autofocus"-->
+             <!--:autocomplete="userAccount.autocomplete"-->
+             <!--:clearable="userAccount.clearable"-->
+             <!--@input="accountInput()"/>-->
+
       <cube-input
         class="input-account"
         v-model="userAccount.value"
@@ -18,7 +30,19 @@
         :clearable="userAccount.clearable"
         @input="accountInput()"
       ></cube-input >
-      
+
+      <!--<input class="input-passward"-->
+             <!--v-model="userPassword.value"-->
+             <!--:placeholder="userPassword.placeholder"-->
+             <!--:type="userPassword.type"-->
+             <!--:maxlength="userPassword.maxlength"-->
+             <!--:readonly="userPassword.readonly"-->
+             <!--:disabled="userPassword.disabled"-->
+             <!--:autofocus="userPassword.autofocus"-->
+             <!--:autocomplete="userPassword.autocomplete"-->
+             <!--:clearable="userPassword.clearable"-->
+             <!--:eye="userPassword.eye"/>-->
+
       <cube-input
         class="input-passward"
         v-model="userPassword.value"
@@ -33,7 +57,7 @@
         :eye="userPassword.eye"
       ></cube-input >
     </div>
-    
+
     <div class="quick-bar">
       <div>
         短信快速登录
@@ -42,19 +66,19 @@
         忘记密码
       </div>
     </div>
-    
+
     <div class="btn-bar">
       登录
     </div>
-    
+
     <div class="new-account-bar">
       注册新账号
     </div>
-    
+
     <div class="other-way-bar">
       其他登陆
     </div>
-    
+
   </div >
 </template >
 
@@ -130,6 +154,5 @@ export default {
 </script >
 
 <style scoped lang="stylus" rel="stylesheet/stylus" >
-.user-sign-in
-  background red
+@import 'user-sign-in.styl'
 </style >
