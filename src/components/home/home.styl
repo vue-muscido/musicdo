@@ -65,7 +65,39 @@
 		.slider-img
 			width 100%
 			height auto
+	.brand-container
+		background-color $g-bgc-con
+		.brand-more
+			padding 1.2rem 1.5rem
+			.con
+				border-left 0.3rem solid $g-fc-red-tit
+				display flex
+				justify-content space-between
+				bg-image("img/jiantou", 0.6rem)
+				background-position center right
+				.title
+					padding 0 0.75rem
+					font-size 1.5rem
+					line-height 1.5rem
+					color $g-fc-red-tit
+				.btn-more
+					padding 0 1rem
+					line-height 1.5rem
+					font-size 1.3rem
+					color $g-fc-gray
+		.brand-list
+			display flex
+			flex-wrap wrap
+			padding 0 1.25rem
+			.brand
+				flex 20% 0 0
+				padding 0 0.25rem 1rem
+				width 25%
+				img
+					width 100%
+					border 1px solid $g-brc-default
 	.goods-list-container
+		padding-top $g-margin-sm
 		.goods-item-list
 			vertical-align top
 			margin-bottom 0.5rem
@@ -97,7 +129,7 @@
 				font-size 1.3rem
 				height 1.5rem
 				line-height 1.5rem
-				color #666
+				color $g-fc-gray
 				bg-image("img/jiantou", 0.6rem)
 				background-position center right
 		.list-box
@@ -111,15 +143,38 @@
 			.goods-content
 				vertical-align top
 				box-sizing border-box
-				border 1px solid #f3f3f3
+				border 1px solid $g-brc-default
 				width 100%
 				.goods-img-box
 					width 100%
 					.goods-img
 						width 100%
+						height auto
 				.goods-title
-					height 2rem
-					line-height 1rem
-					more-wrap()
+					padding 0.75rem 0.75rem 1.5rem
+					h2
+						font-size $g-fs-md
+						height 3rem
+						line-height 1.5rem
+						color $g-fc-black
+						more-wrap()
+				.goods-action
+					display flex
+					justify-content space-between
+					padding 0 0.75rem 1rem
+					.goods-price 
+						height 1.5rem
+						line-height 1.5rem
+						font-family $g-ff-ap
+						font-weight 500
+						font-size $g-fs-sm
+						color $g-fc-red-price
+						span
+							font-size $g-fs-lg
+							font-weight 500
+					.goods-buy
+						width 1.5rem
+						height 1.5rem
+						bg-image("img/che", 1.5rem)
 
 
