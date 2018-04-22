@@ -51,6 +51,12 @@
                     <div class="goods-title" >
                       <h2 >{{goods.Name}}</h2 >
                     </div >
+                    <div class="goods-action">
+                      <div class="goods-price">
+                        ¥<span>{{goods.MarketPrice}}</span>.00
+                      </div>
+                      <div class="goods-buy"></div>
+                    </div>
                   </div >
                 </div >
               </div >

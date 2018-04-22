@@ -15,7 +15,7 @@
           <span class="icon-cart" ></span >
         </div >
       </div >
-      <!-- 滚动 -->
+      <!-- 滚动部分-->
       <div v-if="slide.length" class="scroll">
         <cube-scroll
           ref="scroll"
@@ -57,9 +57,22 @@
             <div class="about-item goods-count" >月销:{{goodsData.SaleCount}}</div >
             <div v-show="goodsData.ProducingArea" class="about-item goods-area" >{{goodsData.ProducingArea}}</div >
           </div >
-          <!-- 其他 -->
+          <!-- 选择分类 -->
+          <div class="classify">
+            <div class="con">
+              分类
+              <span>选择分类</span> 
+            </div>
+          </div>
+          <!-- 选择参数 -->
+          <div class="parameter">
+            <div class="con">
+              参数
+            </div>
+          </div>
+          <!-- others -->
           <div class="others">
-            商品详情~
+            商品详情～
           </div>
         </cube-scroll>
       </div>
@@ -158,6 +171,7 @@ export default {
 @import '~common/stylus/mixin.styl'
 .goods-detail
   overflow-x hidden
+  // 顶栏
   .top-bar-select
     max-width $g-page-max-width
     display flex
@@ -198,6 +212,7 @@ export default {
     .active
       border-bottom 0.2rem solid $g-col-red
       color $g-col-red
+  //滚动部分
   .scroll
     position fixed
     width 100%
@@ -249,16 +264,33 @@ export default {
       display flex
       justify-content space-between
       padding $g-padding-lg
-      border-bottom 1px solid $g-brc-default
       background-color $g-bgc-con
       .about-item
         align-item center
         text-align center
         font-size $g-fs-normal
         color $g-fc-gray
+    .classify
+      padding $g-padding-lg
+      border-top 1px solid $g-brc-default
+      background-color $g-bgc-con
+    .parameter
+      padding $g-padding-lg
+      border-top 1px solid $g-brc-default
+      background-color $g-bgc-con
+    .con
+      bg-image("img/jiantou", 0.6rem)
+      background-position center right  
+      font $g-fs-normal $g-ff-ap
+      color $g-fc-normal
+      span 
+        padding-left 2.25rem
+        font $g-fs-md $g-ff-ap
+        color $g-fc-black
     .others
       padding 1.5rem
       height 400px
+  // 底部操作按钮
   .bottom-bar-action
     max-width $g-page-max-width
     display flex

@@ -21,7 +21,7 @@ export default {
     position fixed
     z-index $g-zindex-mask
     padding-top 50%
-    top 0
+    top $g-fix-bar-height
     left 0
     bottom $g-bot-bar-height
     width 100%
