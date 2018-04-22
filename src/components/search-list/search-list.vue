@@ -10,7 +10,7 @@
               <li class="comprehensive" @click="isAct(0)" >
                 <span class="tit"
                       :class="screenActIndex == 0?'act':''"
-                >综合{{retSearchData.length}}</span >
+                >综合({{retSearchData.length}})</span >
                 <i >
                   <img src="" />
                 </i >
@@ -133,137 +133,35 @@
               </dd >
             </dl >
 
-            <dl class="sort-item" >
+            <dl class="sort-item" v-if="screenBrandsData.length" >
               <dt ><h3 >品牌</h3 ><div class="obtn" ></div ></dt >
               <dd >
                 <ul class="" >
-                  <li class="act" >
-                    <a >博兰斯勒勒勒勒勒勒勒勒勒勒勒勒勒勒</a >
-                  </li >
-                  <li >
-                    <a >雅马哈哈哈哈哈哈哈哈</a >
-                  </li >
-                  <li >
-                    <a >欧米勒勒勒勒</a >
-                  </li >
-                  <li >
-                    <a >博兰斯勒</a >
-                  </li >
-                  <li >
-                    <a >雅马哈</a >
-                  </li >
-                  <li >
-                    <a >欧米勒</a >
+                  <li
+                    :class="screenBrandActIndex === index?'act':''"
+                    v-for="(item,index) in screenBrandsData"
+                    :key="index"
+                    @click="isBrandAct(index,item.ID)" >
+                    <a >{{item.Name}}</a >
                   </li >
                 </ul >
               </dd >
             </dl >
-            <!--<dl class="sort-item">-->
-            <!--<dt><h3>款式</h3><div class="obtn"></div></dt>-->
-            <!--<dd>-->
-            <!--<ul class="">-->
-            <!--<li>-->
-            <!--<a>立式</a>-->
-            <!--</li>-->
-            <!--<li>-->
-            <!--<a>三角式</a>-->
-            <!--</li>-->
-            <!--<li>-->
-            <!--<a>便携式</a>-->
-            <!--</li>-->
-            <!--</ul>-->
-            <!--</dd>-->
-            <!--</dl>-->
-            <!--<dl class="sort-item">-->
-            <!--<dt><h3>键数</h3><div class="obtn"></div></dt>-->
-            <!--<dd>-->
-            <!--<ul class="">-->
-            <!--<li>-->
-            <!--<a>88键</a>-->
-            <!--</li>-->
-            <!--<li>-->
-            <!--<a>108键</a>-->
-            <!--</li>-->
-            <!--<li>-->
-            <!--<a>128键</a>-->
-            <!--</li>-->
-            <!--</ul>-->
-            <!--</dd>-->
-            <!--</dl>-->
-            <!--<dl class="sort-item">-->
-            <!--<dt><h3>高度</h3><div class="obtn"></div></dt>-->
-            <!--<dd>-->
-            <!--<ul class="">-->
-            <!--<li>-->
-            <!--<a>1m</a>-->
-            <!--</li>-->
-            <!--<li>-->
-            <!--<a>1.2m</a>-->
-            <!--</li>-->
-            <!--<li>-->
-            <!--<a>1.25m</a>-->
-            <!--</li>-->
-            <!--<li>-->
-            <!--<a>1.5m</a>-->
-            <!--</li>-->
-            <!--</ul>-->
-            <!--</dd>-->
-            <!--</dl>-->
-            <!--<dl class="sort-item">-->
-            <!--<dt><h3>适用对象</h3><div class="obtn"></div></dt>-->
-            <!--<dd>-->
-            <!--<ul class="">-->
-            <!--<li>-->
-            <!--<a>初学者</a>-->
-            <!--</li>-->
-            <!--<li>-->
-            <!--<a>家庭教学</a>-->
-            <!--</li>-->
-            <!--<li>-->
-            <!--<a>专业演奏</a>-->
-            <!--</li>-->
-            <!--</ul>-->
-            <!--</dd>-->
-            <!--</dl>-->
-            <!--<dl class="sort-item">-->
-            <!--<dt><h3>折扣服务</h3><div class="obtn"></div></dt>-->
-            <!--<dd>-->
-            <!--<ul class="">-->
-            <!--<li>-->
-            <!--<a>包邮</a>-->
-            <!--</li>-->
-            <!--<li>-->
-            <!--<a>积分</a>-->
-            <!--</li>-->
-            <!--</ul>-->
-            <!--</dd>-->
-            <!--</dl>-->
-            <!--<dl class="sort-item">-->
-            <!--<dt><h3>折扣服务</h3><div class="obtn"></div></dt>-->
-            <!--<dd>-->
-            <!--<ul class="">-->
-            <!--<li>-->
-            <!--<a>包邮</a>-->
-            <!--</li>-->
-            <!--<li>-->
-            <!--<a>积分</a>-->
-            <!--</li>-->
-            <!--</ul>-->
-            <!--</dd>-->
-            <!--</dl>-->
-            <!--<dl class="sort-item">-->
-            <!--<dt><h3>折扣服务</h3><div class="obtn"></div></dt>-->
-            <!--<dd>-->
-            <!--<ul class="">-->
-            <!--<li>-->
-            <!--<a>包邮</a>-->
-            <!--</li>-->
-            <!--<li>-->
-            <!--<a>积分</a>-->
-            <!--</li>-->
-            <!--</ul>-->
-            <!--</dd>-->
-            <!--</dl>-->
+
+            <dl class="sort-item" v-if="screenCategoryData.length" >
+              <dt ><h3 >类别</h3 ><div class="obtn" ></div ></dt >
+              <dd >
+                <ul class="" >
+                  <li
+                    :class="screenCategoryActIndex === index?'act':''"
+                    v-for="(item,index) in screenCategoryData"
+                    :key="index"
+                    @click="isCategoryAct(index,item.ID)" >
+                    <a >{{item.Name}}</a >
+                  </li >
+                </ul >
+              </dd >
+            </dl >
 
             <dl class="sort-item" >
               <dt ><h3 >发货地</h3 ><div class="obtn" ></div ></dt >
@@ -314,6 +212,8 @@ export default {
         }
       },
       screenActIndex: 0,
+      screenBrandActIndex: '',
+      screenCategoryActIndex: '',
       isSalesVolumeUp: false,
       isPriceUp: false,
       screening: false,
@@ -322,14 +222,16 @@ export default {
       sortType: 2,
       screenData: {
         keyword: this.searchKeyword || '',
-        categoryID: '',
-        price_min: '',
-        price_max: '',
-        brandID: '',
-        sort: this.sortType || 1,
-        pageIndex: 1,
-        pageSize: 20
+        // categoryID: '',
+        // price_min: '',
+        // price_max: '',
+        // brandID: '',
+        sort: this.sortType || ''
+        // pageIndex: 1,
+        // pageSize: 20
       },
+      screenBrandsData: {},
+      screenCategoryData: {},
       isLoading: false,
       popupText: '已无更多',
       ImgSize: 0
@@ -362,23 +264,40 @@ export default {
   methods: {
     _toSearch (productData) { // 搜索
       this.isLoading = true
-      productData.keyword = this.searchKeyword
-      searchProduct(productData).then((res) => { // 传入参数
+      // productData.keyword = this.searchKeyword
+      // this.screenData = Object.assign({}, {}, productData)
+      let oParams = Object.assign({}, this.screenData, productData)
+      this.screenData = oParams
+      console.log('oParams', oParams)
+      console.log('this.screenData', this.screenData)
+      searchProduct(oParams).then((res) => { // 传入参数
         if (ERR_OK === res.Code) {
-          this.retSearchData = res.ReturnData // 存搜索所得数据
-          this.showList = true
-          this.isLoading = false
+          if (res.ReturnData.length > 0) {
+            console.log('res.ReturnData.length', res.ReturnData.length)
+            this.retSearchData = res.ReturnData // 存搜索所得数据
+            // this.showList = true
+            this.isLoading = false
+            console.log(this.retSearchData)
+          } else {
+            console.log('暂无数据，请进行其他搜索')
+            console.log('res.ReturnData.length', res.ReturnData.length)
+            this.retSearchData = {}
+            // this.showList = false
+            this.isLoading = false
+            this.showToast('暂无数据，请进行其他搜索', 3000)
+          }
         }
       })
     },
-    _GetBrandAndCategoryByKeyword () { // TODO 接口暂时无用 筛选项目
+    _GetBrandAndCategoryByKeyword () { // TODO 筛选项目
       let params = {
-        type: 2,
+        type: 1,
         content: this.searchKeyword
       }
       GetBrandAndCategoryByKeyword(params).then((res) => {
         if (ERR_OK === res.Code) {
-          console.log(res)
+          this.screenBrandsData = res.ReturnData.Brand
+          this.screenCategoryData = res.ReturnData.Category
         }
       })
     },
@@ -386,15 +305,25 @@ export default {
       return LOCAL_HOST + img
     },
     getImgSize () {
-      if (this.listMode) {
-        this.ImgSize = this.$refs.img[0].clientWidth
-        console.log(this.ImgSize)
-        return this.ImgSize
-      } else {
-        this.ImgSize = this.$refs.img[0].clientWidth
-        console.log(this.ImgSize)
-        return this.ImgSize
-      }
+      this.$nextTick(function () {
+        if (this.retSearchData.length) {
+          if (this.listMode) {
+            this.ImgSize = this.$refs.img[0].clientWidth
+            console.log(this.ImgSize)
+            return this.ImgSize
+          } else {
+            this.ImgSize = this.$refs.img[0].clientWidth
+            console.log(this.ImgSize)
+            return this.ImgSize
+          }
+        } else {
+          console.log('无数据，不进行渲染')
+          // this.showToast('暂无数据，为您推荐热销商品')
+          // this._toSearch({keyword: ''})
+          // this.getImgSize()
+          // this.setImgSize()
+        }
+      })
     },
     setImgSize () { // 设置图片宽高
       this.$nextTick(function () {
@@ -429,7 +358,7 @@ export default {
       } else { // 综合
         this.isScroll = false
         this._toSearch({
-          sort: 4,
+          sort: 2,
           pageSize: this.retSearchData.length
         })
       }
@@ -476,13 +405,35 @@ export default {
       this.isPriceUp = !flag
       this.isSalesVolumeUp = false
     },
-    _screening (flag) { // （传入true-显示，传入false-隐藏）
+    _screening (flag) { // TODO （传入true-显示，传入false-隐藏）
       if (flag) {
-        this._GetBrandAndCategoryByKeyword() // TODO 接口无法获取数据
+        this._GetBrandAndCategoryByKeyword()
         this.screening = true
       } else {
+        this.screenBrandActIndex = ''
+        this.screenCategoryActIndex = ''
         this.screening = false
       }
+    },
+    isBrandAct (index, brandID) {
+      this.screenData.brandID = brandID
+      this.screenBrandActIndex = index
+    },
+    isCategoryAct (index, categoryID) {
+      this.screenData.categoryID = categoryID
+      this.screenCategoryActIndex = index
+    },
+    confirmScreen (flag) { // 筛选确认按钮（传入true-确定，传入false-取消）
+      if (flag) {
+        // this.screenData = {
+        this.screenData.brandID = this.screenData.brandID || ''
+        this.screenData.categoryID = this.screenData.categoryID || ''
+        this.screenData.pageSize = 20
+        this._toSearch(this.screenData)
+      } else {
+        this.screenData = {}
+      }
+      this.screening = false
     },
     gotoDetail (id) { // 跳转详情页
       this.$router.push({
@@ -506,30 +457,11 @@ export default {
       let addLen = len + n
       return addLen
     },
-    confirmScreen (flag) { // 筛选确认按钮（传入true-确定，传入false-取消）
-      if (flag) {
-        if (this.screenData.price_min !== '' || this.screenData.price_min !== '') {
-          console.log(this.screenData)
-          this._toSearch(this.screenData)
-        } else {
-          this.screenData = {
-            price_min: '',
-            price_max: ''
-          }
-        }
-      } else {
-        this.screenData = {
-          price_min: '',
-          price_max: ''
-        }
-      }
-      this.screening = false
-    },
-    showToast () { // 提示
+    showToast (tipsTxt, time = 1000) { // 提示
       const toast = this.$createToast({
-        txt: this.popupText,
+        txt: tipsTxt,
         type: 'correct',
-        time: 1000
+        time: time
       })
       toast.show()
     },
@@ -543,7 +475,7 @@ export default {
   watch: {
     retSearchData (newVal, oldVal) {
       if (newVal.length === oldVal.length && this.isScroll) {
-        this.showToast()
+        this.showToast('全部加载完成')
         this.options.pullUpLoad.txt.noMore = '已无更多'
       } else {
         this.retSearchData = newVal
