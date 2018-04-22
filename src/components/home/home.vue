@@ -33,6 +33,19 @@
               </a >
             </cube-slide-item >
           </cube-slide >
+          <div v-if="brand.length" class="brand-container">
+            <div class="brand-more">
+              <div class="con">
+                <span class="title">品牌</span>
+                <span class="btn-more">更多</span>
+              </div>
+            </div>
+            <ul class="brand-list">
+              <li v-for="(brand, index) in brand" :key="index" class="brand">
+                <img style="width: 100%; height: auto" :src="getImg(brand.Logo)" alt="">
+              </li>
+            </ul>
+          </div>
           <div class="goods-list-container" >
             <div v-for="(list, index) in homeSecond" :key="index" class="goods-item-list" >
               <div class="list-title" >
@@ -79,6 +92,7 @@ export default {
       homeFrist: [],
       homeSecond: [],
       slide: [],
+      brand: [],
       options: {
         scrollbar: {
           fade: true,
@@ -104,6 +118,8 @@ export default {
       getHomeFirst().then((res) => {
         this.homeFrist = res.Data
         this.slide = res.Data.AdInfoRun
+        this.brand = res.Data.Brand_Top10_Recommend
+        console.log(this.brand)
         this._getHomeSecond()
       })
     },
@@ -130,6 +146,7 @@ export default {
   watch: {
     '$route' () {
       this.$refs.scroll.refresh()
+      this.$refs.slide.refresh()
     }
   }
 }
