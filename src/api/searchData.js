@@ -10,7 +10,7 @@ export function searchProduct (oParams) {
     price_min: searchParams.price_min || '',
     price_max: searchParams.price_max || '',
     brandID: searchParams.brandID || '',
-    sort: searchParams.sort || 1,
+    sort: searchParams.sort || 2,
     pageIndex: searchParams.pageIndex || 1,
     pageSize: searchParams.pageSize || 20
   })
