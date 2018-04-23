@@ -10,7 +10,7 @@
               <li class="comprehensive" @click="isAct(0)" >
                 <span class="tit"
                       :class="screenActIndex == 0?'act':''"
-                >综合({{retSearchData.length}})</span >
+                >综合{{retSearchData.length > 0 ? '(' + retSearchData.length + ')' : '(' + 0 + ')'}}</span >
                 <i >
                   <img src="" />
                 </i >
@@ -18,15 +18,15 @@
                   <img src="" />
                 </i >
 
-                <div class="dropdown-list" >
-                  <ol >
-                    <li class="act" >综合</li >
-                    <li >最新上架</li >
-                    <li >xxx</li >
-                    <li >yyy</li >
-                  </ol >
-                </div >
-                <div class="sup-tc" ></div >
+                <!--<div class="dropdown-list" >-->
+                  <!--<ol >-->
+                    <!--<li class="act" >综合</li >-->
+                    <!--<li >最新上架</li >-->
+                    <!--<li >xxx</li >-->
+                    <!--<li >yyy</li >-->
+                  <!--</ol >-->
+                <!--</div >-->
+                <!--<div class="sup-tc" ></div >-->
               </li >
 
               <li class="sales-volume" :class="isSalesVolumeUp?'up':'donw'" @click="isAct(1)" >
@@ -206,7 +206,7 @@ export default {
         pullUpLoad: {
           threshold: 0,
           txt: {
-            more: '加载更多' + this.searchKeyword + '相关',
+            more: '',
             noMore: '加载完成'
           }
         }
@@ -234,7 +234,7 @@ export default {
       screenCategoryData: {},
       isLoading: false,
       popupText: '已无更多',
-      ImgSize: 0
+      ImgSize: 88
     }
   },
   // 接收父组件传入的值
@@ -256,6 +256,7 @@ export default {
     loading
   },
   created () {
+    this.getImgSize()
     this.setImgSize()
     this.watchAPPresize()
   },
@@ -263,6 +264,7 @@ export default {
   mounted () {},
   methods: {
     _toSearch (productData) { // 搜索
+      this.options.pullUpLoad.txt.noMore = '正在加载'
       this.isLoading = true
       // productData.keyword = this.searchKeyword
       // this.screenData = Object.assign({}, {}, productData)
@@ -276,6 +278,7 @@ export default {
             console.log('res.ReturnData.length', res.ReturnData.length)
             this.retSearchData = res.ReturnData // 存搜索所得数据
             // this.showList = true
+            this.options.pullUpLoad.txt.noMore = '加载更多'
             this.isLoading = false
             console.log(this.retSearchData)
           } else {
@@ -283,6 +286,7 @@ export default {
             console.log('res.ReturnData.length', res.ReturnData.length)
             this.retSearchData = {}
             // this.showList = false
+            this.options.pullUpLoad.txt.noMore = '已无更多'
             this.isLoading = false
             this.showToast('暂无数据，请进行其他搜索', 3000)
           }
@@ -306,22 +310,19 @@ export default {
     },
     getImgSize () {
       this.$nextTick(function () {
-        if (this.retSearchData.length) {
+        if (this.retSearchData.length > 0) {
           if (this.listMode) {
             this.ImgSize = this.$refs.img[0].clientWidth
             console.log(this.ImgSize)
-            return this.ImgSize
+            //            return this.ImgSize
           } else {
             this.ImgSize = this.$refs.img[0].clientWidth
             console.log(this.ImgSize)
-            return this.ImgSize
+            //            return this.ImgSize
           }
         } else {
           console.log('无数据，不进行渲染')
-          // this.showToast('暂无数据，为您推荐热销商品')
-          // this._toSearch({keyword: ''})
-          // this.getImgSize()
-          // this.setImgSize()
+          //          this.showToast('暂无数据，请搜索其他商品')
         }
       })
     },
@@ -329,14 +330,18 @@ export default {
       this.$nextTick(function () {
         let that = this.$refs.img
         if (this.listMode) {
-          let setSize = this.getImgSize()
+          //          let setSize = this.getImgSize()
+          let setSize = this.ImgSize
+          console.log('setSize', setSize)
           this.$refs.img.forEach(function (v, k) {
             that[k].style.height = setSize + 'px'
             // that[k].style.width = '100%'
             that[k].style.width = ''
           })
         } else {
-          let setSize = this.getImgSize()
+          //          let setSize = this.getImgSize()
+          let setSize = this.ImgSize
+          console.log('setSize', setSize)
           this.$refs.img.forEach(function (v, k) {
             that[k].style.height = setSize + 'px'
             that[k].style.width = '100%'
@@ -430,8 +435,26 @@ export default {
         this.screenData.categoryID = this.screenData.categoryID || ''
         this.screenData.pageSize = 20
         this._toSearch(this.screenData)
+        this.getImgSize()
+        this.setImgSize()
       } else {
-        this.screenData = {}
+        this.screenData = {
+          keyword: this.searchKeyword || '',
+          brandID: this.screenData.brandID || '',
+          categoryID: this.screenData.categoryID || '',
+          price_min: this.screenData.price_min || '',
+          price_max: this.screenData.price_max || '',
+          sort: this.sortType || ''
+          // pageIndex: 1,
+          // pageSize: 20
+        }
+        this.getImgSize()
+        this.setImgSize()
+        //        this.screenData.brandID = ''
+        //        this.screenData.categoryID = ''
+        //        this.screenData.price_min = ''
+        //        this.screenData.price_max = ''
+        //        this.screenData.pageSize = this.retSearchData.length || 20
       }
       this.screening = false
     },
@@ -465,6 +488,9 @@ export default {
       })
       toast.show()
     },
+    //    _senListMode () {
+    //      this.$emit()
+    //    },
     watchAPPresize () {
       window.addEventListener('resize', () => {
         this.getImgSize()

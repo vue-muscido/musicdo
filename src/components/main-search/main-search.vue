@@ -2,7 +2,7 @@
   <div class="main-search" >
     <div class="inner" >
       <div class="top-bar" >
-        <form class="search-form" action="#" >
+        <form class="search-form" action="#" @submit.prevent="_toSearch(mainSearch.value)">
           <!--@submit.prevent="_toSearch(mainSearch.value)"-->
           <input class="search-input"
                  ref="input"
@@ -155,6 +155,7 @@
            // 传值到搜索列表子组件（搜索的keyword、要渲染的列表数据this.searchData）
            this.searchKeyword = keyword
            this.mainSearch.value = this.searchKeyword
+           this.listMode = false
            this.$refs.input.blur()
          }
        })
@@ -167,9 +168,7 @@
        this.listMode = !this.listMode
      }
    },
-   destroyed () {
-
-   },
+   destroyed () {},
    watch: {
      '$route' () {
        this.$refs.scroll.refresh()
