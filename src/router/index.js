@@ -8,9 +8,10 @@ import Cart from 'components/cart/cart' // 购物车组件
 import User from 'components/user/user' // 用户中心组件
 
 import UserSignIn from 'components/user-sign-in/user-sign-in' // 用户登录组件
+import UserRegister from 'components/user-register/user-register' // 用户注册组件
 
 import MainSearch from 'components/main-search/main-search' // 搜索页
-import SearchList from 'components/search-list/search-list' // 搜索列表Ω
+import SearchList from 'components/search-list/search-list' // 搜索列表
 
 import GoodsDetail from 'components/goods-detail/goods-detail' // 商品详情页
 
@@ -45,6 +46,10 @@ export default new Router({
     {
       path: '/user-sign-in',
       component: UserSignIn
+    },
+    {
+      path: '/user-register',
+      component: UserRegister
     },
     {
       path: '/main-search',
