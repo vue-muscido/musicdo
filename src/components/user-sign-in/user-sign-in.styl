@@ -15,28 +15,44 @@
       height 4.5rem
       bg-image('./img/logo',100% 100%)
   .input-bar
-    //background skyblue
-    //width 100%
-    //padding 0 1rem 1rem
-    //.account-box,
-    //.password-box
-    //  border-bottom 1px solid $g-brc-normal
-    //  .input-account,
-    //  .input-password
-    //    position: relative
-    //    font-size: $fontsize-medium
-    //    line-height: 1.429
-    //    background wheat
-    //    .cube-input-clear,
-    //    .cube-input-eye
-          //position absolute
-          //right 1rem
-          //top 50%
-          //padding 0
-          //margin 0
-          //width auto
-          //height auto
-          //line-height 1
-          //color #999
-          //transform translate3d(0,-50%,0)
-          //background red
+    padding 1rem
+    .cube-input
+      position: relative
+      font-size: $g-fs-lg
+      line-height: 1.429
+      border-bottom 1px solid $g-brc-normal
+      input
+        width: 100%
+        padding: .75rem
+        color: red
+        line-height: inherit
+        background-color: #fff
+        border-radius: 2px
+        outline: none
+      .cube-input_active
+        &::after
+          border-color transparent
+      .cube-input-clear, .cube-input-eye
+        position absolute
+        right 1rem
+        top 50%
+        padding 0
+        margin 0
+        width auto
+        height auto
+        line-height 1
+        transform translate3d(0,-50%,0)
+        > i
+          display: inline-block
+          transform: scale(1.2)
+        + input
+          padding-right: 2.6em
+      .cube-input-eye
+        >
+        .cubeic-eye-invisible, .cubeic-eye-visible
+          transform: scale(1.4)
+      .cube-input-clear
+        + .cube-input-eye
+          right: 2.6em
+          + input
+            padding-right: 5.2em

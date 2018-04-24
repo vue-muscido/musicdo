@@ -158,58 +158,6 @@ export default {
 }
 </script >
 
-<style scoped lang="stylus" rel="stylesheet/stylus" >
+<style lang="stylus" rel="stylesheet/stylus" >
 @import 'user-sign-in.styl'
 </style >
-
-<style lang="stylus" rel="stylesheet/stylus" >
-
-// TODO
-.input-bar
-  .cube-input
-    position: relative
-    font-size: 14px
-    line-height: 1.429
-    //    border-1px($input-border-color)
-    input
-      width: 100%
-      padding: 10px
-      box-sizing: border-box
-      color: $input-color
-      line-height: inherit
-      background-color: #fff
-      border-radius: 2px
-      outline: none
-      &::-webkit-input-placeholder
-        color: #ccc!important
-        text-overflow: ellipsis
-    .cube-input_active
-      &::after
-        /*border-color: $input-focus-border-color*/
-        border-color transparent
-    .cube-input-clear, .cube-input-eye
-      position absolute
-      right 1rem
-      top 50%
-      padding 0
-      margin 0
-      width auto
-      height auto
-      line-height 1
-      transform translate3d(0,-50%,0)
-      color: #ddd
-      > i
-        display: inline-block
-        transform: scale(1.2)
-      + input
-        padding-right: 2.6em
-    .cube-input-eye
-      >
-      .cubeic-eye-invisible, .cubeic-eye-visible
-        transform: scale(1.4)
-    .cube-input-clear
-      + .cube-input-eye
-        right: 2.6em
-        + input
-          padding-right: 5.2em
-</style>

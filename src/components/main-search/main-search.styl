@@ -21,6 +21,7 @@
       margin-bottom 1px
       transition all .5s
       .search-form
+        position relative
         flex 100%
         padding-left 1rem
         .search-input
@@ -31,9 +32,12 @@
           outline none
           width 100%
           height $g-search-inp-height
-          line-height $g-search-inp-height
+          //line-height $g-search-inp-height
+          vertical-align middle
           background $g-col-white-g
-          font-size $g-fs-md
+          font-size $g-fs-lg
+          font-family Tahoma
+          color $g-fc-normal
         .search-icon
           content ''
           position absolute
