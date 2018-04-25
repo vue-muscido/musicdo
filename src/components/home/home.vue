@@ -33,10 +33,10 @@
               </a >
             </cube-slide-item >
           </cube-slide >
-          <div class="tab-container">
+          <div class="tab-container" v-if="tabList.length">
             <div v-for="{tab, index} in tabList" class="tab-item">
-              <div class="tab-img pinpai"></div>
-              <p class="tab-name">品牌</p>
+              <div class="tab-img" :class="tabList[index].pic"></div>
+              <p class="tab-name">{{tabList[index].name}}</p>
             </div>
           </div>
           <div v-if="brand.length" class="brand-container">
@@ -89,7 +89,7 @@
 </template >
 
 <script type="text/ecmascript-6" >
-import { getHomeFirst, getHomeSecond } from 'api/homeData'
+import { getHomeFirst, getHomeSecond, tabData } from 'api/homeData'
 import { LOCAL_HOST } from 'api/config'
 import loading from 'base/loading/loading'
 export default {
@@ -105,11 +105,12 @@ export default {
           nteractive: false // 1.8.0 新增
         }
       },
-      tabList: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+      tabList: []
     }
   },
   created () {
     this._getHomeFirst()
+    this._getTabData()
   },
   methods: {
     getImg (img) {
@@ -134,6 +135,10 @@ export default {
       getHomeSecond().then((res) => {
         this.homeSecond = res.Data
       })
+    },
+    _getTabData () {
+      this.tabList = tabData
+      console.log(this.tabList)
     },
     _changePage (current) {
       console.log('当前轮播图序号为:' + current)
