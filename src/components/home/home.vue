@@ -33,6 +33,12 @@
               </a >
             </cube-slide-item >
           </cube-slide >
+          <div class="tab-container">
+            <div v-for="{tab, index} in tabList" class="tab-item">
+              <div class="tab-img pinpai"></div>
+              <p class="tab-name">品牌</p>
+            </div>
+          </div>
           <div v-if="brand.length" class="brand-container">
             <div class="brand-more">
               <div class="con">
@@ -46,7 +52,7 @@
               </li>
             </ul>
           </div>
-          <div class="goods-list-container" >
+          <div class="goods-container" >
             <div v-for="(list, index) in homeSecond" :key="index" class="goods-item-list" >
               <div class="list-title" >
                 <span class="title-tab" ></span >
@@ -98,7 +104,8 @@ export default {
           fade: true,
           nteractive: false // 1.8.0 新增
         }
-      }
+      },
+      tabList:[0,1,2,3,4,5,6,7,8,9]
     }
   },
   created () {

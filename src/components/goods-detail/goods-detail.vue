@@ -26,7 +26,6 @@
             <cube-slide
               :loop="loopFlag"
               class="cube-slider"
-              v-if="slide.length"
               ref="slide"
               :data="slide" >
               <cube-slide-item
@@ -61,7 +60,7 @@
           <div class="classify">
             <div class="con">
               分类
-              <span>选择分类</span> 
+              <span>选择分类</span>
             </div>
           </div>
           <!-- 选择参数 -->
@@ -280,10 +279,10 @@ export default {
       background-color $g-bgc-con
     .con
       bg-image("img/jiantou", 0.6rem)
-      background-position center right  
+      background-position center right
       font $g-fs-normal $g-ff-ap
       color $g-fc-normal
-      span 
+      span
         padding-left 2.25rem
         font $g-fs-md $g-ff-ap
         color $g-fc-black
