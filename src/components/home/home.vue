@@ -33,8 +33,8 @@
               </a >
             </cube-slide-item >
           </cube-slide >
-          <div class="tab-container" v-if="tabList.length">
-            <div v-for="{tab, index} in tabList" class="tab-item">
+          <div v-if="tabList.length" class="tab-container">
+            <div v-for="{tab, index} in tabList" @click="tabClick(index, tab)" class="tab-item">
               <div class="tab-img" :class="tabList[index].pic"></div>
               <p class="tab-name">{{tabList[index].name}}</p>
             </div>
@@ -55,7 +55,7 @@
           <div class="goods-container" >
             <div v-for="(list, index) in homeSecond" :key="index" class="goods-item-list" >
               <div class="list-title" >
-                <span class="title-tab" ></span >
+                <span class="title-tab" :class="titleColor(index)" ></span >
                 <h2 class="title-name" >{{list.Name}}</h2 >
                 <div class="title-more" >
                   更多
@@ -116,6 +116,27 @@ export default {
     getImg (img) {
       return LOCAL_HOST + img
     },
+    titleColor (index) {
+      return 'title-color-' + index % 10
+    },
+    tabClick (index, tab) {
+      if (index === 0) {
+        this.$router.push({
+          path: '/brands'
+        })
+        return
+      }
+      if (index === 9) {
+        this.$router.push({
+          path: '/sort'
+        })
+        return
+      }
+      this.$router.push({
+        path: '/main-search',
+        query: {'name': tab}
+      })
+    },
     gotoDetail (id) {
       this.$router.push({
         path: '/goods-detail',
@@ -154,12 +175,6 @@ export default {
   },
   components: {
     loading
-  },
-  watch: {
-    '$route' () {
-      this.$refs.scroll.refresh()
-      this.$refs.slide.refresh()
-    }
   }
 }
 </script >

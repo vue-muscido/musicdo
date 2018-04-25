@@ -171,7 +171,7 @@
    destroyed () {},
    watch: {
      '$route' () {
-       this.$refs.scroll.refresh()
+       console.log(this.$route)
      }
    }
  }
