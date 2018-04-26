@@ -328,24 +328,28 @@ export default {
     },
     setImgSize () { // 设置图片宽高
       this.$nextTick(function () {
-        let that = this.$refs.img
-        if (this.listMode) {
-          //          let setSize = this.getImgSize()
-          let setSize = this.ImgSize
-          console.log('setSize', setSize)
-          this.$refs.img.forEach(function (v, k) {
-            that[k].style.height = setSize + 'px'
-            // that[k].style.width = '100%'
-            that[k].style.width = ''
-          })
+        if (this.retSearchData.length > 0) {
+          let that = this.$refs.img
+          if (this.listMode) {
+            //          let setSize = this.getImgSize()
+            let setSize = this.ImgSize
+            console.log('setSize', setSize)
+            this.$refs.img.forEach(function (v, k) {
+              that[k].style.height = setSize + 'px'
+              // that[k].style.width = '100%'
+              that[k].style.width = ''
+            })
+          } else {
+            //          let setSize = this.getImgSize()
+            let setSize = this.ImgSize
+            console.log('setSize', setSize)
+            this.$refs.img.forEach(function (v, k) {
+              that[k].style.height = setSize + 'px'
+              that[k].style.width = '100%'
+            })
+          }
         } else {
-          //          let setSize = this.getImgSize()
-          let setSize = this.ImgSize
-          console.log('setSize', setSize)
-          this.$refs.img.forEach(function (v, k) {
-            that[k].style.height = setSize + 'px'
-            that[k].style.width = '100%'
-          })
+          console.log('无数据，不进行渲染')
         }
       })
     },
