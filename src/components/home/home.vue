@@ -126,7 +126,7 @@ export default {
         })
         return
       }
-      if (index === '分类') {
+      if (name === '分类') {
         this.$router.push({
           path: '/sort'
         })
