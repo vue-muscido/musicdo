@@ -112,16 +112,16 @@
    },
    created () {
      this._historyDataInit()
+     this._comeSearch()
    },
    mounted () {
-     this._firstSearch()
    },
    methods: {
      // 首次进入页面判断是否有传参
      _firstSearch () {
        this.mainSearch.value = ''
        this.$refs.input.focus()
-       if (this.$route.query.keyword !== '0') {
+       if (this.$route.query.keyword !== '') {
          this.showList = false
          this._toSearch(this.$route.query.keyword)
        }
@@ -178,19 +178,22 @@
      },
      _changeMode () { // 大图和列表切换
        this.listMode = !this.listMode
+     },
+     _comeSearch () {
+       if (this.$route.path === '/main-search') {
+         this.mainSearch.value = this.$route.query.keyword || ''
+         if (this.mainSearch.value === '') {
+           this.$refs.input.focus()
+         } else {
+           this._toSearch(this.mainSearch.value)
+         }
+       }
      }
    },
    destroyed () {},
    watch: {
      '$route' () {
-       if (this.$route.path === '/main-search') {
-         this.mainSearch.value = ''
-         this.$refs.input.focus()
-         if (this.$route.query.keyword !== '0') {
-           this.showList = false
-           this._toSearch(this.$route.query.keyword)
-         }
-       }
+       this._comeSearch()
      }
    }
  }
