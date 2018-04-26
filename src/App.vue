@@ -43,10 +43,10 @@ export default {
       const toDepth = to.path.split('/')
       const fromDepth = from.path.split('/')
       this.transitionName = toDepth[1] === 'goods-detail' ? 'slide' : 'fade'
-      if (toDepth[1] === 'goods-detail' || toDepth[1] === 'main-search') {
-        this.tabFlag = false
-      } else {
+      if (toDepth[1] === 'home' || toDepth[1] === 'brands' || toDepth[1] === 'sort' || toDepth[1] === 'cart' || toDepth[1] === 'user') {
         this.tabFlag = true
+      } else {
+        this.tabFlag = false
       }
       if (toDepth[1] === 'goods-detail') {
         this.transitionName = 'slideIn'

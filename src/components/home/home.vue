@@ -33,10 +33,10 @@
               </a >
             </cube-slide-item >
           </cube-slide >
-          <div class="tab-container" v-if="tabList.length">
-            <div v-for="{tab, index} in tabList" class="tab-item">
-              <div class="tab-img" :class="tabList[index].pic"></div>
-              <p class="tab-name">{{tabList[index].name}}</p>
+          <div v-if="slide.length" class="tab-container">
+            <div  v-for="(tab, index) in tabList" :key="index" @click="tabClick(tab.name, index)" class="tab-item">
+              <div class="tab-img" :class="tab.pic"></div>
+              <p class="tab-name">{{tab.name}}</p>
             </div>
           </div>
           <div v-if="brand.length" class="brand-container">
@@ -55,9 +55,9 @@
           <div class="goods-container" >
             <div v-for="(list, index) in homeSecond" :key="index" class="goods-item-list" >
               <div class="list-title" >
-                <span class="title-tab" ></span >
+                <span class="title-tab" :class="titleColor(index)" ></span >
                 <h2 class="title-name" >{{list.Name}}</h2 >
-                <div class="title-more" >
+                <div @click="tabClick(list.Name, index)" class="title-more" >
                   更多
                 </div >
               </div >
@@ -116,6 +116,27 @@ export default {
     getImg (img) {
       return LOCAL_HOST + img
     },
+    titleColor (index) {
+      return 'title-color-' + index % 10
+    },
+    tabClick (name, index) {
+      if (name === '品牌') {
+        this.$router.push({
+          path: '/brands'
+        })
+        return
+      }
+      if (name === '分类') {
+        this.$router.push({
+          path: '/sort'
+        })
+        return
+      }
+      this.$router.push({
+        path: '/main-search',
+        query: {'keyword': name}
+      })
+    },
     gotoDetail (id) {
       this.$router.push({
         path: '/goods-detail',
@@ -138,7 +159,6 @@ export default {
     },
     _getTabData () {
       this.tabList = tabData
-      console.log(this.tabList)
     },
     _changePage (current) {
       console.log('当前轮播图序号为:' + current)
@@ -157,8 +177,9 @@ export default {
   },
   watch: {
     '$route' () {
-      this.$refs.scroll.refresh()
-      this.$refs.slide.refresh()
+      if (this.$route.path === '/home') {
+        this.$refs.scroll.refresh()
+      }
     }
   }
 }
