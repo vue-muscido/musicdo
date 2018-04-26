@@ -29,7 +29,7 @@
           <div class="img" ></div >
         </div >
       </div >
-      
+
       <div class="quick-search" >
         <!--历史搜索 -begin -->
         <dl v-show="!showList" class="search-log" v-if="historyData.length" >
@@ -113,7 +113,19 @@
    created () {
      this._historyDataInit()
    },
+   mounted () {
+     this._firstSearch()
+   },
    methods: {
+     // 首次进入页面判断是否有传参
+     _firstSearch () {
+       this.mainSearch.value = ''
+       this.$refs.input.focus()
+       if (this.$route.query.keyword !== '0') {
+         this.showList = false
+         this._toSearch(this.$route.query.keyword)
+       }
+     },
      // 初始化历史搜索
      _historyDataInit () {
        // 本地如果无存储，就为空
@@ -171,7 +183,14 @@
    destroyed () {},
    watch: {
      '$route' () {
-       console.log(this.$route)
+       if (this.$route.path === '/main-search') {
+         this.mainSearch.value = ''
+         this.$refs.input.focus()
+         if (this.$route.query.keyword !== '0') {
+           this.showList = false
+           this._toSearch(this.$route.query.keyword)
+         }
+       }
      }
    }
  }
