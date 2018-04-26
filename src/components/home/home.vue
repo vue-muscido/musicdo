@@ -43,7 +43,7 @@
             <div class="brand-more">
               <div class="con">
                 <span class="title">品牌</span>
-                <span class="btn-more">更多</span>
+                <span @click="tabClick('品牌')" class="btn-more">更多</span>
               </div>
             </div>
             <ul class="brand-list">
@@ -148,7 +148,6 @@ export default {
         this.homeFrist = res.Data
         this.slide = res.Data.AdInfoRun
         this.brand = res.Data.Brand_Top10_Recommend
-        console.log(this.brand)
         this._getHomeSecond()
       })
     },
@@ -161,7 +160,6 @@ export default {
       this.tabList = tabData
     },
     _changePage (current) {
-      console.log('当前轮播图序号为:' + current)
     },
     _clickHandler (item, index) {
       console.log(item, index)
@@ -179,6 +177,7 @@ export default {
     '$route' () {
       if (this.$route.path === '/home') {
         this.$refs.scroll.refresh()
+        this.$refs.slide.refresh()
       }
     }
   }
