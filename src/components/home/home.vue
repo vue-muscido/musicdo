@@ -166,7 +166,8 @@ export default {
     },
     _focus () { // 聚焦时路由跳转到搜索页
       this.$router.push({
-        path: '/main-search'
+        path: '/main-search',
+        query: {'keyword': ''}
       })
     }
   },

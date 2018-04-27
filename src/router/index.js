@@ -25,43 +25,73 @@ export default new Router({
     },
     {
       path: '/home',
-      component: Home
+      component: Home,
+      meta: {
+        keepAlive: true // 需要被缓存
+      }
     },
     {
       path: '/brands',
-      component: Brands
+      component: Brands,
+      meta: {
+        keepAlive: true // 需要被缓存
+      }
     },
     {
       path: '/sort',
-      component: Sort
+      component: Sort,
+      meta: {
+        keepAlive: true // 需要被缓存
+      }
     },
     {
       path: '/cart',
-      component: Cart
+      component: Cart,
+      meta: {
+        keepAlive: true // 需要被缓存
+      }
     },
     {
       path: '/user',
-      component: User
+      component: User,
+      meta: {
+        keepAlive: true // 需要被缓存
+      }
     },
     {
       path: '/user-sign-in',
-      component: UserSignIn
+      component: UserSignIn,
+      meta: {
+        keepAlive: true // 需要被缓存
+      }
     },
     {
       path: '/user-register',
-      component: UserRegister
+      component: UserRegister,
+      meta: {
+        keepAlive: true // 需要被缓存
+      }
     },
     {
       path: '/main-search',
-      component: MainSearch
+      component: MainSearch,
+      meta: {
+        keepAlive: true // 不需要被缓存
+      }
     },
     {
       path: '/search-list',
-      component: SearchList
+      component: SearchList,
+      meta: {
+        keepAlive: true // 需要被缓存
+      }
     },
     {
       path: '/goods-detail',
-      component: GoodsDetail
+      component: GoodsDetail,
+      meta: {
+        keepAlive: true // 需要被缓存
+      }
     }
   ],
   scrollBehavior (to, from, savedPosition) {
