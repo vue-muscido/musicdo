@@ -321,7 +321,7 @@ export default {
         bg-image("img/soucang", 2rem)
     .action-right
       display flex
-      flex 22rem 0 0
+      flex 22rem 0 1
       font-size 1.6rem
       .btn-action
         flex 1
