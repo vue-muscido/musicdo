@@ -20,7 +20,7 @@
           <div class="search-icon" ></div >
         </form >
         <div class="search-btn" v-show="!showList" >
-          <span @click="_toSearch(mainSearch.value)" >搜索</span >
+          <span @click="_replayceSearch(mainSearch.value)" >搜索</span >
         </div >
         <div class="change-btn"
              :class="listMode == true?'list-mode':'bigpic-mode'"
@@ -42,7 +42,7 @@
           <dd >
             <ul >
               <li v-for="(item,index) in historyData" :key="index" >
-                <a @click="_toSearch (item)" >{{item}}</a >
+                <a @click="_replayceSearch (item)" >{{item}}</a >
               </li >
             </ul >
           </dd >
@@ -58,7 +58,7 @@
           <dd v-if="hotSearchData.length" >
             <ul >
               <li v-for="(item,index) in hotSearchData" :key="index" >
-                <a @click="_toSearch (item)" >{{item}}</a >
+                <a @click="_replayceSearch (item)" >{{item}}</a >
               </li >
             </ul >
           </dd >
@@ -179,9 +179,17 @@
      _changeMode () { // 大图和列表切换
        this.listMode = !this.listMode
      },
+     // 搜索词条跟路由链保持同步
+     _replayceSearch (name) {
+       this.$router.replace({
+         path: '/main-search',
+         query: {'keyword': name}
+       })
+     },
+     // 搜索参数接收处理
      _comeSearch () {
        if (this.$route.path === '/main-search') {
-         this.mainSearch.value = this.$route.params.keyword || ''
+         this.mainSearch.value = this.$route.query.keyword || ''
          if (this.mainSearch.value === '') {
            this.listMode = false
            this.$refs.input.focus()
@@ -194,10 +202,7 @@
    destroyed () {},
    watch: {
      '$route' (to, from) {
-       const fromDepth = from.path.split('/')
-       if (fromDepth[1] === 'home') {
-         this._comeSearch()
-       }
+       this._comeSearch()
      }
    }
  }

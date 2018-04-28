@@ -122,19 +122,19 @@ export default {
     tabClick (name, index) {
       if (name === '品牌') {
         this.$router.push({
-          name: 'Brands'
+          path: '/brands'
         })
         return
       }
       if (name === '分类') {
         this.$router.push({
-          name: 'Sort'
+          path: '/sort'
         })
         return
       }
       this.$router.push({
-        name: 'MainSearch',
-        params: {keyword: name}
+        path: '/main-search',
+        query: {'keyword': name}
       })
     },
     gotoDetail (id) {
@@ -166,8 +166,8 @@ export default {
     },
     _focus () { // 聚焦时路由跳转到搜索页
       this.$router.push({
-        name: 'MainSearch',
-        params: {keyword: ''}
+        path: '/main-search',
+        query: {'keyword': ''}
       })
     }
   },
