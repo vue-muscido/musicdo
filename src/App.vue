@@ -8,6 +8,7 @@
     <transition :name="transitionName">
       <router-view  v-if="!$route.meta.keepAlive" class="router-view" ></router-view >
     </transition >
+    <tab v-show="tabFlag"></tab>
   </div >
 </template >
 

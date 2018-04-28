@@ -26,6 +26,7 @@ export default new Router({
     {
       path: '/home',
       component: Home,
+      name: 'Home',
       meta: {
         keepAlive: true // 需要被缓存
       }
@@ -33,6 +34,7 @@ export default new Router({
     {
       path: '/brands',
       component: Brands,
+      name: 'Brands',
       meta: {
         keepAlive: true // 需要被缓存
       }
@@ -40,6 +42,7 @@ export default new Router({
     {
       path: '/sort',
       component: Sort,
+      name: 'Sort',
       meta: {
         keepAlive: true // 需要被缓存
       }
@@ -47,6 +50,7 @@ export default new Router({
     {
       path: '/cart',
       component: Cart,
+      name: 'Cart',
       meta: {
         keepAlive: true // 需要被缓存
       }
@@ -54,6 +58,7 @@ export default new Router({
     {
       path: '/user',
       component: User,
+      name: 'User',
       meta: {
         keepAlive: true // 需要被缓存
       }
@@ -61,6 +66,7 @@ export default new Router({
     {
       path: '/user-sign-in',
       component: UserSignIn,
+      name: 'UserSignIn',
       meta: {
         keepAlive: true // 需要被缓存
       }
@@ -68,6 +74,7 @@ export default new Router({
     {
       path: '/user-register',
       component: UserRegister,
+      name: 'UserRegister',
       meta: {
         keepAlive: true // 需要被缓存
       }
@@ -75,6 +82,7 @@ export default new Router({
     {
       path: '/main-search',
       component: MainSearch,
+      name: 'MainSearch',
       meta: {
         keepAlive: true // 不需要被缓存
       }
@@ -82,6 +90,7 @@ export default new Router({
     {
       path: '/search-list',
       component: SearchList,
+      name: 'SearchList',
       meta: {
         keepAlive: true // 需要被缓存
       }
@@ -89,6 +98,7 @@ export default new Router({
     {
       path: '/goods-detail',
       component: GoodsDetail,
+      name: 'GoodsDetail',
       meta: {
         keepAlive: true // 需要被缓存
       }
