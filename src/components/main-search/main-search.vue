@@ -181,7 +181,6 @@
      },
      _comeSearch () {
        if (this.$route.path === '/main-search') {
-         console.log(this.$route.params.keyword)
          this.mainSearch.value = this.$route.params.keyword || ''
          if (this.mainSearch.value === '') {
            this.listMode = false
