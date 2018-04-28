@@ -112,9 +112,9 @@
    },
    created () {
      this._historyDataInit()
-     this._comeSearch()
    },
    mounted () {
+     this._comeSearch()
    },
    methods: {
      // 首次进入页面判断是否有传参
@@ -181,8 +181,9 @@
      },
      _comeSearch () {
        if (this.$route.path === '/main-search') {
-         this.mainSearch.value = this.$route.query.keyword || ''
+         this.mainSearch.value = this.$route.query.keyword || this.mainSearch.value
          if (this.mainSearch.value === '') {
+           this.listMode = false
            this.$refs.input.focus()
          } else {
            this._toSearch(this.mainSearch.value)
