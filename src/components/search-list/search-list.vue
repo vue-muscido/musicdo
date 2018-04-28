@@ -503,6 +503,9 @@ export default {
     }
   },
   watch: {
+    searchKeyword (newKeyword) {
+      this.searchKeyword = newKeyword
+    },
     searchData () {
       this.retSearchData = this.searchData
     },
