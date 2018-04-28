@@ -181,7 +181,8 @@
      },
      _comeSearch () {
        if (this.$route.path === '/main-search') {
-         this.mainSearch.value = this.$route.query.keyword || this.mainSearch.value
+         console.log(this.$route.params.keyword)
+         this.mainSearch.value = this.$route.params.keyword || ''
          if (this.mainSearch.value === '') {
            this.listMode = false
            this.$refs.input.focus()
@@ -193,8 +194,11 @@
    },
    destroyed () {},
    watch: {
-     '$route' () {
-       this._comeSearch()
+     '$route' (to, from) {
+       const fromDepth = from.path.split('/')
+       if (fromDepth[1] === 'home') {
+         this._comeSearch()
+       }
      }
    }
  }
