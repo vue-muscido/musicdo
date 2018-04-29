@@ -117,15 +117,6 @@
      this._comeSearch()
    },
    methods: {
-     // 首次进入页面判断是否有传参
-     _firstSearch () {
-       this.mainSearch.value = ''
-       this.$refs.input.focus()
-       if (this.$route.query.keyword !== '') {
-         this.showList = false
-         this._toSearch(this.$route.query.keyword)
-       }
-     },
      // 初始化历史搜索
      _historyDataInit () {
        // 本地如果无存储，就为空
@@ -181,6 +172,10 @@
      },
      // 搜索词条跟路由链保持同步
      _replayceSearch (name) {
+       if (this.mainSearch.value === name) {
+         this._comeSearch()
+         return
+       }
        this.$router.replace({
          path: '/main-search',
          query: {'keyword': name}
@@ -202,6 +197,10 @@
    destroyed () {},
    watch: {
      '$route' (to, from) {
+       const fromDepth = from.path.split('/')
+       if (fromDepth[1] === 'home') {
+         this.$refs.input.focus()
+       }
        this._comeSearch()
      }
    }
