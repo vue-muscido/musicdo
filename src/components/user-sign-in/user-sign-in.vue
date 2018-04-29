@@ -68,20 +68,28 @@
         短信快速登录
       </div>
       <div>
-        忘记密码
+        忘记密码?
       </div>
     </div>
 
     <div class="btn-bar">
-      登录
+      <div class="sign-in-btn">
+        登录
+      </div>
     </div>
 
     <div class="new-account-bar">
-      注册新账号
+      <span class="new-account-btn">
+        注册新账号
+      </span>
     </div>
 
     <div class="other-way-bar">
-      其他登陆
+      <h3><span>其他账号登录</span></h3>
+      <div class="other-way">
+        <div class="wx"></div>
+        <div class="qq"></div>
+      </div>
     </div>
 
   </div >
