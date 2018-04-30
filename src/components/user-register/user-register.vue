@@ -14,7 +14,7 @@
           :autofocus="phoneNum.autofocus"
           :autocomplete="phoneNum.autocomplete"
           :clearable="phoneNum.clearable"
-          @input=""
+          @input="_inputPhone()"
         ></cube-input >
       </div >
       <div class="phone-code-box" >
@@ -30,8 +30,9 @@
           :autocomplete="phoneCode.autocomplete"
           :clearable="phoneCode.clearable"
           :eye="phoneCode.eye"
+          @input="_inputCode()"
         ></cube-input >
-        <div class="get-code-btn" >
+        <div class="get-code-btn" :class="getCodeDisable?'disable':''" >
           <span >获取验证码</span >
           <span ></span >
         </div >
@@ -39,7 +40,7 @@
     </div >
     
     <div class="btn-bar" >
-      <div class="next-btn" >
+      <div class="next-btn" :class="btnDisable?'disable':''" @click="checkCode()" >
         下一步
       </div >
     </div >
@@ -71,11 +72,14 @@
           type: 'number',
           readonly: false,
           maxlength: 16,
-          disabled: false,
+          disabled: true,
           autofocus: false,
           autocomplete: false,
           clearable: true
-        }
+        },
+        getCodeDisable: true,
+        btnDisable: true,
+        retCode: '2222' // 模拟返回的正确验证码
       }
     },
     // 子组件
@@ -99,7 +103,67 @@
     // 组件销毁后
     destroyed () {},
     // 方法集合
-    methods: {},
+    methods: {
+      _inputPhone () {
+        if (this.phoneNum.value.length === 11) {
+          console.log('长度为11，才开启获取验证码按钮与验证码输入框')
+          this.getCodeDisable = false
+          this.phoneCode.disabled = false
+        } else {
+          this.getCodeDisable = true
+          this.phoneCode.disabled = true
+        }
+      },
+      _inputCode () {
+        this.isBtnDisable()
+      },
+      isBtnDisable () {
+        console.log('验证码输入中，判断两个输入框是否有值，有值就开启下一步按钮，没值就禁用下一步按钮')
+        if (this.phoneCode.value !== '' && this.phoneNum.value !== '') {
+          this.btnDisable = false
+        } else {
+          this.btnDisable = true
+        }
+      },
+      checkCode () {
+        if (this.phoneCode.value === this.retCode) {
+          console.log('模拟验证码正确跳转')
+          this.$router.push({
+            path: '/user-register-set-password'
+          })
+        } else {
+          console.log('模拟验证码错误弹提示')
+          this.codeError()
+        }
+      },
+      codeError () {
+        this.$createDialog({
+          type: 'confirm',
+          //          icon: 'cubeic-alert',
+          title: '验证码错误',
+          content: '请重新输入验证码',
+          confirmBtn: {
+            text: '重新注册',
+            active: true,
+            disabled: false,
+            href: 'javascript:;'
+          },
+          cancelBtn: {
+            text: '取消',
+            active: false,
+            disabled: false,
+            href: 'javascript:;'
+          },
+          onConfirm: () => {
+            console.log('点击了重新注册按钮，这里写重新注册逻辑')
+          },
+          onCancel: () => {
+            console.log('点击了取消按钮，这里返回false即可')
+            return false
+          }
+        }).show()
+      }
+    },
     // 实时计算数据（一个数据受多个数据影响）
     computed: {},
     // 实时计算数据（一个数据影响多个数据）
