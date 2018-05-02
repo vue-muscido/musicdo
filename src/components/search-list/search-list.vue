@@ -503,12 +503,6 @@ export default {
     }
   },
   watch: {
-    searchKeyword (newKeyword) {
-      this.searchKeyword = newKeyword
-    },
-    searchData () {
-      this.retSearchData = this.searchData
-    },
     retSearchData (newVal, oldVal) {
       if (newVal.length === oldVal.length && this.isScroll) {
         this.showToast('全部加载完成')

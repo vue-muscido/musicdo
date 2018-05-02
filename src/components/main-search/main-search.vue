@@ -172,22 +172,19 @@
      },
      // 搜索词条跟路由链保持同步
      _replayceSearch (name) {
-       if (this.mainSearch.value === name) {
-         this._comeSearch()
-         return
-       }
        this.$router.replace({
          path: '/main-search',
          query: {'keyword': name}
        })
+       this._comeSearch(name)
      },
      // 搜索参数接收处理
      _comeSearch () {
        if (this.$route.path === '/main-search') {
          this.mainSearch.value = this.$route.query.keyword || ''
+         this.$refs.input.focus()
          if (this.mainSearch.value === '') {
            this.listMode = false
-           this.$refs.input.focus()
          } else {
            this._toSearch(this.mainSearch.value)
          }
@@ -199,9 +196,8 @@
      '$route' (to, from) {
        const fromDepth = from.path.split('/')
        if (fromDepth[1] === 'home') {
-         this.$refs.input.focus()
+         this._comeSearch()
        }
-       this._comeSearch()
      }
    }
  }

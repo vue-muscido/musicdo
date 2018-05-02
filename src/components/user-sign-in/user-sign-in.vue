@@ -16,7 +16,7 @@
              <!--:autocomplete="userAccount.autocomplete"-->
              <!--:clearable="userAccount.clearable"-->
              <!--@input="accountInput()"/>-->
-      
+
       <div class="account-box">
         <cube-input
           class="input-account"
@@ -32,7 +32,7 @@
           @input="accountInput()"
         ></cube-input >
       </div>
-      
+
 
       <!--<input class="input-passward"-->
              <!--v-model="userPassword.value"-->
@@ -60,7 +60,7 @@
           :eye="userPassword.eye"
         ></cube-input >
       </div>
-      
+
     </div>
 
     <div class="quick-bar">
