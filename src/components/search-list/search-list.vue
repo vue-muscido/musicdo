@@ -17,14 +17,13 @@
                 <i class="on-v" >
                   <img src="" />
                 </i >
-
                 <!--<div class="dropdown-list" >-->
-                  <!--<ol >-->
-                    <!--<li class="act" >综合</li >-->
-                    <!--<li >最新上架</li >-->
-                    <!--<li >xxx</li >-->
-                    <!--<li >yyy</li >-->
-                  <!--</ol >-->
+                <!--<ol >-->
+                <!--<li class="act" >综合</li >-->
+                <!--<li >最新上架</li >-->
+                <!--<li >xxx</li >-->
+                <!--<li >yyy</li >-->
+                <!--</ol >-->
                 <!--</div >-->
                 <!--<div class="sup-tc" ></div >-->
               </li >
@@ -67,6 +66,7 @@
         <dd class="products" >
 
           <cube-scroll
+            v-if="searchData.length"
             ref="scroll"
             :data="searchData"
             :options="options"
@@ -74,7 +74,8 @@
 
             <!--<ul class="search-products list-mode">-->
             <ul class="search-products"
-                :class="listMode == true?'list-mode':'bigpic-mode'" >
+                :class="listMode == true?'list-mode':'bigpic-mode'"
+            >
               <li v-for="(item,index) in retSearchData" :key="index" @click="gotoDetail(item.ID)" >
                 <div class="item-inner" >
 
@@ -102,6 +103,8 @@
             </ul >
 
           </cube-scroll >
+          <!--<empty v-else="searchData.length" emptyStr="数据为空哦哦哦哦哦哦" dataType=""></empty>-->
+          <empty v-else="searchData.length" ></empty >
 
         </dd >
 
@@ -195,6 +198,7 @@
 import { searchProduct, GetBrandAndCategoryByKeyword } from 'api/searchData'
 import { LOCAL_HOST, ERR_OK } from 'api/config'
 import loading from 'base/loading/loading'
+import empty from 'base/empty/empty'
 export default {
   data () {
     return {
@@ -253,7 +257,8 @@ export default {
     }
   },
   components: {
-    loading
+    loading,
+    empty
   },
   created () {
     this.getImgSize()
