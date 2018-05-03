@@ -43,6 +43,7 @@ export default {
   },
   watch: {
     '$route' (to, from) {
+      document.title = to.meta.title || '乐都城'
       const toDepth = to.path.split('/')
       const fromDepth = from.path.split('/')
       this.transitionName = toDepth[1] === 'goods-detail' ? 'slide' : 'fade'

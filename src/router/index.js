@@ -29,6 +29,7 @@ export default new Router({
       component: Home,
       name: 'Home',
       meta: {
+        title: '乐都城',
         keepAlive: true // 需要被缓存
       }
     },
@@ -37,6 +38,7 @@ export default new Router({
       component: Brands,
       name: 'Brands',
       meta: {
+        title: '品牌',
         keepAlive: true // 需要被缓存
       }
     },
@@ -45,6 +47,7 @@ export default new Router({
       component: Sort,
       name: 'Sort',
       meta: {
+        title: '分类',
         keepAlive: true // 需要被缓存
       }
     },
@@ -53,6 +56,7 @@ export default new Router({
       component: Cart,
       name: 'Cart',
       meta: {
+        title: '购物车',
         keepAlive: true // 需要被缓存
       }
     },
@@ -61,6 +65,7 @@ export default new Router({
       component: User,
       name: 'User',
       meta: {
+        title: '我的',
         keepAlive: true // 需要被缓存
       }
     },
@@ -69,6 +74,7 @@ export default new Router({
       component: UserSignIn,
       name: 'UserSignIn',
       meta: {
+        title: '登陆',
         keepAlive: true // 需要被缓存
       }
     },
@@ -77,6 +83,7 @@ export default new Router({
       component: UserRegister,
       name: 'UserRegister',
       meta: {
+        title: '注册',
         keepAlive: true // 需要被缓存
       }
     },
@@ -93,6 +100,7 @@ export default new Router({
       component: MainSearch,
       name: 'MainSearch',
       meta: {
+        title: '商品搜索',
         keepAlive: true // 不需要被缓存
       }
     },
@@ -109,6 +117,7 @@ export default new Router({
       component: GoodsDetail,
       name: 'GoodsDetail',
       meta: {
+        title: '商品详情',
         keepAlive: true // 需要被缓存
       }
     }
