@@ -7,22 +7,80 @@
       </li>
     </ul>
     <!-- 展示栏 -->
-    <div class="selectCon"></div>
+    <div class="selectCon">
+      <cube-scroll
+        ref="scroll"
+        :data="brandsData"
+        :options="options">
+        <ul class="brand-list" v-show="selectIndex === index" v-for="(list, index) in brandsData" :key="index">
+          <li class="brand-con" v-for="(item, index) in list" :key="index">
+            <img :src="getImg(item.Logo)" alt="" />
+            <p>{{item.Name}}</p>
+          </li>
+      </ul>
+      </cube-scroll>
+    </div>
+    <!-- loading -->
+    <loading v-show="!brandsData.length" title="正在载入..." ></loading >
   </div >
 </template >
 
 <script type="text/ecmascript-6" >
+import { getBrandClassify } from 'api/brandsData'
+import { LOCAL_HOST } from 'api/config'
+import loading from 'base/loading/loading'
 export default {
   data () {
     return {
       selectIndex: 0,
-      selectBar: ['推荐品牌', '国际品牌', '国内品牌']
+      selectBar: ['推荐品牌', '国际品牌', '国内品牌'],
+      brandsData: [],
+      HotBrand: [],
+      RecommendBrand: [],
+      HomeBrand: [],
+      options: {
+        scrollbar: {
+          fade: true,
+          nteractive: false // 1.8.0 新增
+        }
+      }
     }
   },
+  created () {
+    this._getBrandClassify()
+  },
+  mounted () {
+    this.$refs.scroll.refresh()
+  },
   methods: {
+    getImg (img) {
+      return LOCAL_HOST + img
+    },
     itemSelect (index) {
       this.selectIndex = index
+    },
+    _getBrandClassify () {
+      getBrandClassify().then((res) => {
+        if (res.Flag === true) {
+          console.log(this.brandsData)
+          this.brandsData = this._toArr(res.Data)
+          console.log(this.brandsData)
+        }
+      })
+    },
+    _toArr (str) {
+      let ret = []
+      if (!str) {
+        return ''
+      }
+      for (var key in str) {
+        ret.push(str[key])
+      }
+      return ret
     }
+  },
+  components: {
+    loading
   }
 }
 </script >
@@ -36,25 +94,44 @@ export default {
     position fixed
     top 0
     width 100%
+    height $g-fix-bar-height
     max-width $g-page-max-width
     display flex
     padding 0 1rem
     background-color $g-bgc-con
+    border-bottom 1px solid $g-brc-default
     .select-item
+      extend-click()
       flex 1
-      padding 1rem 0
-      line-height 1.5rem
-      font-size 1.5rem
+      line-height 4rem
+      font-size 1.4rem
       color $g-fc-black
       text-align center
       &.active
+        font-size 1.45rem
         color $g-col-red
         border-bottom 0.2rem solid $g-col-red
   .selectCon
     position fixed
-    top 3.5rem
+    top $g-fix-bar-height
     bottom $g-bot-bar-height
     width 100%
     max-width $g-page-max-width
-    border-top 1px solid $g-brc-default
+    background-color $g-bgc-con
+    .brand-list
+      display flex
+      flex-wrap wrap
+      padding 0.75rem
+      .brand-con
+        padding 0.75rem
+        flex 33.3% 0 0
+        text-align center
+        img
+          width 100%
+          height auto
+        p
+          padding-top 1.0rem
+          line-height 1.3rem
+          font-size 1.3rem
+          color $g-fc-black
 </style >
