@@ -12,6 +12,9 @@ export function getVerificationCode (oParams) {
   // -reset(修改密码)、
   // -login(短信登录验证码)
 
+  console.log('oParamsssssss', oParams)
+  console.log('paramssssssss', params)
+
   const data = Object.assign({}, {}, {
     phoneNumber: params.phoneNumber || '',
     actionType: params.actionType || ''
