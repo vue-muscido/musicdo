@@ -12,16 +12,18 @@
         ref="scroll"
         :data="brandsData"
         :options="options">
-        <ul class="brand-list" v-show="selectIndex === index" v-for="(list, index) in brandsData" :key="index">
-          <li class="brand-con" v-for="(item, index) in list" :key="index">
-            <img :src="getImg(item.Logo)" alt="" />
-            <p>{{item.Name}}</p>
-          </li>
-      </ul>
+        <transition :name="transitionName">
+          <ul v-show="brandList.length" class="brand-list">
+            <li class="brand-con" v-for="(item, index) in brandList" :key="index">
+              <img :src="getImg(item.Logo)" alt="" />
+              <p>{{item.Name}}</p>
+            </li>
+          </ul>
+        </transition >
       </cube-scroll>
     </div>
     <!-- loading -->
-    <loading v-show="!brandsData.length" title="正在载入..." ></loading >
+    <loading v-show="!brandList.length" title="正在载入..." ></loading >
   </div >
 </template >
 
@@ -35,9 +37,8 @@ export default {
       selectIndex: 0,
       selectBar: ['推荐品牌', '国际品牌', '国内品牌'],
       brandsData: [],
-      HotBrand: [],
-      RecommendBrand: [],
-      HomeBrand: [],
+      brandList: [],
+      transitionName: 'fade',
       options: {
         scrollbar: {
           fade: true,
@@ -58,13 +59,17 @@ export default {
     },
     itemSelect (index) {
       this.selectIndex = index
+      this.brandList = []
+      setTimeout(() => {
+        this.brandList = this.brandsData[index]
+      }, 100)
     },
     _getBrandClassify () {
       getBrandClassify().then((res) => {
         if (res.Flag === true) {
           console.log(this.brandsData)
           this.brandsData = this._toArr(res.Data)
-          console.log(this.brandsData)
+          this.itemSelect(this.selectIndex)
         }
       })
     },
