@@ -1,0 +1,29 @@
+@import '~common/stylus/variable.styl'
+@import '~common/stylus/mixin.styl'
+
+.is-empty-wrap
+  position: relative
+  width: 100%
+  padding-top: 8rem
+  .is-empty-con
+    text-align: center
+    .img-box
+      height: 10.5rem
+      .img
+        margin 0 auto
+        height: 100%
+        &.empty-default
+          bg-image("./img/empty-default",contain )
+          background-position center
+        &.empty-cart
+          bg-image("./img/empty-cart",contain )
+          background-position center
+        &.empty-search
+          bg-image("./img/empty-search",contain )
+          background-position center
+    .text
+      margin-top: 2.5rem
+      text-align: center
+      > p
+        font-size: @g-fs-xl
+        color: $g-fc-gray
