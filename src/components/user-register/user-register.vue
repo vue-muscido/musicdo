@@ -33,14 +33,14 @@
           @input="_inputCode()"
         ></cube-input >
         <div class="get-code-btn" :class="getCodeDisable?'disable':''" >
-          <span @click="_getVerificationCode({})" >获取验证码</span >
-          <span ></span >
+          <span v-show="!isCountDown" @click="getCode()" >获取验证码</span >
+          <span v-show="isCountDown" >{{secondNumber}}</span >
         </div >
       </div >
     </div >
     
     <div class="btn-bar" >
-      <div class="next-btn" :class="btnDisable?'disable':''" @click="checkCode()" >
+      <div class="next-btn" :class="nextBtnDisable?'disable':''" @click="checkCode()" >
         下一步
       </div >
     </div >
@@ -52,7 +52,7 @@
 
 <script >
 // import { getVerificationCode, checkVerificationCode, checkCodeAndPhoneNumber } from 'api/verificationCode'
-import { getVerificationCode } from 'api/verificationCode'
+import { getVerificationCode, checkVerificationCode, checkCodeAndPhoneNumber } from 'api/verificationCode'
 export default {
   // 别名
   name: 'user-register',
@@ -75,15 +75,18 @@ export default {
         placeholder: '请输入验证码',
         type: 'number',
         readonly: false,
-        maxlength: 16,
+        maxlength: 6,
         disabled: true,
         autofocus: false,
         autocomplete: false,
         clearable: true
       },
-      getCodeDisable: true,
-      btnDisable: true,
-      retCode: '2222', // 模拟返回的正确验证码
+      getCodeDisable: true, // 初始获取验证码按钮是否禁止
+      nextBtnDisable: true, // 初始下一步按钮是否禁止
+      truePhoneNumber: '', // 获取验证码的手机号
+      timeLimit: 10, // 倒计时秒数限制
+      secondNumber: 0, // 倒计时时间
+      isCountDown: false, // 是否在倒计时
       getCodeRetData: {}
     }
   },
@@ -110,17 +113,53 @@ export default {
   // 方法集合
   methods: {
     _getVerificationCode (params) {
-      let oParams = Object.assign({}, params, {
-        phoneNumber: this.phoneCode.value,
+      console.log('params', params)
+      let oParams = Object.assign({}, {
+        phoneNumber: this.phoneNum.value,
         actionType: 'register'
-      })
+      }, params)
       getVerificationCode(oParams).then((res) => {
-        this.getCodeRetData = res.Data
-        console.log('res', res)
+        //        console.log('res', res)
+        //        console.log('Flag', res.Flag)
+        //        console.log('Code', res.Code)
+        //        console.log('Message', res.Message)
+        // Code 返回结果 -- 0：失败、1：成功
+        if (res.Code === 0) {
+          console.log('获取失败')
+        } else if (res.Code === 1) {
+          console.log('获取成功')
+          this.truePhoneNumber = oParams.phoneNumber
+        } else {
+          console.log('Code', res.Code)
+        }
+      })
+    },
+    _checkVerificationCode (params) {
+      let oParams = Object.assign({}, {
+        phoneNumber: this.truePhoneNumber,
+        code: this.phoneCode.value,
+        actionType: 'register'
+      }, params)
+      checkVerificationCode(oParams).then((res) => {
+        console.log('checkVerificationCode-res', res)
         console.log('Flag', res.Flag)
         console.log('Code', res.Code)
+        // Code 返回结果 -- 0：成功、1：失败
         console.log('Message', res.Message)
-        console.log('Data', res.Data)
+      })
+    },
+    _checkCodeAndPhoneNumber (params) {
+      let oParams = Object.assign({}, {
+        phoneNumber: this.truePhoneNumber,
+        code: this.phoneCode.value,
+        actionType: 'register'
+      }, params)
+      checkCodeAndPhoneNumber(oParams).then((res) => {
+        console.log('checkCodeAndPhoneNumber-res', res)
+        console.log('Flag', res.Flag)
+        console.log('Code', res.Code)
+        // Code 返回结果 -- 0：该手机号码已注册、1：该手机号码可以注册、2、验证码不正确
+        console.log('Message', res.Message)
       })
     },
     _inputPhone () {
@@ -134,25 +173,39 @@ export default {
       }
     },
     _inputCode () {
-      this.isBtnDisable()
+      this.isNextBtnDisable()
     },
-    isBtnDisable () {
+    isNextBtnDisable () {
       console.log('验证码输入中，判断两个输入框是否有值，有值就开启下一步按钮，没值就禁用下一步按钮')
       if (this.phoneCode.value !== '' && this.phoneNum.value !== '') {
-        this.btnDisable = false
+        this.nextBtnDisable = false
       } else {
-        this.btnDisable = true
+        this.nextBtnDisable = true
+      }
+    },
+    getCode () {
+      if (this.getCodeDisable === false) {
+        this._getVerificationCode()
+        this.countDown()
+      } else {
+        return false
       }
     },
     checkCode () {
-      if (this.phoneCode.value === this.retCode) {
-        console.log('模拟验证码正确跳转')
-        this.$router.push({
-          path: '/user-register-set-password'
-        })
+      if (this.nextBtnDisable === false) {
+        this._checkVerificationCode()
+        this._checkCodeAndPhoneNumber()
+        //      if (this.phoneCode.value === this._checkCodeAndPhoneNumber()) {
+        //        console.log('模拟验证码正确跳转')
+        //        this.$router.push({
+        //          path: '/user-register-set-password'
+        //        })
+        //      } else {
+        //        console.log('模拟验证码错误弹提示')
+        //        this.codeError()
+        //      }
       } else {
-        console.log('模拟验证码错误弹提示')
-        this.codeError()
+        return false
       }
     },
     codeError () {
@@ -181,6 +234,27 @@ export default {
           return false
         }
       }).show()
+    },
+    countDown () {
+      this.secondNumber = 0
+      //      let timeLimit = this.timeLimit
+      let countDownTimer = null
+      this.getCodeDisable = true
+      this.isCountDown = true
+      clearInterval(countDownTimer)
+      countDownTimer = setInterval(() => {
+        this.secondNumber++
+        console.log(this.secondNumber)
+        if (this.secondNumber === this.timeLimit) {
+          this.getCodeDisable = false
+          this.isCountDown = false
+          clearInterval(countDownTimer)
+          console.log('倒计时结束')
+        } else {
+          this.getCodeDisable = true
+          console.log(this.secondNumber)
+        }
+      }, 1000)
     }
   },
   // 实时计算数据（一个数据受多个数据影响）

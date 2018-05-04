@@ -4,7 +4,6 @@ import axios from 'axios'
 export function getVerificationCode (oParams) {
   const url = '/api/Foundation/GetVerificationCode'
 
-  const params = oParams || {}
   // actionType---操作分类
   // -register(注册)、
   // -findPwd(找回密码)、
@@ -12,13 +11,12 @@ export function getVerificationCode (oParams) {
   // -reset(修改密码)、
   // -login(短信登录验证码)
 
-  console.log('oParamsssssss', oParams)
-  console.log('paramssssssss', params)
-
   const data = Object.assign({}, {}, {
-    phoneNumber: params.phoneNumber || '',
-    actionType: params.actionType || ''
+    phoneNumber: oParams.phoneNumber || '',
+    actionType: oParams.actionType || ''
   })
+
+  console.log('data', data)
 
   return axios.get(url, {
     params: data
@@ -28,10 +26,18 @@ export function getVerificationCode (oParams) {
 }
 
 // 检测验证码 post
-export function checkVerificationCode () {
+export function checkVerificationCode (oParams) {
   const url = '/api/Foundation/CheckCode'
 
-  const data = Object.assign({}, {}, {})
+  console.log('checkVerificationCode-oParams', oParams)
+
+  const data = Object.assign({}, {}, {
+    phoneNumber: oParams.phoneNumber,
+    code: oParams.code,
+    actionType: oParams.actionType
+  })
+
+  console.log('checkVerificationCode-data', data)
 
   return axios.post(url, {
     params: data
@@ -41,10 +47,18 @@ export function checkVerificationCode () {
 }
 
 // 检测验证码和手机号码已存在(注册页面) post
-export function checkCodeAndPhoneNumber () {
+export function checkCodeAndPhoneNumber (oParams) {
   const url = '/api/Foundation/CheckCodeAndPhoneNumber'
 
-  const data = Object.assign({}, {}, {})
+  console.log('checkCodeAndPhoneNumber-oParams', oParams)
+
+  const data = Object.assign({}, {}, {
+    phoneNumber: oParams.phoneNumber,
+    code: oParams.code,
+    actionType: oParams.actionType
+  })
+
+  console.log('checkCodeAndPhoneNumber-data', data)
 
   return axios.post(url, {
     params: data
