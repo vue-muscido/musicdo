@@ -12,16 +12,20 @@
         ref="scroll"
         :data="brandsData"
         :options="options">
-        <ul class="brand-list" v-show="selectIndex === index" v-for="(list, index) in brandsData" :key="index">
-          <li class="brand-con" v-for="(item, index) in list" :key="index">
-            <img :src="getImg(item.Logo)" alt="" />
-            <p>{{item.Name}}</p>
-          </li>
-      </ul>
+        <transition :name="transitionName">
+          <ul v-show="brandList.length" class="brand-list">
+            <li class="brand-con" v-for="(item, index) in brandList" :key="index">
+              <div class="img-con">
+                <img class="isimg" :src="getImg(item.Logo)" alt="" />
+              </div>
+              <p>{{item.Name}}</p>
+            </li>
+          </ul>
+        </transition >
       </cube-scroll>
     </div>
     <!-- loading -->
-    <loading v-show="!brandsData.length" title="正在载入..." ></loading >
+    <loading v-show="!brandList.length" title="正在载入..." ></loading >
   </div >
 </template >
 
@@ -35,9 +39,8 @@ export default {
       selectIndex: 0,
       selectBar: ['推荐品牌', '国际品牌', '国内品牌'],
       brandsData: [],
-      HotBrand: [],
-      RecommendBrand: [],
-      HomeBrand: [],
+      brandList: [],
+      transitionName: 'fade',
       options: {
         scrollbar: {
           fade: true,
@@ -58,13 +61,17 @@ export default {
     },
     itemSelect (index) {
       this.selectIndex = index
+      this.brandList = []
+      setTimeout(() => {
+        this.brandList = this.brandsData[index]
+      }, 100)
     },
     _getBrandClassify () {
       getBrandClassify().then((res) => {
         if (res.Flag === true) {
           console.log(this.brandsData)
           this.brandsData = this._toArr(res.Data)
-          console.log(this.brandsData)
+          this.itemSelect(this.selectIndex)
         }
       })
     },
@@ -105,12 +112,12 @@ export default {
       flex 1
       line-height 4rem
       font-size 1.4rem
-      color $g-fc-black
+      color $g-fc-normal
       text-align center
       &.active
         font-size 1.45rem
         color $g-col-red
-        border-bottom 0.2rem solid $g-col-red
+        border-bottom 0.1rem solid $g-col-red
   .selectCon
     position fixed
     top $g-fix-bar-height
@@ -121,17 +128,27 @@ export default {
     .brand-list
       display flex
       flex-wrap wrap
-      padding 0.75rem
+      padding 0 0.5rem
       .brand-con
-        padding 0.75rem
+        padding 0.75rem 2rem
         flex 33.3% 0 0
         text-align center
-        img
+        .img-con
+          position relative
+          padding-top 100%
+          width 100%
+          text-align: center
+          overflow hidden
+        .isimg
+          position absolute
+          top 50%
+          left 50%
+          transform translate(-50%, -50%)
           width 100%
           height auto
         p
-          padding-top 1.0rem
-          line-height 1.3rem
-          font-size 1.3rem
-          color $g-fc-black
+          height 1.2rem
+          line-height 1.2rem
+          font-size 1.2rem
+          color $g-fc-gray-b
 </style >

@@ -18,13 +18,12 @@ export default {
   @import "~common/stylus/variable"
 
   .loading
+    margin 0 auto
     position fixed
     z-index $g-zindex-mask
-    padding-top 50%
-    top $g-fix-bar-height
-    left 0
-    bottom $g-bot-bar-height
-    width 100%
+    top 50%
+    left 50%
+    transform: translate(-50%, -50%)
     text-align center
     .desc
       height $g-fs-tit-sm
