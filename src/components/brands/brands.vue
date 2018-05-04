@@ -139,9 +139,10 @@ export default {
         text-align center
         .img-con
           position relative
-          padding-top 100%
+          padding-top 75%
           width 100%
           text-align: center
+          border 1px solid $g-brc-default
           overflow hidden
         .isimg
           position absolute
@@ -150,8 +151,8 @@ export default {
           transform translate(-50%, -50%)
           width 100%
           height auto
-          border 1px solid $g-brc-default
         p
+          margin-top 1rem
           height 1.2rem
           line-height 1.2rem
           font-size 1.2rem

@@ -72,9 +72,7 @@ export default {
       this.selectIndex = index
       this.sortTitle = item.Name
       this.sortList = []
-      setTimeout(() => {
-        this._getProductCategory(item.ID)
-      }, 100)
+      this._getProductCategory(item.ID)
     },
     _getProductCategoryLevel () {
       getProductCategoryLevel().then((res) => {

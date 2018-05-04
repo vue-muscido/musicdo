@@ -16,65 +16,67 @@
         </div >
       </div >
       <!-- 滚动部分-->
-      <div v-if="slide.length" class="scroll">
-        <cube-scroll
-          ref="scroll"
-          :data="slide"
-          :options="options">
-          <!-- 商品图片 -->
-          <div class="goods-img" >
-            <cube-slide
-              :loop="loopFlag"
-              class="cube-slider"
-              ref="slide"
-              :data="slide" >
-              <cube-slide-item
-                v-for="(item, index) in slide"
-                :key="index">
-                <a class="link" >
-                  <img style="width 100% " class="slider-img" :src="getImg(item)" >
-                </a >
-              </cube-slide-item >
-            </cube-slide >
-          </div >
-          <!-- 商品名称 -->
-          <div class="goods-title" >
-            <div class="goods-name" >{{goodsData.Name}}</div >
-            <div class="goods-share" >
-              <span class="icon-share" ></span >
-              <p >分享有奖</p >
+      <transition :name="transitionName">
+        <div v-if="slide.length" class="scroll">
+          <cube-scroll
+            ref="scroll"
+            :data="slide"
+            :options="options">
+            <!-- 商品图片 -->
+            <div class="goods-img-container" >
+              <cube-slide
+                :loop="loopFlag"
+                class="cube-slider"
+                ref="slide"
+                :data="slide" >
+                <cube-slide-item
+                  v-for="(item, index) in slide"
+                  :key="index">
+                  <a class="link slider-img-con" >
+                    <img class="slider-img" :src="getImg(item)" >
+                  </a >
+                </cube-slide-item >
+              </cube-slide >
             </div >
-          </div >
-          <!-- 商品价格 -->
-          <div class="goods-price" >
-            <span class="price-now" >¥<span >{{goodsData.MarketPrice}}.</span >00</span >
-            <span class="price-old" >¥{{goodsData.MemberPrice}}</span >
-          </div >
-          <!-- 商品运费 -->
-          <div class="goods-about" >
-            <div class="about-item goods-freight" >快递:免运费</div >
-            <div class="about-item goods-count" >月销:{{goodsData.SaleCount}}</div >
-            <div v-show="goodsData.ProducingArea" class="about-item goods-area" >{{goodsData.ProducingArea}}</div >
-          </div >
-          <!-- 选择分类 -->
-          <div class="classify">
-            <div class="con">
-              分类
-              <span>选择分类</span>
+            <!-- 商品名称 -->
+            <div class="goods-title" >
+              <div class="goods-name" >{{goodsData.Name}}</div >
+              <div class="goods-share" >
+                <span class="icon-share" ></span >
+                <p >分享有奖</p >
+              </div >
+            </div >
+            <!-- 商品价格 -->
+            <div class="goods-price" >
+              <span class="price-now" >¥<span >{{goodsData.MarketPrice}}.</span >00</span >
+              <span class="price-old" >¥{{goodsData.MemberPrice}}</span >
+            </div >
+            <!-- 商品运费 -->
+            <div class="goods-about" >
+              <div class="about-item goods-freight" >快递:免运费</div >
+              <div class="about-item goods-count" >月销:{{goodsData.SaleCount}}</div >
+              <div v-show="goodsData.ProducingArea" class="about-item goods-area" >{{goodsData.ProducingArea}}</div >
+            </div >
+            <!-- 选择分类 -->
+            <div class="classify">
+              <div class="con">
+                分类
+                <span>选择分类</span>
+              </div>
             </div>
-          </div>
-          <!-- 选择参数 -->
-          <div class="parameter">
-            <div class="con">
-              参数
+            <!-- 选择参数 -->
+            <div class="parameter">
+              <div class="con">
+                参数
+              </div>
             </div>
-          </div>
-          <!-- others -->
-          <div class="others">
-            商品详情～
-          </div>
-        </cube-scroll>
-      </div>
+            <!-- others -->
+            <div class="others">
+              商品详情～
+            </div>
+          </cube-scroll>
+        </div>
+      </transition >
       <!-- 底部操作按钮 -->
       <div class="bottom-bar-action" >
         <div class="action-left" >
@@ -113,6 +115,7 @@ export default {
       goodsData: {},
       slide: [],
       loopFlag: true,
+      transitionName: 'fade',
       options: {
         scrollbar: {
           fade: true,
@@ -145,8 +148,6 @@ export default {
         }
       })
     }
-  },
-  beforeDestroy () {
   },
   components: {
     loading
@@ -218,12 +219,24 @@ export default {
     max-width $g-page-max-width
     top $g-fix-bar-height
     bottom $g-bot-bar-height
-    .goods-img
-      border-bottom 1px solid $g-brc-default
+    .goods-img-container
       .cube-slider
         width 100%
-        height 100%
+        .cube-slide-dots
+          bottom 0.5rem
+          span
+            height 2px
+        .slider-img-con
+          display inline-block
+          position relative
+          width 100%
+          padding-top 100%
+          overflow hidden
         .slider-img
+          position absolute
+          top 50%
+          left 50%
+          transform translate(-50%, -50%)
           width 100%
           height auto
           max-width $g-page-max-width
@@ -259,6 +272,7 @@ export default {
         padding-left 1rem
         color $g-col-gray-w
         vertical-align bottom
+        text-decoration line-through
     .goods-about
       display flex
       justify-content space-between
