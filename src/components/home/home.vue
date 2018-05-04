@@ -84,6 +84,7 @@
         </div >
       </cube-scroll >
     </div >
+     <tab v-show="true"></tab>
     <loading v-show="!homeSecond.length" title="正在载入..." ></loading >
   </div >
 </template >
@@ -91,6 +92,7 @@
 <script type="text/ecmascript-6" >
 import { getHomeFirst, getHomeSecond, tabData } from 'api/homeData'
 import { LOCAL_HOST } from 'api/config'
+import Tab from 'components/tab/tab'
 import loading from 'base/loading/loading'
 export default {
   data () {
@@ -172,7 +174,8 @@ export default {
     }
   },
   components: {
-    loading
+    loading,
+    Tab
   },
   watch: {
     '$route' () {

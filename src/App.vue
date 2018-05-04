@@ -8,12 +8,10 @@
     <transition :name="transitionName">
       <router-view  v-if="!$route.meta.keepAlive" class="router-view" ></router-view >
     </transition >
-    <tab v-show="tabFlag"></tab>
   </div >
 </template >
 
 <script type="text/ecmascript-6" >
-import Tab from 'components/tab/tab'
 import { rem } from 'common/js/rem'
 export default {
   name: 'app',
@@ -27,9 +25,6 @@ export default {
   created () {
     this._rem()
     this._watchRem()
-  },
-  components: {
-    Tab
   },
   methods: {
     _rem () {
@@ -47,11 +42,6 @@ export default {
       const toDepth = to.path.split('/')
       const fromDepth = from.path.split('/')
       this.transitionName = toDepth[1] === 'goods-detail' ? 'slide' : 'fade'
-      if (toDepth[1] === 'home' || toDepth[1] === 'brands' || toDepth[1] === 'sort' || toDepth[1] === 'cart' || toDepth[1] === 'user') {
-        this.tabFlag = true
-      } else {
-        this.tabFlag = false
-      }
       if (toDepth[1] === 'goods-detail') {
         this.transitionName = 'slideIn'
         return

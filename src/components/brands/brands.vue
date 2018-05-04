@@ -24,6 +24,8 @@
         </transition >
       </cube-scroll>
     </div>
+    <!-- tab -->
+    <tab v-show="true"></tab>
     <!-- loading -->
     <loading v-show="!brandList.length" title="正在载入..." ></loading >
   </div >
@@ -32,6 +34,7 @@
 <script type="text/ecmascript-6" >
 import { getBrandClassify } from 'api/brandsData'
 import { LOCAL_HOST } from 'api/config'
+import Tab from 'components/tab/tab'
 import loading from 'base/loading/loading'
 export default {
   data () {
@@ -87,7 +90,8 @@ export default {
     }
   },
   components: {
-    loading
+    loading,
+    Tab
   }
 }
 </script >
@@ -146,6 +150,7 @@ export default {
           transform translate(-50%, -50%)
           width 100%
           height auto
+          border 1px solid $g-brc-default
         p
           height 1.2rem
           line-height 1.2rem
