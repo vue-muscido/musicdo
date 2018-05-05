@@ -129,9 +129,19 @@
 				flex 20% 0 0
 				padding 0 0.25rem 1rem
 				width 25%
-				img
-					width 100%
-					border 1px solid $g-brc-default
+				.tab-img-con
+          position relative
+          width 100%
+          padding-top 70%
+          overflow hidden
+          border 1px solid $g-brc-default
+        .tab-img
+          position absolute
+          top 50%
+          left 50%
+          transform translate(-50%, -50%)
+          width 100%
+          height auto
 	.goods-container
 		margin-top $g-margin-sm
 		.goods-item-list
@@ -202,10 +212,17 @@
 				border 1px solid $g-brc-default
 				width 100%
 				.goods-img-box
-					width 100%
+          position relative
+          padding-top 100%
+          border-bottom 1px solid $g-brc-default
+          overflow hidden
 					.goods-img
-						width 100%
-						height auto
+            position absolute
+            top 50%
+            left 50%
+            transform translate(-50%, -50%)
+            width 100%
+            height auto
 				.goods-title
 					padding 0.75rem 0.75rem 1.5rem
 					h2

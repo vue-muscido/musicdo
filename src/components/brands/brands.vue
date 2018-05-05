@@ -24,6 +24,8 @@
         </transition >
       </cube-scroll>
     </div>
+    <!-- tab -->
+    <tab v-show="true"></tab>
     <!-- loading -->
     <loading v-show="!brandList.length" title="正在载入..." ></loading >
   </div >
@@ -32,6 +34,7 @@
 <script type="text/ecmascript-6" >
 import { getBrandClassify } from 'api/brandsData'
 import { LOCAL_HOST } from 'api/config'
+import Tab from 'components/tab/tab'
 import loading from 'base/loading/loading'
 export default {
   data () {
@@ -87,7 +90,8 @@ export default {
     }
   },
   components: {
-    loading
+    loading,
+    Tab
   }
 }
 </script >
@@ -135,9 +139,10 @@ export default {
         text-align center
         .img-con
           position relative
-          padding-top 100%
+          padding-top 75%
           width 100%
           text-align: center
+          border 1px solid $g-brc-default
           overflow hidden
         .isimg
           position absolute
@@ -147,6 +152,7 @@ export default {
           width 100%
           height auto
         p
+          margin-top 1rem
           height 1.2rem
           line-height 1.2rem
           font-size 1.2rem

@@ -36,6 +36,8 @@
         </cube-scroll>
       </div>
     </div>
+    <!-- tab -->
+    <tab v-show="true"></tab>
     <!-- loading -->
     <loading v-show="!sortList.length" title="正在载入..." ></loading >
   </div >
@@ -43,6 +45,7 @@
 
 <script type="text/ecmascript-6" >
 import { getProductCategoryLevel, getProductCategory } from 'api/sortData'
+import Tab from 'components/tab/tab'
 import loading from 'base/loading/loading'
 import { LOCAL_HOST } from 'api/config'
 export default {
@@ -69,9 +72,7 @@ export default {
       this.selectIndex = index
       this.sortTitle = item.Name
       this.sortList = []
-      setTimeout(() => {
-        this._getProductCategory(item.ID)
-      }, 100)
+      this._getProductCategory(item.ID)
     },
     _getProductCategoryLevel () {
       getProductCategoryLevel().then((res) => {
@@ -93,7 +94,8 @@ export default {
     }
   },
   components: {
-    loading
+    loading,
+    Tab
   }
 }
 </script >
@@ -159,6 +161,7 @@ export default {
             width 100%
             text-align: center
             overflow hidden
+            border 1px solid $g-brc-default
           .isimg
             position absolute
             top 50%
