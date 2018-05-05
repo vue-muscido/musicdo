@@ -34,7 +34,7 @@
         ></cube-input >
         <div class="get-code-btn" :class="getCodeDisable?'disable':''" >
           <span v-show="!isCountDown" @click="getCode()" >获取验证码</span >
-          <span v-show="isCountDown" >{{secondNumber}}</span >
+          <span v-show="isCountDown" >{{secondNumber}}s</span >
         </div >
       </div >
     </div >
@@ -119,15 +119,17 @@ export default {
         actionType: 'register'
       }, params)
       getVerificationCode(oParams).then((res) => {
-        //        console.log('res', res)
+        console.log('res', res)
         //        console.log('Flag', res.Flag)
         //        console.log('Code', res.Code)
         //        console.log('Message', res.Message)
         // Code 返回结果 -- 0：失败、1：成功
         if (res.Code === 0) {
-          console.log('获取失败')
+          console.log('验证码获取失败')
+          console.log('Code-0', res.Code)
         } else if (res.Code === 1) {
-          console.log('获取成功')
+          console.log('验证码获取成功')
+          console.log('Code-1', res.Code)
           this.truePhoneNumber = oParams.phoneNumber
         } else {
           console.log('Code', res.Code)
@@ -142,10 +144,22 @@ export default {
       }, params)
       checkVerificationCode(oParams).then((res) => {
         console.log('checkVerificationCode-res', res)
-        console.log('Flag', res.Flag)
-        console.log('Code', res.Code)
-        // Code 返回结果 -- 0：成功、1：失败
-        console.log('Message', res.Message)
+        console.log('checkVerificationCode-Flag', res.Flag)
+        console.log('checkVerificationCode-Code', res.Code)
+        // Code 返回结果 -- 0：失败、1：成功(未确定)
+        console.log('checkVerificationCode-Message', res.Message)
+        if (res.Code === 0) {
+          console.log('000')
+          console.log('验证失败')
+          return false
+        } else if (res.Code === 1) {
+          console.log('111')
+          console.log('验证成功')
+          return true
+        } else {
+          console.log(res.Code)
+          return false
+        }
       })
     },
     _checkCodeAndPhoneNumber (params) {
@@ -156,10 +170,26 @@ export default {
       }, params)
       checkCodeAndPhoneNumber(oParams).then((res) => {
         console.log('checkCodeAndPhoneNumber-res', res)
-        console.log('Flag', res.Flag)
-        console.log('Code', res.Code)
+        console.log('checkCodeAndPhoneNumber-Flag', res.Flag)
+        console.log('checkCodeAndPhoneNumber-Code', res.Code)
         // Code 返回结果 -- 0：该手机号码已注册、1：该手机号码可以注册、2、验证码不正确
-        console.log('Message', res.Message)
+        console.log('checkCodeAndPhoneNumber-Message', res.Message)
+        if (res.Code === 0) {
+          console.log('000')
+          console.log('该手机号码已注册')
+          return false
+        } else if (res.Code === 1) {
+          console.log('111')
+          console.log('该手机号码可以注册')
+          return true
+        } else if (res.Code === 2) {
+          console.log('111')
+          console.log('验证码不正确')
+          return false
+        } else {
+          console.log(res.Code)
+          return false
+        }
       })
     },
     _inputPhone () {
@@ -184,26 +214,36 @@ export default {
       }
     },
     getCode () {
-      if (this.getCodeDisable === false) {
-        this._getVerificationCode()
-        this.countDown()
+      if (this.getCodeDisable === false) { // 当获取验证码按钮为非禁用状态时
+        this._getVerificationCode() // 获取验证码
+        this.countDown() // 开始倒计时
       } else {
         return false
       }
     },
     checkCode () {
-      if (this.nextBtnDisable === false) {
-        this._checkVerificationCode()
-        this._checkCodeAndPhoneNumber()
-        //      if (this.phoneCode.value === this._checkCodeAndPhoneNumber()) {
-        //        console.log('模拟验证码正确跳转')
-        //        this.$router.push({
-        //          path: '/user-register-set-password'
-        //        })
-        //      } else {
-        //        console.log('模拟验证码错误弹提示')
-        //        this.codeError()
-        //      }
+      if (this.nextBtnDisable === false) { // 当下一步按钮为非禁用状态时
+        console.log('_checkVerificationCode', this._checkVerificationCode())
+        console.log('_checkCodeAndPhoneNumber', this._checkCodeAndPhoneNumber())
+        if (this._checkVerificationCode() === true) { // 验证码正确
+          console.log('验证码正确')
+          if (this._checkCodeAndPhoneNumber() === true) { // 手机可以注册
+            console.log()
+          } else {
+            console.log('手机已注册')
+          }
+        } else {
+          console.log('验证码不正确')
+        }
+        //        if (this._checkVerificationCode() === true && this._checkCodeAndPhoneNumber() === true) {
+        //          console.log('验证码正确跳转')
+        //          this.$router.push({
+        //            path: '/user-register-set-password'
+        //          })
+        //        } else {
+        //          console.log('模拟验证码错误弹提示')
+        //          this.codeError()
+        //        }
       } else {
         return false
       }
@@ -236,23 +276,20 @@ export default {
       }).show()
     },
     countDown () {
-      this.secondNumber = 0
-      //      let timeLimit = this.timeLimit
-      let countDownTimer = null
-      this.getCodeDisable = true
-      this.isCountDown = true
-      clearInterval(countDownTimer)
+      this.secondNumber = 0 // 重置为0再开始
+      let countDownTimer = null // 存倒计时定时器
+      this.getCodeDisable = true // 重置获取验证码按钮为禁用状态
+      this.isCountDown = true // 设置为正在倒计时状态
+      clearInterval(countDownTimer) // 先清除一次
       countDownTimer = setInterval(() => {
-        this.secondNumber++
-        console.log(this.secondNumber)
-        if (this.secondNumber === this.timeLimit) {
-          this.getCodeDisable = false
-          this.isCountDown = false
-          clearInterval(countDownTimer)
-          console.log('倒计时结束')
+        this.secondNumber++ // 每秒加1
+        if (this.secondNumber === this.timeLimit) { // 当倒数秒数与限制时间相等时
+          this.getCodeDisable = false // 获取验证码按钮为启用状态
+          this.isCountDown = false // 不在倒计时状态
+          clearInterval(countDownTimer) // 清除倒计时
         } else {
-          this.getCodeDisable = true
-          console.log(this.secondNumber)
+          this.getCodeDisable = true // 正在倒计时，获取验证码按钮为禁用状态
+          this.isCountDown = true // 正在倒计时
         }
       }, 1000)
     }
