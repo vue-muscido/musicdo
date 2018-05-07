@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Qs from 'qs'
 
 // 获取验证码
 export function getVerificationCode (oParams) {
@@ -32,15 +33,18 @@ export function checkVerificationCode (oParams) {
   console.log('checkVerificationCode-oParams', oParams)
 
   const data = Object.assign({}, {}, {
-    phoneNumber: oParams.phoneNumber,
-    code: oParams.code,
+    phoneNumber: '',
+    code: '',
     actionType: oParams.actionType
   })
 
   console.log('checkVerificationCode-data', data)
 
   return axios.post(url, {
-    params: data
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+    },
+    data: Qs.stringify(data) // --/////////////////////////-- //
   }).then((res) => {
     return Promise.resolve(res.data)
   })
@@ -53,16 +57,60 @@ export function checkCodeAndPhoneNumber (oParams) {
   console.log('checkCodeAndPhoneNumber-oParams', oParams)
 
   const data = Object.assign({}, {}, {
-    phoneNumber: oParams.phoneNumber,
-    code: oParams.code,
+    phoneNumber: '',
+    code: '',
     actionType: oParams.actionType
   })
 
   console.log('checkCodeAndPhoneNumber-data', data)
 
   return axios.post(url, {
-    params: data
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+    },
+    params: Qs.stringify(data)
   }).then((res) => {
     return Promise.resolve(res.data)
+  })
+}
+
+export function buyNow (oParams) {
+  const url = '/api/Member/BuyNow'
+
+  console.log('Member/BuyNow-oParams', oParams)
+
+  const data = Object.assign({}, {}, {
+    ProductID: oParams.ProductID,
+    Param: oParams.Param,
+    Count: oParams.Count
+  })
+
+  console.log('Member/BuyNow-data', data)
+
+  return axios.post(url, {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+    },
+    params: Qs.stringify(data),
+    data: Qs.stringify(data)
+  }).then((res) => {
+    return Promise.resolve(res.data)
+  })
+}
+
+export function buyNow2 () {
+  var params = new URLSearchParams()
+  params.append('ProductID', 27760)
+  params.append('Param', '2833')
+  params.append('Count', 1)
+  this.$ajax({
+    method: 'post',
+    url: '/api/Member/BuyNow',
+    data: params
+    //          data: {id: '3', name: 'abc'}
+  }).then(function (response) {
+    console.log(response)
+  }).catch(function (error) {
+    console.log(error)
   })
 }
