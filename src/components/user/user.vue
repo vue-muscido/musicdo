@@ -1,6 +1,5 @@
 <template >
   <div class="user" >
-    <main-search ></main-search >
     <span >用户</span >
     <!-- tab -->
     <tab v-show="true"></tab>
@@ -9,7 +8,6 @@
 
 <script type="text/ecmascript-6" >
 import Tab from 'components/tab/tab'
-import MainSearch from 'components/main-search/main-search'
 export default {
   data () {
     return {
@@ -17,8 +15,7 @@ export default {
     }
   },
   components: {
-    Tab,
-    MainSearch
+    Tab
   },
   created () {
   },

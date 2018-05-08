@@ -1,8 +1,8 @@
-<template >
-  <div class="user-sign-in" >
-    <div class="logo-bar" >
-      <div class="logo" ></div >
-    </div >
+<template>
+  <div class="user-login">
+    <div class="logo-bar">
+      <div class="logo"></div>
+    </div>
 
     <div class="input-bar">
 
@@ -19,7 +19,7 @@
           :autocomplete="userAccount.autocomplete"
           :clearable="userAccount.clearable"
           @input="accountInput()"
-        ></cube-input >
+        ></cube-input>
       </div>
 
       <div class="password-box">
@@ -35,7 +35,7 @@
           :autocomplete="userPassword.autocomplete"
           :clearable="userPassword.clearable"
           :eye="userPassword.eye"
-        ></cube-input >
+        ></cube-input>
       </div>
 
     </div>
@@ -50,9 +50,12 @@
     </div>
 
     <div class="btn-bar">
-      <div class="sign-in-btn">
+      <!--<div class="login-btn">-->
+        <!--登录-->
+      <!--</div>-->
+      <cov-button class="login-btn __cov-modal-btn" :class="loginBtnDisable?'disable':''" @click="checkCode()" >
         登录
-      </div>
+      </cov-button>
     </div>
 
     <div class="new-account-bar">
@@ -69,13 +72,14 @@
       </div>
     </div>
 
-  </div >
-</template >
+  </div>
+</template>
 
-<script type="text/ecmascript-6" >
+<script type="text/ecmascript-6">
+import CovButton from 'base/ripple-btn/ripple-btn'
 export default {
   // 别名
-  name: 'user-sign-in',
+  name: 'UserLogIn',
   // 数据
   data () {
     return {
@@ -100,30 +104,41 @@ export default {
         autofocus: false,
         autocomplete: false,
         clearable: false,
-        eye: true
-      }
+        eye: {open: false}
+      },
+      loginBtnDisable: true
     }
   },
   // 子组件
-  components: {},
+  components: {
+    CovButton
+  },
   // 接受父组件传递数据
   props: {},
   // 组件实例创建前
-  beforeCreate () {},
+  beforeCreate () {
+  },
   // 组件实例创建后
-  created () {},
+  created () {
+  },
   // 模板编译/挂载前
-  beforeMount () {},
+  beforeMount () {
+  },
   // 模板编译/挂载后
-  mounted () {},
+  mounted () {
+  },
   // 组件更新前
-  beforeUpdate () {},
+  beforeUpdate () {
+  },
   // 组件更新后
-  updated () {},
+  updated () {
+  },
   // 组件销毁前
-  beforeDestroy () {},
+  beforeDestroy () {
+  },
   // 组件销毁后
-  destroyed () {},
+  destroyed () {
+  },
   // 方法集合
   methods: {
     accountInput () {
@@ -141,8 +156,8 @@ export default {
   // 实时计算数据（一个数据影响多个数据）
   watch: {}
 }
-</script >
+</script>
 
-<style lang="stylus" rel="stylesheet/stylus" >
-@import 'user-sign-in.styl'
-</style >
+<style lang="stylus" rel="stylesheet/stylus">
+  @import 'user-login.styl'
+</style>

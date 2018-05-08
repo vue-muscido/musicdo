@@ -1,11 +1,11 @@
-<template >
-  <button @click="reppleClick" class="__cov-button-ripple" :class="{active: repple_button.toggle}" >
-    <slot ></slot >
-    <span class="__cov-ripple" :class="{'animate': repple_button.animate}" ></span >
-  </button >
-</template >
+<template>
+  <button @click="reppleClick" class="__cov-button-ripple" :class="{active: repple_button.toggle}">
+    <slot></slot>
+    <span class="__cov-ripple" :class="{'animate': repple_button.animate}"></span>
+  </button>
+</template>
 
-<script type="text/ecmascript-6" >
+<script type="text/ecmascript-6">
 export default {
   // 别名
   name: 'CovButton',
@@ -23,21 +23,29 @@ export default {
   // 接受父组件传递数据
   props: {},
   // 组件实例创建前
-  beforeCreate () {},
+  beforeCreate () {
+  },
   // 组件实例创建后
-  created () {},
+  created () {
+  },
   // 模板编译/挂载前
-  beforeMount () {},
+  beforeMount () {
+  },
   // 模板编译/挂载后
-  mounted () {},
+  mounted () {
+  },
   // 组件更新前
-  beforeUpdate () {},
+  beforeUpdate () {
+  },
   // 组件更新后
-  updated () {},
+  updated () {
+  },
   // 组件销毁前
-  beforeDestroy () {},
+  beforeDestroy () {
+  },
   // 组件销毁后
-  destroyed () {},
+  destroyed () {
+  },
   // 方法集合
   methods: {
     reppleClick (e) {
@@ -62,9 +70,9 @@ export default {
   // 实时计算数据（一个数据影响多个数据）
   watch: {}
 }
-</script >
+</script>
 
-<style lang="stylus" rel="stylesheet/stylus" >
+<style lang="stylus" rel="stylesheet/stylus">
 @import '~common/stylus/variable.styl'
 @import '~common/stylus/mixin.styl'
 
@@ -79,7 +87,7 @@ export default {
   //padding: 0 16px;
   display: inline-block;
   font-family: Roboto, Helvetica, Arial, sans-serif;
-  //font-size: 14px;
+  font-size: 1.4rem;
   font-weight: 500;
   //text-transform: uppercase;
   //line-height: 1;
@@ -104,19 +112,20 @@ export default {
 .__cov-ripple {
   display: block;
   position: absolute;
+  z-index -1
   background: hsla(0, 0%, 65%, 0.66);
   border-radius: 100%;
   transform: scale(0);
 }
 
 .__cov-ripple.animate {
-  animation: ripple 0.65s linear;
+  animation: ripple 0.65s cubic-bezier(0.6, 0.7, 0.8, 0.9);
 }
 
 @keyframes ripple {
   100% {
     opacity: 0;
-    transform: scale(2.5);
+    transform: scale(3.5);
   }
 }
-</style >
+</style>
