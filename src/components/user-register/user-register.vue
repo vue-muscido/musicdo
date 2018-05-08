@@ -45,8 +45,8 @@
       </div >
     </div >
     
-    <div >test</div >
-    <div @click="_buyNow()" >点击获取</div >
+    <div >test - buyNow先留着测试用</div >
+    <div @click="_buyNow()" >点击获取 _buyNow</div >
     
   </div >
 </template >
@@ -118,7 +118,7 @@ export default {
   destroyed () {},
   // 方法集合
   methods: {
-    _buyNow () {
+    _buyNow () { // buyNow先留着测试用
       let oparams = {
         ProductID: 27760, // int
         Param: '2833', // str
@@ -211,13 +211,14 @@ export default {
         if (res.Code === 0) {
           console.log('该手机号码已注册')
           this.errEvent = 'CHECK_CODE_AND_PHONE_ERR_0'
-//          let errText = {
-//            title: '该手机号码已注册',
-//            content: '请重新登陆'
-//          }
+          //          let errText = {
+          //            title: '该手机号码已注册',
+          //            content: '请重新登陆'
+          //          }
           this.codeError({
             title: '该手机号码已注册',
-            content: '请重新登陆'
+            content: '请重新登陆',
+            confirmBtnText: '前往登陆'
           })
         } else if (res.Code === 1) {
           console.log('该手机号码可以注册')
@@ -282,7 +283,7 @@ export default {
         title: config.title || '验证码错误',
         content: config.content || '请重新注册',
         confirmBtn: {
-          text: '重新注册',
+          text: config.confirmBtnText || '重新注册',
           active: true,
           disabled: false,
           href: 'javascript:;'
