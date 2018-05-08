@@ -34,7 +34,7 @@
         ></cube-input >
         <div class="get-code-btn" :class="getCodeDisable?'disable':''" >
           <span v-show="!isCountDown" @click="getCode()" >获取验证码</span >
-          <span v-show="isCountDown" >{{secondNumber}}s</span >
+          <span v-show="isCountDown" >{{secondNumber}}秒后重新获取</span >
         </div >
       </div >
     </div >
@@ -93,7 +93,7 @@ export default {
       timeLimit: 10, // 倒计时秒数限制
       secondNumber: 0, // 倒计时时间
       isCountDown: false, // 是否在倒计时
-      getCodeRetData: {}
+      errEvent: 'DEFAULT'
     }
   },
   // 子组件
@@ -140,14 +140,23 @@ export default {
         //        console.log('Code', res.Code)
         //        console.log('Message', res.Message)
         // Code 返回结果 -- 0：失败、1：成功
+        this.countDown() // 开始倒计时
         if (res.Code === 0) {
           console.log('验证码获取失败')
           console.log('Code-0', res.Code)
+          this.errEvent = 'GET_CODE_ERR_0'
+          let errText = {
+            title: '验证码获取失败',
+            content: '请检查手机号码是否有误'
+          }
+          this.codeError(errText)
         } else if (res.Code === 1) {
           console.log('验证码获取成功')
           console.log('Code-1', res.Code)
+          this.errEvent = 'DEFAULT'
           this.truePhoneNumber = oParams.phoneNumber
         } else {
+          this.errEvent = 'DEFAULT'
           console.log('Code', res.Code)
         }
       })
@@ -158,7 +167,6 @@ export default {
         code: this.phoneCode.value,
         actionType: 'register'
       }, params)
-      checkVerificationCode(oParams)
       checkVerificationCode(oParams).then((res) => {
         console.log('checkVerificationCode-res', res)
         console.log('checkVerificationCode-Flag', res.Flag)
@@ -168,13 +176,22 @@ export default {
         if (res.Code === 0) {
           console.log('000')
           console.log('验证失败')
+          this.errEvent = 'CHECK_CODE_ERR_0'
+          let errText = {
+            title: '验证失败',
+            content: '请检查手机号码是否有误'
+          }
+          this.codeError(errText)
           return false
         } else if (res.Code === 1) {
           console.log('111')
           console.log('验证成功')
+          this.errEvent = 'DEFAULT'
+          this._checkCodeAndPhoneNumber(params)
           return true
         } else {
           console.log(res.Code)
+          this.errEvent = 'DEFAULT'
           return false
         }
       })
@@ -192,20 +209,34 @@ export default {
         // Code 返回结果 -- 0：该手机号码已注册、1：该手机号码可以注册、2、验证码不正确
         console.log('checkCodeAndPhoneNumber-Message', res.Message)
         if (res.Code === 0) {
-          console.log('000')
           console.log('该手机号码已注册')
-          return false
+          this.errEvent = 'CHECK_CODE_AND_PHONE_ERR_0'
+//          let errText = {
+//            title: '该手机号码已注册',
+//            content: '请重新登陆'
+//          }
+          this.codeError({
+            title: '该手机号码已注册',
+            content: '请重新登陆'
+          })
         } else if (res.Code === 1) {
-          console.log('111')
           console.log('该手机号码可以注册')
-          return true
+          console.log('跳转下一页，进行密码设置')
+          this.errEvent = 'DEFAULT'
+          this.$router.push({
+            path: '/user-register-set-password'
+          })
         } else if (res.Code === 2) {
-          console.log('111')
           console.log('验证码不正确')
-          return false
+          this.errEvent = 'CHECK_CODE_AND_PHONE_ERR_2'
+          let errText = {
+            title: '验证码不正确',
+            content: '请输入正确的验证码'
+          }
+          this.codeError(errText)
         } else {
+          this.errEvent = 'DEFAULT'
           console.log(res.Code)
-          return false
         }
       })
     },
@@ -233,44 +264,23 @@ export default {
     getCode () {
       if (this.getCodeDisable === false) { // 当获取验证码按钮为非禁用状态时
         this._getVerificationCode() // 获取验证码
-        this.countDown() // 开始倒计时
       } else {
         return false
       }
     },
     checkCode () {
       if (this.nextBtnDisable === false) { // 当下一步按钮为非禁用状态时
-        console.log('_checkVerificationCode', this._checkVerificationCode())
-        console.log('_checkCodeAndPhoneNumber', this._checkCodeAndPhoneNumber())
-        if (this._checkVerificationCode() === true) { // 验证码正确
-          console.log('验证码正确')
-          if (this._checkCodeAndPhoneNumber() === true) { // 手机可以注册
-            console.log()
-          } else {
-            console.log('手机已注册')
-          }
-        } else {
-          console.log('验证码不正确')
-        }
-        //        if (this._checkVerificationCode() === true && this._checkCodeAndPhoneNumber() === true) {
-        //          console.log('验证码正确跳转')
-        //          this.$router.push({
-        //            path: '/user-register-set-password'
-        //          })
-        //        } else {
-        //          console.log('模拟验证码错误弹提示')
-        //          this.codeError()
-        //        }
+        this._checkVerificationCode()
       } else {
         return false
       }
     },
-    codeError () {
+    codeError (config) {
       this.$createDialog({
         type: 'confirm',
         //          icon: 'cubeic-alert',
-        title: '验证码错误',
-        content: '请重新输入验证码',
+        title: config.title || '验证码错误',
+        content: config.content || '请重新注册',
         confirmBtn: {
           text: '重新注册',
           active: true,
@@ -285,12 +295,33 @@ export default {
         },
         onConfirm: () => {
           console.log('点击了重新注册按钮，这里写重新注册逻辑')
+          console.log(this.errEvent)
+          if (this.errEvent === 'GET_CODE_ERR_0' ||
+            this.errEvent === 'CHECK_CODE_ERR_0' ||
+            this.errEvent === 'CHECK_CODE_AND_PHONE_ERR_2' ||
+            this.errEvent === 'DEFAULT') {
+            console.log('获取验证码失败，请重新注册')
+            this.resetInputVal()
+          } else if (this.errEvent === 'CHECK_CODE_AND_PHONE_ERR_0') {
+            console.log('该手机号码已注册，请重新登录')
+            this.$router.push({
+              path: '/user-sign-in'
+            })
+          } else {
+            console.log('获取验证码失败，请重新注册')
+            this.resetInputVal()
+          }
         },
         onCancel: () => {
           console.log('点击了取消按钮，这里返回false即可')
           return false
         }
       }).show()
+    },
+    resetInputVal () {
+      this.phoneNum.value = ''
+      this.phoneCode.value = ''
+      this.truePhoneNumber = ''
     },
     countDown () {
       this.secondNumber = 0 // 重置为0再开始

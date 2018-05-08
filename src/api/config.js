@@ -19,10 +19,9 @@ export const LOCAL_HOST = 'http://musicdo.cn'
 
 export function objConversStr (obj) {
   let str = ''
-  for (var k in obj) {
-    str += '&' + k + '=' + obj[k]
+  for (let k in obj) {
+    str += `&${k}=${obj[k]}`
   }
-
   str = str.substring(1, str.length)
   return str
 }
