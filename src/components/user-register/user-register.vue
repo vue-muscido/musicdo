@@ -54,7 +54,10 @@
 <script >
 // import { getVerificationCode, checkVerificationCode, checkCodeAndPhoneNumber } from 'api/verificationCode'
 import {
-  getVerificationCode, checkVerificationCode, checkCodeAndPhoneNumber, buyNow, buyNow2
+  getVerificationCode,
+  checkVerificationCode,
+  checkCodeAndPhoneNumber,
+  buyNow
 } from 'api/verificationCode'
 export default {
   // 别名
@@ -124,11 +127,6 @@ export default {
       buyNow(oparams).then((res) => {
         console.log(res)
       })
-      buyNow2().then((res) => {
-        console.log(res)
-      })
-      console.log(buyNow(oparams))
-      console.log(buyNow2())
     },
     _getVerificationCode (params) {
       console.log('params', params)
@@ -160,6 +158,7 @@ export default {
         code: this.phoneCode.value,
         actionType: 'register'
       }, params)
+      checkVerificationCode(oParams)
       checkVerificationCode(oParams).then((res) => {
         console.log('checkVerificationCode-res', res)
         console.log('checkVerificationCode-Flag', res.Flag)
