@@ -5,17 +5,6 @@
     </div >
 
     <div class="input-bar">
-      <!--<input class="input-account"-->
-             <!--v-model="userAccount.value"-->
-             <!--:placeholder="userAccount.placeholder"-->
-             <!--:type="userAccount.type"-->
-             <!--:maxlength="userAccount.maxlength"-->
-             <!--:readonly="userAccount.readonly"-->
-             <!--:disabled="userAccount.disabled"-->
-             <!--:autofocus="userAccount.autofocus"-->
-             <!--:autocomplete="userAccount.autocomplete"-->
-             <!--:clearable="userAccount.clearable"-->
-             <!--@input="accountInput()"/>-->
 
       <div class="account-box">
         <cube-input
@@ -33,18 +22,6 @@
         ></cube-input >
       </div>
 
-
-      <!--<input class="input-passward"-->
-             <!--v-model="userPassword.value"-->
-             <!--:placeholder="userPassword.placeholder"-->
-             <!--:type="userPassword.type"-->
-             <!--:maxlength="userPassword.maxlength"-->
-             <!--:readonly="userPassword.readonly"-->
-             <!--:disabled="userPassword.disabled"-->
-             <!--:autofocus="userPassword.autofocus"-->
-             <!--:autocomplete="userPassword.autocomplete"-->
-             <!--:clearable="userPassword.clearable"-->
-             <!--:eye="userPassword.eye"/>-->
       <div class="password-box">
         <cube-input
           class="input-password"

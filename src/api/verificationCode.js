@@ -17,13 +17,6 @@ export function getVerificationCode (oParams) {
     actionType: oParams.actionType || ''
   })
 
-  console.log('data', data)
-
-  // return axios.get(url, {
-  //   params: data
-  // }).then((res) => {
-  //   return Promise.resolve(res.data)
-  // })
   return axios({
     method: 'get',
     url: url,
@@ -64,16 +57,6 @@ export function checkCodeAndPhoneNumber (oParams) {
     actionType: oParams.actionType
   })
 
-  // console.log('checkCodeAndPhoneNumber-data', data)
-  //
-  // return axios.post(url, {
-  //   headers: {
-  //     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-  //   },
-  //   params: Qs.stringify(data)
-  // }).then((res) => {
-  //   return Promise.resolve(res.data)
-  // })
   return axios({
     method: 'post',
     url: url,
@@ -87,12 +70,6 @@ export function checkCodeAndPhoneNumber (oParams) {
 
 // buyNow留着测试，下个完善版本删除
 export function buyNow (oparams) {
-  // var params = new URLSearchParams()
-  // params.append('ProductID', 27760)
-  // params.append('Param', '2833')
-  // params.append('Count', 1)
-  // let params = 'ProductID=27760&Param="2833"&Count=1'
-  // console.log(objConversStr(oparams))
   return axios({
     method: 'post',
     url: '/api/Member/BuyNow',
@@ -103,19 +80,3 @@ export function buyNow (oparams) {
     console.log(error)
   })
 }
-
-// export function buyNow2 () {
-//   var params = new URLSearchParams()
-//   params.append('ProductID', 27760)
-//   params.append('Param', '2833')
-//   params.append('Count', 1)
-//   return axios({
-//     method: 'post',
-//     url: '/api/Member/BuyNow',
-//     data: params
-//   }).then(function (response) {
-//     console.log(response)
-//   }).catch(function (error) {
-//     console.log(error)
-//   })
-// }
