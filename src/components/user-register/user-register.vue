@@ -45,14 +45,20 @@
       </div >
     </div >
     
-    <div >test:{{getCodeRetData}}</div >
+    <div >test</div >
+    <div @click="_buyNow()" >点击获取</div >
     
   </div >
 </template >
 
 <script >
 // import { getVerificationCode, checkVerificationCode, checkCodeAndPhoneNumber } from 'api/verificationCode'
-import { getVerificationCode, checkVerificationCode, checkCodeAndPhoneNumber } from 'api/verificationCode'
+import {
+  getVerificationCode,
+  checkVerificationCode,
+  checkCodeAndPhoneNumber,
+  buyNow
+} from 'api/verificationCode'
 export default {
   // 别名
   name: 'user-register',
@@ -112,6 +118,16 @@ export default {
   destroyed () {},
   // 方法集合
   methods: {
+    _buyNow () {
+      let oparams = {
+        ProductID: 27760, // int
+        Param: '2833', // str
+        Count: 1 // int
+      }
+      buyNow(oparams).then((res) => {
+        console.log(res)
+      })
+    },
     _getVerificationCode (params) {
       console.log('params', params)
       let oParams = Object.assign({}, {
@@ -142,6 +158,7 @@ export default {
         code: this.phoneCode.value,
         actionType: 'register'
       }, params)
+      checkVerificationCode(oParams)
       checkVerificationCode(oParams).then((res) => {
         console.log('checkVerificationCode-res', res)
         console.log('checkVerificationCode-Flag', res.Flag)

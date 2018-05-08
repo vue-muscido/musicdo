@@ -16,3 +16,13 @@ export const ERR_OK = 1
 export const LOCAL_HOST = 'http://musicdo.cn'
 
 // export const baseImgUrl = LOCAL_HOST + ''
+
+export function objConversStr (obj) {
+  let str = ''
+  for (var k in obj) {
+    str += '&' + k + '=' + obj[k]
+  }
+
+  str = str.substring(1, str.length)
+  return str
+}
