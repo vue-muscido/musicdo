@@ -7,7 +7,7 @@ import Sort from 'components/sort/sort' // 分类页组件
 import Cart from 'components/cart/cart' // 购物车组件
 import User from 'components/user/user' // 用户中心组件
 
-import UserSignIn from 'components/user-sign-in/user-sign-in' // 用户登录组件
+import UserLogIn from 'components/user-login/user-login' // 用户登录组件
 import UserRegister from 'components/user-register/user-register' // 用户注册组件
 import UserRegisterSetPassword from 'components/user-register-set-password/user-register-set-password' // 用户注册设置密码
 
@@ -70,9 +70,9 @@ export default new Router({
       }
     },
     {
-      path: '/user-sign-in',
-      component: UserSignIn,
-      name: 'UserSignIn',
+      path: '/user-login',
+      component: UserLogIn,
+      name: 'UserLogIn',
       meta: {
         title: '登陆',
         keepAlive: true // 需要被缓存

@@ -312,7 +312,7 @@ export default {
           } else if (this.errEvent === 'CHECK_CODE_AND_PHONE_ERR_0') {
             console.log('该手机号码已注册，请重新登录')
             this.$router.push({
-              path: '/user-sign-in'
+              path: '/user-login'
             })
           } else {
             console.log('获取验证码失败，请重新注册')

@@ -26,9 +26,15 @@
         </router-link >
       </li >
       <li >
-        <router-link tag="div" class="tab-item" to="/user-register" >
+        <router-link tag="div" class="tab-item" to="/user" >
           <div class="tab-img" ></div >
           <span class="tab-txt" >我</span >
+        </router-link >
+      </li >
+      <li >
+        <router-link tag="div" class="tab-item" to="/user-login" >
+          <div class="tab-img" ></div >
+          <span class="tab-txt" >测试页</span >
         </router-link >
       </li >
     </ul >
