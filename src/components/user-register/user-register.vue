@@ -40,12 +40,16 @@
     </div >
     
     <div class="btn-bar" >
-      <div class="next-btn" :class="nextBtnDisable?'disable':''" @click="checkCode()" >
+      <!--<div class="next-btn" :class="nextBtnDisable?'disable':''" @click="checkCode()" >-->
+        <!--下一步-->
+      <!--</div >-->
+      <cov-button class="__cov-modal-btn next-btn" :class="nextBtnDisable?'disable':''" @click="checkCode()" >
         下一步
-      </div >
+      </cov-button>
     </div >
     
     <div >test - buyNow先留着测试用</div >
+    <cov-button class="__cov-modal-btn" @click="">OK</cov-button>
     <div @click="_buyNow()" >点击获取 _buyNow</div >
     
   </div >
@@ -59,6 +63,7 @@ import {
   checkCodeAndPhoneNumber,
   buyNow
 } from 'api/verificationCode'
+import CovButton from 'base/ripple-btn/ripple-btn'
 export default {
   // 别名
   name: 'user-register',
@@ -97,7 +102,9 @@ export default {
     }
   },
   // 子组件
-  components: {},
+  components: {
+    CovButton
+  },
   // 接受父组件传递数据
   props: {},
   // 组件实例创建前
