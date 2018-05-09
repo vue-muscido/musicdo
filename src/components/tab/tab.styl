@@ -1,5 +1,6 @@
 @import '~common/stylus/variable.styl'
 @import '~common/stylus/mixin.styl'
+
 .tab
   position fixed
   bottom 0
@@ -24,6 +25,7 @@
         text-decoration none
         align-items center
         justify-content center
+        width 100%
         height 100%
         &.router-link-active
           .tab-txt
@@ -31,7 +33,7 @@
       .tab-img
         width $g-bot-icon-w
         height $g-bot-icon-w
-        margin-bottom $g-padding-xs
+        //margin-bottom $g-padding-xs
       .tab-txt
         font-size $g-fs-min
         color $g-fc-black

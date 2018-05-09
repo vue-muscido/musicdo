@@ -67,16 +67,3 @@ export function checkCodeAndPhoneNumber (oParams) {
     console.log(error)
   })
 }
-
-// buyNow留着测试，下个完善版本删除
-export function buyNow (oparams) {
-  return axios({
-    method: 'post',
-    url: '/api/Member/BuyNow',
-    data: objConversStr(oparams)
-  }).then(function (response) {
-    return Promise.resolve(response.data)
-  }).catch(function (error) {
-    console.log(error)
-  })
-}
