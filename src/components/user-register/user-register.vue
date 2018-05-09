@@ -40,29 +40,21 @@
     </div >
 
     <div class="btn-bar" >
-      <!--<div class="next-btn" :class="nextBtnDisable?'disable':''" @click="checkCode()" >-->
-        <!--下一步-->
-      <!--</div >-->
-      <cov-button class="__cov-modal-btn next-btn" :class="nextBtnDisable?'disable':''" @click="checkCode()" >
+      <ripple-btn class="next-btn" :class="nextBtnDisable?'disable':''" @click="checkCode()" >
         下一步
-      </cov-button>
+      </ripple-btn >
     </div >
-
-    <div >test - buyNow先留着测试用</div >
-    <cov-button class="__cov-modal-btn" @click="">OK</cov-button>
-    <div @click="_buyNow()" >点击获取 _buyNow</div >
-
+    
   </div >
 </template >
 
-<script type="text/ecmascript-6">
+<script type="text/ecmascript-6" >
 import {
   getVerificationCode,
   checkVerificationCode,
-  checkCodeAndPhoneNumber,
-  buyNow
+  checkCodeAndPhoneNumber
 } from 'api/verificationCode'
-import CovButton from 'base/ripple-btn/ripple-btn'
+import RippleBtn from 'base/ripple-btn/ripple-btn'
 export default {
   // 别名
   name: 'user-register',
@@ -102,7 +94,7 @@ export default {
   },
   // 子组件
   components: {
-    CovButton
+    RippleBtn
   },
   // 接受父组件传递数据
   props: {},
@@ -124,16 +116,6 @@ export default {
   destroyed () {},
   // 方法集合
   methods: {
-    _buyNow () { // buyNow先留着测试用
-      let oparams = {
-        ProductID: 27760, // int
-        Param: '2833', // str
-        Count: 1 // int
-      }
-      buyNow(oparams).then((res) => {
-        console.log(res)
-      })
-    },
     _getVerificationCode (params) {
       console.log('params', params)
       let oParams = Object.assign({}, {

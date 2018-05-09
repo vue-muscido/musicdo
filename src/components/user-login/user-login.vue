@@ -1,12 +1,12 @@
-<template>
-  <div class="user-login">
-    <div class="logo-bar">
-      <div class="logo"></div>
-    </div>
+<template >
+  <div class="user-login" >
+    <div class="logo-bar" >
+      <div class="logo" ></div >
+    </div >
 
-    <div class="input-bar">
+    <div class="input-bar" >
 
-      <div class="account-box">
+      <div class="account-box" >
         <cube-input
           class="input-account"
           v-model="userAccount.value"
@@ -19,10 +19,10 @@
           :autocomplete="userAccount.autocomplete"
           :clearable="userAccount.clearable"
           @input="accountInput()"
-        ></cube-input>
-      </div>
+        ></cube-input >
+      </div >
 
-      <div class="password-box">
+      <div class="password-box" v-if="isLoginByCode" >
         <cube-input
           class="input-password"
           v-model="userPassword.value"
@@ -35,48 +35,64 @@
           :autocomplete="userPassword.autocomplete"
           :clearable="userPassword.clearable"
           :eye="userPassword.eye"
-        ></cube-input>
-      </div>
+          @input="passwordInput()"
+        ></cube-input >
+      </div >
+      
+      <div class="vcode-box" v-else="isLoginByCode">
+        <cube-input
+          class="input-vcode"
+          v-model="userVcode.value"
+          :placeholder="userVcode.placeholder"
+          :type="userVcode.type"
+          :maxlength="userVcode.maxlength"
+          :readonly="userVcode.readonly"
+          :disabled="userVcode.disabled"
+          :autofocus="userVcode.autofocus"
+          :autocomplete="userVcode.autocomplete"
+          :clearable="userVcode.clearable"
+          :eye="userVcode.eye"
+          @input="codeInput()"
+        ></cube-input >
+      </div >
 
-    </div>
+    </div >
 
-    <div class="quick-bar">
-      <div>
+    <div class="quick-bar" >
+      <div >
         短信快速登录
-      </div>
-      <div>
+      </div >
+      <div >
         忘记密码?
-      </div>
-    </div>
+      </div >
+    </div >
 
-    <div class="btn-bar">
-      <!--<div class="login-btn">-->
-        <!--登录-->
-      <!--</div>-->
-      <cov-button class="login-btn __cov-modal-btn" :class="loginBtnDisable?'disable':''" @click="checkCode()" >
+    <div class="btn-bar" >
+      <ripple-btn class="login-btn" :class="loginBtnDisable?'disable':''" @click="_login()" >
         登录
-      </cov-button>
-    </div>
+      </ripple-btn >
+    </div >
 
-    <div class="new-account-bar">
-      <span class="new-account-btn">
+    <div class="new-account-bar" >
+      <span class="new-account-btn" >
         注册新账号
-      </span>
-    </div>
+      </span >
+    </div >
 
-    <div class="other-way-bar">
-      <h3><span>其他账号登录</span></h3>
-      <div class="other-way">
-        <div class="wx"></div>
-        <div class="qq"></div>
-      </div>
-    </div>
+    <div class="other-way-bar" >
+      <h3 ><span >其他账号登录</span ></h3 >
+      <div class="other-way" >
+        <div class="wx" ></div >
+        <div class="qq" ></div >
+      </div >
+    </div >
 
-  </div>
-</template>
+  </div >
+</template >
 
-<script type="text/ecmascript-6">
-import CovButton from 'base/ripple-btn/ripple-btn'
+<script type="text/ecmascript-6" >
+import { login, loginByCode } from 'api/userLogin'
+import RippleBtn from 'base/ripple-btn/ripple-btn'
 export default {
   // 别名
   name: 'UserLogIn',
@@ -106,12 +122,25 @@ export default {
         clearable: false,
         eye: {open: false}
       },
+      userVcode: {
+        value: '',
+        placeholder: '请输入验证码',
+        type: 'number',
+        readonly: false,
+        maxlength: 16,
+        disabled: true,
+        autofocus: false,
+        autocomplete: false,
+        clearable: false,
+        eye: false
+      },
+      isLoginByCode: false, // 是否验证码登录
       loginBtnDisable: true
     }
   },
   // 子组件
   components: {
-    CovButton
+    RippleBtn
   },
   // 接受父组件传递数据
   props: {},
@@ -143,12 +172,29 @@ export default {
   methods: {
     accountInput () {
       if (this.userAccount.value !== '') {
-        console.log(this.userPassword.disabled, this.userAccount.value)
         this.userPassword.disabled = false
       } else {
-        console.log(this.userPassword.disabled, this.userAccount.value)
         this.userPassword.disabled = true
       }
+    },
+    passwordInput () {
+      if (this.userAccount.value !== '' && this.userPassword.value !== '') {
+        this.loginBtnDisable = false
+      } else {
+        this.loginBtnDisable = true
+      }
+    },
+    _login () {
+      if (this.isLoginByCode) {
+        loginByCode().then((res) => {
+          console.log(res)
+        })
+      } else {
+        login().then((res) => {
+          console.log(res)
+        })
+      }
+      console.log('点击登录')
     }
   },
   // 实时计算数据（一个数据受多个数据影响）
@@ -156,8 +202,8 @@ export default {
   // 实时计算数据（一个数据影响多个数据）
   watch: {}
 }
-</script>
+</script >
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" rel="stylesheet/stylus" >
   @import 'user-login.styl'
-</style>
+</style >
