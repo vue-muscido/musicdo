@@ -34,7 +34,7 @@
         ></cube-input >
         <div class="get-code-btn" :class="getCodeDisable?'disable':''" >
           <span v-show="!isCountDown" @click="getCode()" >获取验证码</span >
-          <span v-show="isCountDown" >{{secondNumber}}秒后重新获取</span >
+          <span v-show="isCountDown" >{{timeLimit - secondNumber}}秒后重新获取</span >
         </div >
       </div >
     </div >
@@ -89,7 +89,7 @@ export default {
       timeLimit: 10, // 倒计时秒数限制
       secondNumber: 0, // 倒计时时间
       isCountDown: false, // 是否在倒计时
-      errEvent: 'DEFAULT'
+      errEvent: 'DEFAULT' // 用于判断弹框的确定事件
     }
   },
   // 子组件
@@ -128,7 +128,6 @@ export default {
         //        console.log('Code', res.Code)
         //        console.log('Message', res.Message)
         // Code 返回结果 -- 0：失败、1：成功
-        this.countDown() // 开始倒计时
         if (res.Code === 0) {
           console.log('验证码获取失败')
           console.log('Code-0', res.Code)
@@ -143,6 +142,7 @@ export default {
           console.log('Code-1', res.Code)
           this.errEvent = 'DEFAULT'
           this.truePhoneNumber = oParams.phoneNumber
+          this.countDown() // 开始倒计时
         } else {
           this.errEvent = 'DEFAULT'
           console.log('Code', res.Code)
