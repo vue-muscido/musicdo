@@ -298,7 +298,7 @@ export default {
     toLogin () {
       console.log('11111111111111', this.loginBtnDisable)
       if (this.loginBtnDisable) {
-        console.log('禁止点击')
+        console.log('禁止点击。')
       } else {
         if (this.isLoginByCode) {
           console.log('验证码登录')
