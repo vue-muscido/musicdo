@@ -21,7 +21,7 @@ export function login (oParams) {
 export function loginByCode (oParams) {
   const url = '/api/Foundation/LoginByCode'
   const data = Object.assign({}, {}, {
-    phoneNumber: oParams.userName,
+    phoneNumber: oParams.phoneNumber,
     code: oParams.code
   })
 
