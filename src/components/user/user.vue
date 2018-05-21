@@ -1,6 +1,6 @@
 <template >
   <div class="user" >
-    <span >用户</span >
+    <span >我的</span >
     <!-- tab -->
     <tab v-show="true"></tab>
   </div >
@@ -26,5 +26,5 @@ export default {
 <style scoped lang="stylus" rel="stylesheet/stylus" >
 @import 'user.styl'
 .user
-  background lightblue
+  color #666
 </style >

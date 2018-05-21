@@ -18,7 +18,8 @@
       <cube-scroll
         ref="scroll"
         :data="homeSecond"
-        :options="options">
+        :options="options"
+        @pulling-down="onPullingDown">
         <div>
           <cube-slide
            class="cube-slider"
@@ -109,6 +110,11 @@ export default {
         scrollbar: {
           fade: true,
           nteractive: false // 1.8.0 新增
+        },
+        pullDownRefresh: {
+          threshold: 60,
+          stop: 40,
+          txt: '数据已更新'
         }
       },
       tabList: []
@@ -159,6 +165,7 @@ export default {
     },
     _getHomeSecond () {
       getHomeSecond().then((res) => {
+        this.homeSecond = []
         this.homeSecond = res.Data
       })
     },
@@ -175,6 +182,13 @@ export default {
         path: '/main-search',
         query: {'keyword': ''}
       })
+    },
+    onPullingDown () {
+      console.log('下拉刷新')
+      // Mock async load.
+      setTimeout(() => {
+        this._getHomeFirst()
+      }, 1000)
     }
   },
   components: {

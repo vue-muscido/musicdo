@@ -1,5 +1,6 @@
 <template >
-  <div class="user-login" >
+  <transition name="slideUp">
+    <div class="user-login" >
     <div class="logo-bar" >
       <div class="logo" ></div >
     </div >
@@ -38,7 +39,7 @@
           @input="passwordInput()"
         ></cube-input >
       </div >
-      
+
       <div class="vcode-box" v-else="isLoginByCode" >
         <cube-input
           class="input-vcode"
@@ -92,8 +93,8 @@
         <div class="qq" ></div >
       </div >
     </div >
-
-  </div >
+    </div >
+  </transition >
 </template >
 
 <script type="text/ecmascript-6" >
