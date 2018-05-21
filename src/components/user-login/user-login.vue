@@ -1,5 +1,5 @@
 <template >
-  <transition name="slideUp">
+  <transition name="slideUp" >
     <div class="user-login" >
     <div class="logo-bar" >
       <div class="logo" ></div >
@@ -77,7 +77,6 @@
       <ripple-btn class="login-btn" :class="loginBtnDisable?'disable':''" v-on:click.native="toLogin()" >
         登录
       </ripple-btn >
-      <div @click="toLogin()" >test-login</div >
     </div >
 
     <div class="new-account-bar" >
@@ -220,6 +219,21 @@ export default {
       })
       login(oParams).then((res) => {
         console.log(res)
+        if (res === 'undefined') {
+          console.log('获取不到返回值')
+        } else {
+          if (res.Code === 1) {
+            console.log('登录成功，本地存储逻辑TODO，登录页面退出')
+          } else if (res.Code === 0) {
+            console.log('账号或密码不正确，弹框提醒，并要求重新填写')
+            this.errEvent = 'DEFAULT'
+            let errText = {
+              title: '账号或密码不正确',
+              content: '请检查账号或密码是否有误'
+            }
+            this.codeError(errText)
+          }
+        }
       })
     },
     _loginByCode () {
@@ -230,6 +244,19 @@ export default {
       console.log('参数', oParams)
       loginByCode(oParams).then((res) => {
         console.log(res)
+        if (res === 'undefined') {
+          console.log('坑爹接口，错误直接连 res 都没有')
+          this.errEvent = 'DEFAULT'
+          let errText = {
+            title: '验证码登录失败',
+            content: '请检查验证码是否有误'
+          }
+          this.codeError(errText)
+        } else {
+          if (res.Code === 1) {
+            console.log('登录成功，本地存储逻辑TODO，登录页面退出')
+          }
+        }
       })
     },
     accountInput () {
