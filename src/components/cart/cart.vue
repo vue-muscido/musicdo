@@ -9,6 +9,7 @@
         @pulling-down="onPullingDown">
         <cube-swipe>
           <transition-group name="swipe" tag="ul">
+             <!-- 商品列表 -->
             <li class="swipe-item-wrapper" v-for="(data,index) in swipeData" :key="data.item.id">
               <cube-swipe-item
                   ref="swipeItem"
@@ -16,11 +17,14 @@
                   :index="index"
                   @btn-click="onBtnClick"
                   @active="onItemActive">
-                <div @click="onItemClick(data.item, index)" class="item-inner">
+                <div class="item-inner">
+                  <cube-checkbox class="check" v-model="checkList[index]">
+                    <div></div>
+                  </cube-checkbox>
                   <div class="icon">
-                    <img width="80" height="80" :src="data.item.imgurl">
+                    <img @click="onItemClick(data.item, index)" :src="data.item.imgurl">
                   </div>
-                  <div class="text">
+                  <div @click="onItemClick(data.item, index)" class="text">
                     <h2 class="item-name" v-html="data.item.name"></h2>
                     <p class="item-desc" v-html="data.item.desc"></p>
                   </div>
@@ -29,10 +33,7 @@
             </li>
           </transition-group>
         </cube-swipe>
-        <!-- 商品列表 -->
-        <ul v-if="false" class="cart-list">
-          <li v-for="(item, index) in cartData"  class="item">I am {{item}}</li>
-        </ul>
+        <div>{{newcheckList}}</div>
         <!-- 未添加商品提示 -->
         <empty class="cart-empty" v-if="!swipeData.length" :emptyStr='notGoodsMsg' :dataType='dataTypeMsg'></empty >
       </cube-scroll>
@@ -40,8 +41,8 @@
     <!-- 结算栏 -->
     <div class="count">
       <div class="check-all">
-        <cube-checkbox>
-          全选
+        <cube-checkbox v-model="checkList[0]">
+          <span>全选</span>
         </cube-checkbox>
       </div>
       <div class="count-all">
@@ -62,10 +63,10 @@ import empty from 'base/empty/empty'
 export default {
   data () {
     return {
-      checkList: ['1', '4'],
+      cartData: [],
+      checkList: [],
       notGoodsMsg: '购物车空空的，先去添加商品吧~',
       dataTypeMsg: '1',
-      cartData: [],
       options: {
         pullDownRefresh: {
           threshold: 60,
@@ -77,7 +78,7 @@ export default {
         {
           item: {
             id: '3646653877',
-            name: '威斯曼WEISMANN 数码钢琴 MET-8G钢琴，优雅大气',
+            name: '威斯曼WEISMANN 数码钢琴 MET-8G钢琴，优雅大气,最纯粹的音质，最优雅的气质，最自然的音色',
             desc: '官方标配 + 原装进口',
             imgurl: 'http://musicdo.cn/Upload/0/201710237239.jpg'
           },
@@ -122,10 +123,18 @@ export default {
       ]
     }
   },
+  computed: {
+    newcheckList: function () {
+      return this.checkList
+    }
+  },
   created () {
     this.activeIndex = -1
   },
   methods: {
+    selectItem () {
+      console.log('laal')
+    },
     onPullingDown () {
       console.log('下拉刷新')
       // Mock async load.
@@ -197,26 +206,45 @@ export default {
       background-color $g-bgc-con
   .item-inner
     margin-bottom 1px
+    padding 1rem 0
     display flex
-    padding 1rem 1.5rem
     background-color $g-bgc-con
+    font-size $g-fs-xxxl
+    .cube-checkbox
+      padding-right 4px
+      padding-left 15px
+    .check
+      height 8rem
     .icon
-      flex 0 0 80px
-      padding-right 1rem
+      flex 8rem 0 0
+      height 8rem
+      position relative
+      text-align: center
+      border 1px solid $g-brc-default
+      overflow hidden
+      img
+        position absolute
+        top 50%
+        left 50%
+        transform translate(-50%, -50%)
+        width 100%
+        height auto
     .text
       flex 1
+      padding 0 0.75rem
       h2
-        width 80%
+        width 100%
+        line-height $g-fs-xl
         font-size $g-fs-normal
         color $g-fc-black
-        no-wrap()
+        more-wrap()
       p
         padding-top 0.75rem
         font-size $g-fs-normal
         color $g-fc-gray
         no-wrap()
   .count
-    z-index 300
+    z-index $g-zindex-fix
     position fixed
     bottom $g-bot-bar-height
     display flex
@@ -229,14 +257,16 @@ export default {
     line-height $g-bot-bar-height
     .check-all
       flex 1
-      font-size $g-fs-xl
+      font-size $g-fs-xxxl
+      span
+        font-size $g-fs-xl
     .count-all
       flex 1
       font-size $g-fs-xl
       color $g-fc-normal
     .btn-count
      flex 0 0 11rem
-     height $g-bot-bar-height
+     height 100%
      line-height $g-bot-bar-height
      background-color $g-bgc-btn-red
      text-align center
