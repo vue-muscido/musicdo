@@ -9,7 +9,7 @@
   height $g-bot-bar-height
   max-width $g-page-max-width
   background-color $g-bgc-con
-  border-top 1px solid $g-brc-default
+  box-shadow 0px -2px 5px $g-brc-normal
   > ul
     display flex
     justify-content space-between
@@ -31,12 +31,16 @@
           .tab-txt
             color $g-fc-red
       .tab-img
+        margin 0 auto
         width $g-bot-icon-w
         height $g-bot-icon-w
-        //margin-bottom $g-padding-xs
+        margin-top $g-padding-sm
+        margin-bottom $g-padding-xs
       .tab-txt
-        font-size $g-fs-min
+        margin 0 auto
+        font-size $g-fs-xs
         color $g-fc-black
+        text-align center
       &:nth-child(1)
         .tab-item
           .tab-img

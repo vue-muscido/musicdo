@@ -8,15 +8,18 @@
     <transition :name="transitionName">
       <router-view  v-if="!$route.meta.keepAlive" class="router-view" ></router-view >
     </transition >
+    <user-login v-if="loginFlag"></user-login>
   </div >
 </template >
 
 <script type="text/ecmascript-6" >
 import { rem } from 'common/js/rem'
+import UserLogin from 'components/user-login/user-login'
 export default {
   name: 'app',
   data () {
     return {
+      loginFlag: false,
       tabFlag: true,
       transitionName: 'fade'
       //      rfontSiz: 0 || document.getElementsByTagName('html')[0].style.fontSize
@@ -36,12 +39,20 @@ export default {
       })
     }
   },
+  components: {
+    UserLogin
+  },
   watch: {
     '$route' (to, from) {
       document.title = to.meta.title || '乐都城'
       const toDepth = to.path.split('/')
       const fromDepth = from.path.split('/')
       this.transitionName = toDepth[1] === 'goods-detail' ? 'slide' : 'fade'
+      if (toDepth[1] === 'user') {
+        this.loginFlag = true
+      } else {
+        this.loginFlag = false
+      }
       if (toDepth[1] === 'goods-detail') {
         this.transitionName = 'slideIn'
         return

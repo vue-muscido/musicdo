@@ -5,7 +5,7 @@
         <router-link tag="div" class="tab-item" to="/home" >
           <ripple-btn >
             <div class="tab-img" ></div >
-            <span class="tab-txt" >主页</span >
+            <div class="tab-txt" >主页</div >
           </ripple-btn >
         </router-link >
       </li >
@@ -13,7 +13,7 @@
         <router-link tag="div" class="tab-item" to="/brands" >
           <ripple-btn >
             <div class="tab-img" ></div >
-            <span class="tab-txt" >品牌</span >
+            <div class="tab-txt" >品牌</div >
           </ripple-btn >
         </router-link >
       </li >
@@ -21,7 +21,7 @@
         <router-link tag="div" class="tab-item" to="/sort" >
           <ripple-btn >
             <div class="tab-img" ></div >
-            <span class="tab-txt" >分类</span >
+            <div class="tab-txt" >分类</div >
           </ripple-btn >
         </router-link >
       </li >
@@ -29,7 +29,7 @@
         <router-link tag="div" class="tab-item" to="/cart" >
           <ripple-btn >
             <div class="tab-img" ></div >
-            <span class="tab-txt" >购物车</span >
+            <div class="tab-txt" >购物车</div >
           </ripple-btn >
         </router-link >
       </li >
@@ -37,15 +37,7 @@
         <router-link tag="div" class="tab-item" to="/user" >
           <ripple-btn >
             <div class="tab-img" ></div >
-            <span class="tab-txt" >我</span >
-          </ripple-btn >
-        </router-link >
-      </li >
-      <li >
-        <router-link tag="div" class="tab-item" to="/user-login" >
-          <ripple-btn >
-            <div class="tab-img" ></div >
-            <span class="tab-txt" >测试页</span >
+            <div class="tab-txt" >我</div >
           </ripple-btn >
         </router-link >
       </li >

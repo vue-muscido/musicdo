@@ -47,6 +47,11 @@
 // 登录输入框公共样式 -end
 
 .user-login
+  z-index $g-zindex-fix
+  position fixed
+  width 100%
+  top 0
+  bottom 0
   background $g-bgc-con
   z-index 1
   padding-bottom 10rem
@@ -62,6 +67,8 @@
       bg-image('./img/logo', 100% 100%)
   .input-bar
     padding 1rem
+    .vcode-box
+      position relative
     .get-code-btn
       position absolute
       right 1rem

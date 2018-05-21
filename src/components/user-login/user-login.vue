@@ -1,5 +1,6 @@
 <template >
-  <div class="user-login" >
+  <transition name="slideUp">
+    <div class="user-login" >
     <div class="logo-bar" >
       <div class="logo" ></div >
     </div >
@@ -38,7 +39,7 @@
           @input="passwordInput()"
         ></cube-input >
       </div >
-      
+
       <div class="vcode-box" v-else="isLoginByCode" >
         <cube-input
           class="input-vcode"
@@ -76,7 +77,6 @@
       <ripple-btn class="login-btn" :class="loginBtnDisable?'disable':''" @click="toLogin()" >
         登录
       </ripple-btn >
-      <div @click="toLogin()">test-login</div>
     </div >
 
     <div class="new-account-bar" >
@@ -92,8 +92,8 @@
         <div class="qq" ></div >
       </div >
     </div >
-
-  </div >
+    </div >
+  </transition >
 </template >
 
 <script type="text/ecmascript-6" >
