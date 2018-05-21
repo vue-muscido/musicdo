@@ -73,10 +73,10 @@
     </div >
 
     <div class="btn-bar" >
-      <ripple-btn class="login-btn" :class="loginBtnDisable?'disable':''" @click="toLogin()" >
+      <ripple-btn class="login-btn" :class="loginBtnDisable?'disable':''" v-on:click.native="toLogin()" >
         登录
       </ripple-btn >
-      <div @click="toLogin()">test-login</div>
+      <div @click="toLogin()" >test-login</div >
     </div >
 
     <div class="new-account-bar" >
@@ -97,7 +97,7 @@
 </template >
 
 <script type="text/ecmascript-6" >
-import { getVerificationCode, checkVerificationCode } from 'api/verificationCode'
+import { getVerificationCode } from 'api/verificationCode'
 import { login, loginByCode } from 'api/userLogin'
 import RippleBtn from 'base/ripple-btn/ripple-btn'
 export default {
@@ -199,6 +199,7 @@ export default {
             content: '请检查手机号码是否有误'
           }
           this.codeError(errText)
+          this.countDown() // 开始倒计时
         } else if (res.Code === 1) {
           console.log('验证码获取成功')
           this.errEvent = 'DEFAULT'
@@ -207,37 +208,7 @@ export default {
         } else {
           this.errEvent = 'DEFAULT'
           console.log('Code', res.Code)
-        }
-      })
-    },
-    _checkVerificationCode () {
-      let oParams = Object.assign({}, {}, {
-        phoneNumber: this.truePhoneNumber,
-        code: this.userVcode.value,
-        actionType: 'login'
-      })
-      checkVerificationCode(oParams).then((res) => {
-        console.log('checkVerificationCode-res', res)
-        // Code 返回结果 -- 0：失败、1：成功(未确定)
-        console.log('checkVerificationCode-Message', res.Message)
-        if (res.Code === 0) {
-          console.log('验证失败')
-          this.errEvent = 'CHECK_CODE_ERR_0'
-          let errText = {
-            title: '验证失败',
-            content: '请检查验证码是否有误'
-          }
-          this.codeError(errText)
-          return false
-        } else if (res.Code === 1) {
-          console.log('验证成功')
-          this.errEvent = 'DEFAULT'
-          this._loginByCode()
-          return true
-        } else {
-          console.log(res.Code)
-          this.errEvent = 'DEFAULT'
-          return false
+          this.countDown() // 开始倒计时
         }
       })
     },
@@ -252,9 +223,10 @@ export default {
     },
     _loginByCode () {
       let oParams = Object.assign({}, {}, {
-        userName: this.userAccount.value,
+        phoneNumber: this.userAccount.value,
         code: this.userVcode.value
       })
+      console.log('参数', oParams)
       loginByCode(oParams).then((res) => {
         console.log(res)
       })
@@ -302,7 +274,7 @@ export default {
       } else {
         if (this.isLoginByCode) {
           console.log('验证码登录')
-          this._checkVerificationCode()
+          this._loginByCode()
         } else {
           this._login()
         }
