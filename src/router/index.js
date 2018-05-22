@@ -18,7 +18,7 @@ import GoodsDetail from 'components/goods-detail/goods-detail' // 商品详情�
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/', // 默认地址
@@ -130,3 +130,29 @@ export default new Router({
     }
   }
 })
+
+// 全局路由守卫
+router.beforeEach((to, from, next) => {
+  console.log('navigation-guards')
+  // to: Route: 即将要进入的目标 路由对象
+  // from: Route: 当前导航正要离开的路由
+
+  const nextRoute = ['User', 'Cart', 'GoodsDetail'] // 需要登录的页面
+  // let isLogin = global.isLogin  // 是否登录
+  // 未登录状态；当路由到 nextRoute 指定页时，跳转至 UserLogIn
+  if (nextRoute.indexOf(to.name) >= 0) {
+    // if (!isLogin) {
+    console.log('what the fuck')
+    router.push({name: 'UserLogIn'})
+    // }
+  }
+  // 已登录状态；当路由到 UserLogIn 时，跳转至 Home
+  if (to.name === 'login') {
+    // if (isLogin) {
+    router.push({name: 'Home'})
+    // }
+  }
+  next() // 必须使用 next ,执行效果依赖 next 方法的调用参数
+})
+
+export default router

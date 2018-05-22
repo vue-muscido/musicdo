@@ -33,6 +33,7 @@ import {
 } from 'cube-ui'
 import App from './App'
 import router from './router'
+import store from './store'
 
 Vue.use(Button)
 Vue.use(CheckboxGroup)
@@ -68,5 +69,6 @@ Vue.use(VueLazyload, {
 new Vue({
   el: '#app',
   router,
+  store,
   render: h => h(App)
 })

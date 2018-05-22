@@ -81,7 +81,7 @@
 
     <div class="new-account-bar" >
       <span class="new-account-btn" >
-        注册新账号
+        注册新账号{{$store.state.isLogin}}
       </span >
     </div >
 
