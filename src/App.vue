@@ -8,7 +8,9 @@
     <transition :name="transitionName">
       <router-view  v-if="!$route.meta.keepAlive" class="router-view" ></router-view >
     </transition >
-    <user-login v-if="loginFlag"></user-login>
+    <transition :name="transitionName">
+      <user-login v-if="loginFlag"></user-login>
+    </transition >
   </div >
 </template >
 
@@ -59,6 +61,14 @@ export default {
       }
       if (fromDepth[1] === 'goods-detail') {
         this.transitionName = 'slideOut'
+        return
+      }
+      if (toDepth[1] === 'user-login') {
+        this.transitionName = 'slideUp'
+        return
+      }
+      if (fromDepth[1] === 'user-login') {
+        this.transitionName = 'slideUp'
         return
       }
       this.transitionName = 'fade'
