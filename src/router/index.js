@@ -141,16 +141,16 @@ router.beforeEach((to, from, next) => {
   // let isLogin = global.isLogin  // 是否登录
   // 未登录状态；当路由到 nextRoute 指定页时，跳转至 UserLogIn
   if (nextRoute.indexOf(to.name) >= 0) {
-    if (!this.$store.state.isLogin) {
-      console.log('what the fuck')
-      router.push({name: 'UserLogIn'})
-    }
+    // if (!this.$store.state.isLogin) {
+    console.log('what the fuck')
+    router.push({name: 'UserLogIn'})
+    // }
   }
   // 已登录状态；当路由到 UserLogIn 时，跳转至 Home
   if (to.name === 'login') {
-    if (this.$store.state.isLogin) {
-      router.push({name: 'Home'})
-    }
+    // if (this.$store.state.isLogin) {
+    router.push({name: 'Home'})
+    // }
   }
   next() // 必须使用 next ,执行效果依赖 next 方法的调用参数
 })
