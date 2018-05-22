@@ -1,9 +1,6 @@
 @import '~common/stylus/variable.styl'
 @import '~common/stylus/mixin.styl'
 .cart
-  .cubeic-right
-    i 
-      color red
   .cartCon
     position fixed
     top 0
@@ -12,13 +9,17 @@
     max-width $g-page-max-width
   .cart-empty
     height 100%
+  .shop-con
+    margin-bottom 1rem
   .shop-title
     display flex
     height 4rem
     line-height 4rem
     font-size $g-fs-xxxl
     color $g-fc-black
+    display flex
     span
+      vertical-align top
       font-size $g-fs-xl
     .shop-check
       flex 1
@@ -41,7 +42,7 @@
     .cube-checkbox
       padding-right 4px
       padding-left 15px
-      color red
+      color $g-bgc-btn-red
     .check
       height 8rem
     .icon
@@ -63,6 +64,7 @@
       padding 0 0.75rem
       h2
         width 100%
+        height $g-fs-xl*2
         line-height $g-fs-xl
         font-size $g-fs-normal
         color $g-fc-black
@@ -73,17 +75,17 @@
         color $g-fc-gray
         no-wrap()
       .options
-        padding-top 1.75rem
+        padding-top 1.0rem
         display flex
         justify-content space-between
         .price
           color $g-fc-red
           font-size $g-fs-normal
           span
-            font-size $g-fs-xxl 
+            font-size $g-fs-xxl
         .num
-          color $g-fc-link 
-          font-size $g-fs-$g-fs-xl
+          color $g-fc-link
+          font-size $g-fs-xl
   .count
     z-index $g-zindex-fix
     position fixed
@@ -96,19 +98,19 @@
     border-top 1px solid $g-brc-default
     border-bottom 1px solid $g-brc-default
     line-height $g-bot-bar-height
+    align-items center
     .check-all
       flex 1
       font-size $g-fs-xxxl
       span
+        vertical-align top
         font-size $g-fs-xxl
     .count-all
-      flex 1
-      font-size $g-fs-normal
+      flex 2
+      font-size $g-fs-xxl
       color $g-fc-normal
-      span
-        font-size $g-fs-xl
     .btn-count
-      flex 0 0 11rem
+      flex 1
       height 100%
       line-height $g-bot-bar-height
       background-color $g-bgc-btn-red

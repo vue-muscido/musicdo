@@ -7,10 +7,10 @@
         :data="cartData"
         :options="options"
         @pulling-down="onPullingDown">
-        <div v-if="swipeData.length" class="shop-list">
+        <div v-if="shop.list.length" v-for="(shop, top) in cartData" :key="shop.shopName" class="shop-con">
           <div class="shop-title">
-             <cube-checkbox class="shop-check"  v-model="shopList[0]">
-              <span>雅马哈钢琴</span>
+            <cube-checkbox class="shop-check"  v-model="shopList[top].shopbox">
+              <span>{{shop.shopName}}</span>
             </cube-checkbox>
             <div class="btn-shop-edit">
               <span>编辑</span>
@@ -19,7 +19,7 @@
            <cube-swipe>
             <transition-group name="swipe" tag="ul">
                <!-- 商品列表 -->
-              <li class="swipe-item-wrapper" v-for="(data,index) in swipeData" :key="data.item.id">
+              <li class="swipe-item-wrapper" v-for="(data,index) in shop.list" :key="data.item.id">
                 <cube-swipe-item
                     ref="swipeItem"
                     :btns="data.btns"
@@ -54,7 +54,7 @@
         <div>{{newshopList}}</div>
         <div>{{newcheckList}}</div>
         <!-- 未添加商品提示 -->
-        <empty class="cart-empty" v-if="!swipeData.length" :emptyStr='notGoodsMsg' :dataType='dataTypeMsg'></empty >
+        <empty class="cart-empty" v-if="!cartData.length" :emptyStr='notGoodsMsg' :dataType='dataTypeMsg'></empty >
       </cube-scroll>
     </div>
     <!-- 结算栏 -->
@@ -69,7 +69,7 @@
         <span>¥{{payAll}}</span>.00
       </div>
       <div class="btn-count">
-        结算
+        结算<span></span>
       </div>
     </div>
     <!-- tab -->
@@ -83,7 +83,6 @@ import empty from 'base/empty/empty'
 export default {
   data () {
     return {
-      cartData: [],
       shopList: [],
       checkList: [],
       payAll: 0,
@@ -96,55 +95,80 @@ export default {
           txt: '数据已更新'
         }
       },
-      swipeData: [
+      cartData: [
         {
-          item: {
-            id: '3646653877',
-            name: '威斯曼WEISMANN 数码钢琴 MET-8G钢琴，优雅大气,最纯粹的音质，最优雅的气质，最自然的音色',
-            desc: '官方标配 + 原装进口',
-            imgurl: 'http://musicdo.cn/Upload/0/201710237239.jpg',
-            price: 18000,
-            num: 1
-          },
-          btns: [
+          shopName: '钢琴旗舰店',
+          list: [
             {
-              action: 'delete',
-              text: '删除',
-              color: '#ff3a32'
+              item: {
+                id: '3646653877',
+                name: '威斯曼WEISMANN 数码钢琴 MET-8G钢琴，优雅大气,最纯粹的音质，最优雅的气质，最自然的音色',
+                desc: '官方标配 + 原装进口',
+                imgurl: 'http://musicdo.cn/Upload/0/201710237239.jpg',
+                price: 18000,
+                num: 1
+              },
+              btns: [
+                {
+                  action: 'star',
+                  text: '移入收藏',
+                  color: 'rgba(255,169,4,1)'
+                },
+                {
+                  action: 'delete',
+                  text: '删除',
+                  color: '#ff3a32'
+                }
+              ]
             }
           ]
         },
         {
-          item: {
-            id: '1789676645',
-            name: '罗兰Roland电钢琴PHA-50',
-            desc: '官方标配 + 原装进口',
-            imgurl: 'http://musicdo.cn/Upload/3134/20180518143141.png',
-            price: 2400,
-            num: 2
-          },
-          btns: [
+          shopName: '吉他旗舰店',
+          list: [
             {
-              action: 'delete',
-              text: '删除',
-              color: '#ff3a32'
-            }
-          ]
-        },
-        {
-          item: {
-            id: '3649034125',
-            name: '星海凯旋 立式钢琴 K系列 K-119',
-            desc: '官方标配 + 原装进口',
-            imgurl: 'http://musicdo.cn/Upload/3134/20171212155316.jpg',
-            price: 5600,
-            num: 1
-          },
-          btns: [
+              item: {
+                id: '1789676645',
+                name: '罗兰Roland电钢琴PHA-50',
+                desc: '官方标配 + 原装进口',
+                imgurl: 'http://musicdo.cn/Upload/3134/20180518143141.png',
+                price: 2400,
+                num: 10000
+              },
+              btns: [
+                {
+                  action: 'star',
+                  text: '移入收藏',
+                  color: 'rgba(255,169,4,1)'
+                },
+                {
+                  action: 'delete',
+                  text: '删除',
+                  color: '#ff3a32'
+                }
+              ]
+            },
             {
-              action: 'delete',
-              text: '删除',
-              color: '#ff3a32'
+              item: {
+                id: '3649034125',
+                name: '星海凯旋 立式钢琴 K系列 K-119',
+                desc: '官方标配 + 原装进口',
+                imgurl: 'http://musicdo.cn/Upload/3134/20171212155316.jpg',
+                price: 5600,
+                num: 1
+              },
+              btns: [
+                {
+                  action: 'star',
+                  text: '移入收藏',
+                  color: 'rgba(255,169,4,1)'
+                },
+                {
+                  action: 'delete',
+                  text: '删除',
+                  color: '#ff3a32'
+                }
+              ]
             }
           ]
         }
@@ -178,12 +202,12 @@ export default {
     countShop (newArr) {
       for (var i = 0; i < newArr.length; i++) {
         if (newArr[i] === true) {
-          for (var j = 0; j < this.swipeData.length; j++) {
+          for (var j = 0; j < this.cartData[1].list.length; j++) {
             this.checkList[j] = true
             this.countMoney(this.checkList)
           }
         } else {
-          for (var k = 0; k < this.swipeData.length; k++) {
+          for (var k = 0; k < this.cartData[1].list.length; k++) {
             this.checkList[k] = false
             this.countMoney(this.checkList)
           }
@@ -196,10 +220,10 @@ export default {
       for (var i = 0; i < newArr.length; i++) {
         if (newArr[i] === true) {
           checkedNum++
-          this.payAll += this.swipeData[i].item.price * this.swipeData[i].item.num
+          this.payAll += this.cartData[1].list[i].item.price * this.cartData[1].list[i].item.num
         }
       }
-      if (checkedNum === this.swipeData.length) {
+      if (checkedNum === this.cartData[1].list.length) {
         this.shopList[0] = true
       } else {
         this.shopList[0] = false
@@ -232,7 +256,7 @@ export default {
             {content: '删除'}
           ],
           onSelect: () => {
-            this.swipeData.splice(index, 1)
+            this.cartData[1].list.splice(index, 1)
             this.checkList.splice(index, 1)
           }
         }).show()
