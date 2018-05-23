@@ -9,10 +9,11 @@
         @pulling-down="onPullingDown">
         <div v-if="shop.list.length" v-for="(shop, top) in cartData" :key="shop.shopName" class="shop-con">
           <div class="shop-title">
-            <div  @click.stop="chooseShopGoods(top)" class="shop">
+            <div class="shop">
               <cube-checkbox class="shop-check" v-model="shop.checked">
-              <span>{{shop.shopName}}</span>
-            </cube-checkbox>
+                <span>{{shop.shopName}}</span>
+              </cube-checkbox>
+              <div @click="chooseShopGoods(top)" class="btn-shop"></div>
             </div>
             <div class="btn-shop-edit">
               <span>编辑</span>
@@ -29,10 +30,11 @@
                     @btn-click="onBtnClick"
                     @active="onItemActive">
                   <div class="item-inner">
-                    <div @click.stop="choose (top, index)" class="choose">
+                    <div class="choose">
                       <cube-checkbox class="check" v-model="data.checked">
                         <div></div>
                       </cube-checkbox>
+                      <div @click="choose (top, index)" class="btn-choose"></div>
                     </div>
                     <div class="icon">
                       <img @click="onItemClick(data.item, index)" :src="data.item.imgurl">
@@ -55,8 +57,6 @@
             </transition-group>
           </cube-swipe>
         </div>
-        <div>{{newshopList}}</div>
-        <div>{{newcheckList}}</div>
         <!-- 未添加商品提示 -->
         <empty class="cart-empty" v-if="!cartData.length" :emptyStr='notGoodsMsg' :dataType='dataTypeMsg'></empty >
       </cube-scroll>
@@ -64,9 +64,10 @@
     <!-- 结算栏 -->
     <div class="count">
       <div class="check-all">
-        <cube-checkbox >
+        <cube-checkbox v-model="allChecked">
           <span>全选</span>
         </cube-checkbox>
+        <div @click="chooseAllGoods()" class="btn-all"></div>
       </div>
       <div class="count-all">
         <span>合计:</span>
@@ -88,6 +89,7 @@ export default {
   data () {
     return {
       shopList: [],
+      allChecked: false,
       checkList: [],
       payAll: 0,
       notGoodsMsg: '购物车空空的，先去添加商品吧~',
@@ -196,7 +198,22 @@ export default {
     tio () {
       console.log('ddd')
     },
-    // 每个店铺全选
+    // 全部商品全选
+    chooseAllGoods () {
+      var flag = true
+      if (this.allChecked) {
+        flag = false
+      }
+      for (var i = 0; i < this.cartData.length; i++) {
+        this.cartData[i]['checked'] = flag
+        var list = this.cartData[i]['list']
+        for (var k = 0; k < list.length; k++) {
+          this.$set(list[k], 'checked', flag)
+        }
+      }
+      this.allChecked = !this.allChecked
+    },
+    // 每个店铺全选方法
     chooseShopGoods (top) {
       var cartObj = this.cartData
       var list = this.cartData[top]['list']
@@ -208,22 +225,51 @@ export default {
       }
       if (cartObj[top]['checked']) {
         for (var i = 0; i < len; i++) {
-          list[i]['checked'] = true
+          this.$set(list[i], 'checked', true)
         }
       } else {
         for (var j = 0; j < len; j++) {
-          list[j]['checked'] = false
+          this.$set(list[j], 'checked', false)
         }
       }
+      // 判断是否选择所有商品的全选功能
+      this.isChooseAll()
     },
-    // 单个选择
+    // 单个选择方法
     choose (top, index) {
+      var cartObj = this.cartData
       var list = this.cartData[top]['list']
-      if (typeof list[index].checked === 'undefined') {
-        this.$set(list[index], 'check', true)
+      var len = list.length
+      if (list[index]['checked']) {
+        this.allChecked = false
+        this.$set(cartObj[top], 'checked', false)
+        this.$set(list[index], 'checked', false)
       } else {
-        list[index].checked = !list[index].checked
+        this.$set(list[index], 'checked', true)
+
+        // 判断是否选择当前店铺的全选
+        var flag = true
+        for (var i = 0; i < len; i++) {
+          if (!list[i]['checked']) {
+            flag = false
+            break
+          }
+        }
+        flag === true ? this.cartData[top]['checked'] = true : this.cartData[top]['checked'] = false
       }
+      // 判断是否选择所有商品的全选功能
+      this.isChooseAll()
+    },
+    //  判断是否选择所有商品的方法
+    isChooseAll () {
+      var flag1 = true
+      for (var i = 0; i < this.cartData.length; i++) {
+        if (!this.cartData[i]['checked'] === true) {
+          flag1 = false
+          break
+        }
+      }
+      flag1 === true ? this.allChecked = true : this.allChecked = false
     },
     selectItem () {
       console.log('laal')

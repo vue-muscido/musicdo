@@ -23,6 +23,14 @@
       font-size $g-fs-xl
     .shop
       flex 1
+      position relative
+      .btn-shop
+        position absolute
+        z-index 100
+        top 0
+        left 0
+        width 100%
+        height 110%
     .shop-check
       flex 1
     .btn-shop-edit
@@ -41,6 +49,16 @@
     display flex
     background-color $l-bgc-cart
     font-size $g-fs-xxxl
+    .choose
+      position relative
+      extend-click()
+    .btn-choose
+      position absolute
+      z-index 100
+      top 0
+      left 0
+      width 100%
+      height 100%
     .cube-checkbox
       padding-right 4px
       padding-left 15px
@@ -102,11 +120,19 @@
     line-height $g-bot-bar-height
     align-items center
     .check-all
+      position relative
       flex 1
       font-size $g-fs-xxxl
       span
         vertical-align top
         font-size $g-fs-xxl
+      .btn-all
+        z-index 100
+        position absolute
+        width 100%
+        height 100%
+        top 0
+        left 0
     .count-all
       flex 2
       font-size $g-fs-xxl
