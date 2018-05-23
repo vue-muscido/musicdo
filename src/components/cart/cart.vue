@@ -9,9 +9,11 @@
         @pulling-down="onPullingDown">
         <div v-if="shop.list.length" v-for="(shop, top) in cartData" :key="shop.shopName" class="shop-con">
           <div class="shop-title">
-            <cube-checkbox class="shop-check"  v-model="shopList[top].shopbox">
+            <div  @click.stop="chooseShopGoods(top)" class="shop">
+              <cube-checkbox class="shop-check" v-model="shop.checked">
               <span>{{shop.shopName}}</span>
             </cube-checkbox>
+            </div>
             <div class="btn-shop-edit">
               <span>编辑</span>
             </div>
@@ -19,7 +21,7 @@
            <cube-swipe>
             <transition-group name="swipe" tag="ul">
                <!-- 商品列表 -->
-              <li class="swipe-item-wrapper" v-for="(data,index) in shop.list" :key="data.item.id">
+              <li class="swipe-item-wrapper" v-for="(data, index) in shop.list" :key="data.item.id">
                 <cube-swipe-item
                     ref="swipeItem"
                     :btns="data.btns"
@@ -27,9 +29,11 @@
                     @btn-click="onBtnClick"
                     @active="onItemActive">
                   <div class="item-inner">
-                    <cube-checkbox class="check" v-model="checkList[index]">
-                      <div></div>
-                    </cube-checkbox>
+                    <div @click.stop="choose (top, index)" class="choose">
+                      <cube-checkbox class="check" v-model="data.checked">
+                        <div></div>
+                      </cube-checkbox>
+                    </div>
                     <div class="icon">
                       <img @click="onItemClick(data.item, index)" :src="data.item.imgurl">
                     </div>
@@ -177,60 +181,55 @@ export default {
   },
   computed: {
     newshopList: function () {
-      return this.shopList
+      return this.cartData[0]
     },
     newcheckList: function () {
-      return this.checkList
+      return this.cartData[1]
     }
   },
   watch: {
-    shopList (oldArr, newArr) {
-      this.countShop(newArr)
-    },
-    checkList (oldArr, newArr) {
-      console.log(newArr)
-      this.countMoney(newArr)
-    }
   },
   created () {
     this.activeIndex = -1
   },
   methods: {
+    tio () {
+      console.log('ddd')
+    },
+    // 每个店铺全选
+    chooseShopGoods (top) {
+      var cartObj = this.cartData
+      var list = this.cartData[top]['list']
+      var len = list.length
+      if (typeof cartObj[top]['checked'] === 'undefined') {
+        this.$set(cartObj[top], 'checked', true)
+      } else {
+        cartObj[top]['checked'] = !cartObj[top]['checked']
+      }
+      if (cartObj[top]['checked']) {
+        for (var i = 0; i < len; i++) {
+          list[i]['checked'] = true
+        }
+      } else {
+        for (var j = 0; j < len; j++) {
+          list[j]['checked'] = false
+        }
+      }
+    },
+    // 单个选择
+    choose (top, index) {
+      var list = this.cartData[top]['list']
+      if (typeof list[index].checked === 'undefined') {
+        this.$set(list[index], 'check', true)
+      } else {
+        list[index].checked = !list[index].checked
+      }
+    },
     selectItem () {
       console.log('laal')
     },
-    countShop (newArr) {
-      for (var i = 0; i < newArr.length; i++) {
-        if (newArr[i] === true) {
-          for (var j = 0; j < this.cartData[1].list.length; j++) {
-            this.checkList[j] = true
-            this.countMoney(this.checkList)
-          }
-        } else {
-          for (var k = 0; k < this.cartData[1].list.length; k++) {
-            this.checkList[k] = false
-            this.countMoney(this.checkList)
-          }
-        }
-      }
-    },
-    countMoney (newArr) {
-      this.payAll = 0
-      var checkedNum = 0
-      for (var i = 0; i < newArr.length; i++) {
-        if (newArr[i] === true) {
-          checkedNum++
-          this.payAll += this.cartData[1].list[i].item.price * this.cartData[1].list[i].item.num
-        }
-      }
-      if (checkedNum === this.cartData[1].list.length) {
-        this.shopList[0] = true
-      } else {
-        this.shopList[0] = false
-      }
-    },
+    // 下拉刷新
     onPullingDown () {
-      console.log('下拉刷新')
       // Mock async load.
       setTimeout(() => {
         if (Math.random() > 0.5) {
@@ -244,9 +243,12 @@ export default {
         }
       }, 1000)
     },
+    // 点击商品 查看详情
     onItemClick (item) {
       console.log('click item:', item)
     },
+    // 单个商品移入购物车操作
+    // 删除单个商品操作
     onBtnClick (btn, index) {
       if (btn.action === 'delete') {
         this.$createActionSheet({
