@@ -100,6 +100,7 @@
 import { getVerificationCode } from 'api/verificationCode'
 import { login, loginByCode } from 'api/userLogin'
 import RippleBtn from 'base/ripple-btn/ripple-btn'
+import { localSave, localTake, localremove } from 'common/js/localStore'
 export default {
   // 别名
   name: 'UserLogIn',
@@ -148,7 +149,8 @@ export default {
       secondNumber: 0, // 倒计时时间
       isCountDown: false, // 是否在倒计时
       loginBtnDisable: true,
-      errEvent: 'DEFAULT'
+      errEvent: 'DEFAULT',
+      userMsg: {}
     }
   },
   // 子组件
@@ -254,6 +256,7 @@ export default {
           this.codeError(errText)
         } else {
           if (res.Code === 1) {
+            this.userMsg = res
             console.log('登录成功，本地存储逻辑TODO，登录页面退出')
           }
         }
@@ -361,6 +364,21 @@ export default {
           this.isCountDown = true // 正在倒计时
         }
       }, 1000)
+    },
+    loginSuccess () {
+      console.log('22')
+    },
+    // 本地储存
+    _localSave (key, val) {
+      localSave(key, val)
+    },
+    // 读取本地储存
+    _localTake (key) {
+      return localTake(key)
+    },
+    // 清除本地储存
+    _localremove (key) {
+      localremove(key)
     }
   },
   // 实时计算数据（一个数据受多个数据影响）

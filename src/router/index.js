@@ -134,6 +134,8 @@ const router = new Router({
 // 全局路由守卫
 router.beforeEach((to, from, next) => {
   console.log('navigation-guards')
+
+  // console.log('this.$store.state.isLogin', this.loginFlag)
   // to: Route: 即将要进入的目标 路由对象
   // from: Route: 当前导航正要离开的路由
 
@@ -147,11 +149,11 @@ router.beforeEach((to, from, next) => {
     // }
   }
   // 已登录状态；当路由到 UserLogIn 时，跳转至 Home
-  if (to.name === 'login') {
+  // if (to.name === 'UserLogIn') {
     // if (this.$store.state.isLogin) {
-    router.push({name: 'Home'})
+    // router.push({name: 'Home'})
     // }
-  }
+  // }
   next() // 必须使用 next ,执行效果依赖 next 方法的调用参数
 })
 
