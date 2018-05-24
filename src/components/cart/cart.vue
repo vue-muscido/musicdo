@@ -22,7 +22,7 @@
            <cube-swipe>
             <transition-group name="swipe" tag="ul">
                <!-- 商品列表 -->
-              <li class="swipe-item-wrapper" v-for="(data, index) in shop.list" :key="data.item.id">
+              <li @touchstart="topSelect(index,top)" class="swipe-item-wrapper" v-for="(data, index) in shop.list" :key="data.item.id">
                 <cube-swipe-item
                     ref="swipeItem"
                     :btns="data.btns"
@@ -32,9 +32,9 @@
                   <div class="item-inner">
                     <div class="choose">
                       <cube-checkbox class="check" v-model="data.checked">
-                        <div></div>
+                        <span></span>
                       </cube-checkbox>
-                      <div @click="choose (top, index)" class="btn-choose"></div>
+                      <div @click="choose(top, index)" class="btn-choose"></div>
                     </div>
                     <div class="icon">
                       <img @click="onItemClick(data.item, index)" :src="data.item.imgurl">
@@ -70,10 +70,10 @@
         <div @click="chooseAllGoods()" class="btn-all"></div>
       </div>
       <div class="count-all">
-        <span>合计:</span>
-        <span>¥{{payAll}}</span>.00
+        合计:
+        <span>¥{{payAll}}.00</span>
       </div>
-      <div class="btn-count">
+      <div class="btn-count" :class="{isred: payAll > 0}">
         结算<span></span>
       </div>
     </div>
@@ -91,7 +91,8 @@ export default {
       shopList: [],
       allChecked: false,
       checkList: [],
-      payAll: 0,
+      selectTop: 0,
+      selectItem: 0,
       notGoodsMsg: '购物车空空的，先去添加商品吧~',
       dataTypeMsg: '1',
       options: {
@@ -182,11 +183,17 @@ export default {
     }
   },
   computed: {
-    newshopList: function () {
-      return this.cartData[0]
-    },
-    newcheckList: function () {
-      return this.cartData[1]
+    payAll: function () {
+      var allNum = 0
+      for (var i = 0; i < this.cartData.length; i++) {
+        var list = this.cartData[i]['list']
+        for (var k = 0; k < list.length; k++) {
+          if (list[k]['checked'] === true) {
+            allNum += list[k].item.price * list[k].item.num
+          }
+        }
+      }
+      return allNum
     }
   },
   watch: {
@@ -195,8 +202,8 @@ export default {
     this.activeIndex = -1
   },
   methods: {
-    tio () {
-      console.log('ddd')
+    topSelect (index, top) {
+      this.selectTop = top
     },
     // 全部商品全选
     chooseAllGoods () {
@@ -271,17 +278,14 @@ export default {
       }
       flag1 === true ? this.allChecked = true : this.allChecked = false
     },
-    selectItem () {
-      console.log('laal')
-    },
     // 下拉刷新
     onPullingDown () {
       // Mock async load.
       setTimeout(() => {
         if (Math.random() > 0.5) {
           // If have new data, just update the data property.
-          this.cartData.unshift('I am new data: ' + +new Date())
-          console.log(this.cartData)
+          console.log('已是最新数据')
+          this.$refs.scroll.forceUpdate()
         } else {
           // If no new data, you need use the method forceUpdate to tell us the load is done.
           this.$refs.scroll.forceUpdate()
@@ -304,12 +308,21 @@ export default {
             {content: '删除'}
           ],
           onSelect: () => {
-            this.cartData[1].list.splice(index, 1)
-            this.checkList.splice(index, 1)
+            this.cartData[this.selectTop].list.splice(index, 1)
+            if (this.cartData[this.selectTop].list.length === 0) {
+              this.cartData.splice(this.selectTop, 1)
+            }
+          },
+          onCancel: () => {
+            for (var i = 0; i < this.$refs.swipeItem.length; i++) {
+              this.$refs.swipeItem[i].shrink()
+            }
           }
         }).show()
       } else {
-        this.$refs.swipeItem[index].shrink()
+        for (var i = 0; i < this.$refs.swipeItem.length; i++) {
+          this.$refs.swipeItem[i].shrink()
+        }
       }
     },
     onItemActive (index) {
