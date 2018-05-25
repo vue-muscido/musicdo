@@ -7,6 +7,10 @@
         :data="cartData"
         :options="options"
         @pulling-down="onPullingDown">
+        <div class="edit-all">
+          <span class="massage">消息</span>
+          <span class="btn-edit-all">编辑</span>
+        </div>
         <div v-if="shop.list.length" v-for="(shop, top) in cartData" :key="shop.shopName" class="shop-con">
           <div class="shop-title">
             <div class="shop">
@@ -22,7 +26,7 @@
            <cube-swipe>
             <transition-group name="swipe" tag="ul">
                <!-- 商品列表 -->
-              <li @touchstart="topSelect(index,top)" class="swipe-item-wrapper" v-for="(data, index) in shop.list" :key="data.item.id">
+              <li ref="swipeList" @touchstart="topSelect(index,top,$event)" class="swipe-item-wrapper" v-for="(data, index) in shop.list" :key="data.item.id">
                 <cube-swipe-item
                     ref="swipeItem"
                     :btns="data.btns"
@@ -118,8 +122,8 @@ export default {
               btns: [
                 {
                   action: 'star',
-                  text: '移入收藏',
-                  color: 'rgba(255,169,4,1)'
+                  text: '收藏',
+                  color: '#c8c7cd'
                 },
                 {
                   action: 'delete',
@@ -145,8 +149,8 @@ export default {
               btns: [
                 {
                   action: 'star',
-                  text: '移入收藏',
-                  color: 'rgba(255,169,4,1)'
+                  text: '收藏',
+                  color: '#c8c7cd'
                 },
                 {
                   action: 'delete',
@@ -167,8 +171,8 @@ export default {
               btns: [
                 {
                   action: 'star',
-                  text: '移入收藏',
-                  color: 'rgba(255,169,4,1)'
+                  text: '收藏',
+                  color: '#c8c7cd'
                 },
                 {
                   action: 'delete',
@@ -202,8 +206,18 @@ export default {
     this.activeIndex = -1
   },
   methods: {
-    topSelect (index, top) {
+    topSelect (index, top, event) {
       this.selectTop = top
+      var isIndex = 0
+      for (var i = 0; i < top; i++) {
+        isIndex += this.cartData[i]['list'].length
+      }
+      isIndex += index
+      for (var j = 0; j < this.$refs.swipeItem.length; j++) {
+        if (j !== isIndex) {
+          this.$refs.swipeItem[j].shrink()
+        }
+      }
     },
     // 全部商品全选
     chooseAllGoods () {
@@ -326,13 +340,6 @@ export default {
       }
     },
     onItemActive (index) {
-      if (index === this.activeIndex) {
-        return
-      }
-      if (this.activeIndex !== -1) {
-        const activeItem = this.$refs.swipeItem[this.activeIndex]
-        activeItem.shrink()
-      }
       this.activeIndex = index
     }
   },

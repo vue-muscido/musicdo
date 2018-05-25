@@ -9,13 +9,32 @@
     max-width $g-page-max-width
   .cart-empty
     height 100%
+  .edit-all
+    display flex
+    heignt $g-fix-bar-height
+    background-color $g-col-red
+    justify-content space-between
+    .massage
+      padding 0 1.0rem
+      margin-right 1.0rem
+      line-height 4rem
+      font-size $g-fs-xl
+      color $g-col-white-g
+      text-align center
+    .btn-edit-all
+      padding 0 0.75rem
+      line-height 4rem
+      font-size $g-fs-xl
+      color $g-col-white-g
+      text-align right
   .shop-con
     margin-bottom 1rem
+    background-color $g-bgc-con
   .shop-title
     display flex
     height 4rem
     line-height 4rem
-    font-size $g-fs-xxxl
+    font-size $g-fs-xl
     color $g-fc-black
     span
       vertical-align top
@@ -36,7 +55,6 @@
     .btn-shop-edit
       padding 0 0.75rem
       height 100%
-    background-color $g-bgc-con
   .cart-list
     .item
       margin-top 1px
@@ -60,7 +78,7 @@
       height 100%
     .cube-checkbox
       padding-right 4px
-      padding-left 15px
+      padding-left 0.75rem
       color $g-bgc-btn-red
     .check
       height 8rem
@@ -121,9 +139,9 @@
     .check-all
       position relative
       flex 1
-      font-size $g-fs-xxxl
+      font-size $g-fs-xl
       span
-        font-size $g-fs-xxl
+        font-size $g-fs-xl
       .btn-all
         z-index 100
         position absolute
@@ -133,18 +151,19 @@
         left 0
     .count-all
       flex 1.8
-      font-size $g-fs-xxl
+      font-size $g-fs-xl
       color $g-fc-normal
+      text-align right
       span
-        font-weight 600
-        color $g-bgc-btn-red
+        padding 0 0.4rem
+        color $g-col-red
     .btn-count
       flex 1
       height 100%
       line-height $g-bot-bar-height
       background-color $g-bgc-btn-gray
       text-align center
-      font-size $g-fs-xxl
+      font-size $g-fs-xl
       color $g-fc-white
     .isred
       background-color $g-bgc-btn-red
