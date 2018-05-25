@@ -81,9 +81,11 @@
 
     <div class="new-account-bar" >
       <span class="new-account-btn" >
-        注册新账号{{$store.state.isLogin}}
+        注册新账号{{$store.state.isLogin}}----{{$store.getters.otest}} <!-- TODO & test-->
       </span >
     </div >
+      
+      msg:{{$store.state.userMsg}}
 
     <div class="other-way-bar" >
       <h3 ><span >其他账号登录</span ></h3 >
@@ -101,6 +103,7 @@ import { getVerificationCode } from 'api/verificationCode'
 import { login, loginByCode } from 'api/userLogin'
 import RippleBtn from 'base/ripple-btn/ripple-btn'
 import { localSave, localTake, localremove } from 'common/js/localStore'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 export default {
   // 别名
   name: 'UserLogIn',
@@ -164,6 +167,7 @@ export default {
   },
   // 组件实例创建后
   created () {
+    console.log(this.$store)
   },
   // 模板编译/挂载前
   beforeMount () {
@@ -225,7 +229,11 @@ export default {
           console.log('获取不到返回值')
         } else {
           if (res.Code === 1) {
-            console.log('登录成功，本地存储逻辑TODO，登录页面退出')
+            console.log(res.Data)
+            console.log('登录成功，本地存储逻辑TODO，设置全局数据，登录页面退出')
+            this._localremove('userMsg')
+            this._localSave('userMsg', res.Data)
+            this.$store.commit('types.SET_LOGIN_FLAG', true)
           } else if (res.Code === 0) {
             console.log('账号或密码不正确，弹框提醒，并要求重新填写')
             this.errEvent = 'DEFAULT'
@@ -257,7 +265,10 @@ export default {
         } else {
           if (res.Code === 1) {
             this.userMsg = res
+            console.log(res)
             console.log('登录成功，本地存储逻辑TODO，登录页面退出')
+            this._localremove('userMsg')
+            this._localSave('userMsg', res.Data)
           }
         }
       })
@@ -379,10 +390,20 @@ export default {
     // 清除本地储存
     _localremove (key) {
       localremove(key)
-    }
+    },
+    ...mapActions([
+      'toTest'
+    ])
   },
   // 实时计算数据（一个数据受多个数据影响）
-  computed: {},
+  computed: {
+    ...mapGetters([
+      'test'
+    ]),
+    ...mapMutations([
+      'types.SET_LOGIN_FLAG'
+    ])
+  },
   // 实时计算数据（一个数据影响多个数据）
   watch: {}
 }

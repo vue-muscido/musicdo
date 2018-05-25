@@ -24,7 +24,6 @@ export default {
       loginFlag: this.$store.state.isLogin,
       tabFlag: true,
       transitionName: 'fade'
-      //      rfontSiz: 0 || document.getElementsByTagName('html')[0].style.fontSize
     }
   },
   created () {
