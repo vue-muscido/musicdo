@@ -14,15 +14,21 @@
     heignt $g-fix-bar-height
     background-color $g-col-red
     justify-content space-between
-    .massage
-      padding 0 1.0rem
-      margin-right 1.0rem
-      line-height 4rem
-      font-size $g-fs-xl
-      color $g-col-white-g
+    .msg-btn
+      display flex
+      flex 0 0 5rem
+      flex-direction column
+      justify-content center
+      align-items center
+      height $g-fix-bar-height
+      line-height $g-fix-bar-height
       text-align center
+      > img
+        width $g-top-icon-w
+        height $g-top-icon-w
     .btn-edit-all
       padding 0 0.75rem
+      flex 0 0 5.5rem
       line-height 4rem
       font-size $g-fs-xl
       color $g-col-white-g
@@ -66,7 +72,7 @@
     padding 1rem 0
     display flex
     background-color $l-bgc-cart
-    font-size $g-fs-xxxl
+    font-size $g-fs-xl
     .choose
       position relative
     .btn-choose
@@ -78,7 +84,6 @@
       height 100%
     .cube-checkbox
       padding-right 4px
-      padding-left 0.75rem
       color $g-bgc-btn-red
     .check
       height 8rem
@@ -119,7 +124,7 @@
           color $g-fc-red
           font-size $g-fs-normal
           span
-            font-size $g-fs-xxl
+            font-size $g-fs-xl
         .num
           color $g-fc-link
           font-size $g-fs-xl
@@ -156,7 +161,7 @@
       text-align right
       span
         padding 0 0.4rem
-        color $g-col-red
+        color $g-fc-red
     .btn-count
       flex 1
       height 100%

@@ -8,8 +8,10 @@
         :options="options"
         @pulling-down="onPullingDown">
         <div class="edit-all">
-          <span class="massage">消息</span>
-          <span class="btn-edit-all">编辑</span>
+          <div class="msg-btn">
+            <img src="./img/xiaoxi@2x.png" />
+          </div >
+          <div class="btn-edit-all">编辑</div>
         </div>
         <div v-if="shop.list.length" v-for="(shop, top) in cartData" :key="shop.shopName" class="shop-con">
           <div class="shop-title">
