@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from './../store'
 
 import Home from 'components/home/home' // 主页组件
 import Brands from 'components/brands/brands' // 品牌页组件
@@ -133,27 +134,31 @@ const router = new Router({
 
 // 全局路由守卫
 router.beforeEach((to, from, next) => {
-  console.log('navigation-guards')
+  // console.log('navigation-guards')
 
-  // console.log('this.$store.state.isLogin', this.loginFlag)
+  // console.log('this.$store.state.isLogin', router.app.$options.store.isLogin)
+  // console.log(store.state.isLogin)
   // to: Route: 即将要进入的目标 路由对象
   // from: Route: 当前导航正要离开的路由
 
-  const nextRoute = ['User', 'Cart', 'GoodsDetail'] // 需要登录的页面
-  // let isLogin = global.isLogin  // 是否登录
+  const nextRoute = ['Todo', 'User', 'Cart', 'GoodsDetail'] // 需要登录的页面
+  let isLogin = store.state.isLogin  // 是否登录
   // 未登录状态；当路由到 nextRoute 指定页时，跳转至 UserLogIn
   if (nextRoute.indexOf(to.name) >= 0) {
-    // if (!this.$store.state.isLogin) {
-    console.log('what the fuck')
-    router.push({name: 'UserLogIn'})
-    // }
+    if (isLogin === false) {
+      console.log('what the fuck')
+      router.push({name: 'UserLogIn'})
+    }
   }
+
+  console.log('to.name', to.name)
   // 已登录状态；当路由到 UserLogIn 时，跳转至 Home
-  // if (to.name === 'UserLogIn') {
-    // if (this.$store.state.isLogin) {
-    // router.push({name: 'Home'})
-    // }
-  // }
+  if (to.name === 'UserLogIn') {
+    console.log('isLogin:', isLogin)
+    if (isLogin === true) {
+      router.push({name: 'Home'})
+    }
+  }
   next() // 必须使用 next ,执行效果依赖 next 方法的调用参数
 })
 

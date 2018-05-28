@@ -17,6 +17,8 @@
 <script type="text/ecmascript-6" >
 import { rem } from 'common/js/rem'
 import UserLogin from 'components/user-login/user-login'
+import { localTake } from 'common/js/localStore'
+import { mapActions } from 'vuex'
 export default {
   name: 'app',
   data () {
@@ -29,6 +31,7 @@ export default {
   created () {
     this._rem()
     this._watchRem()
+    this.isLogin()
   },
   methods: {
     _rem () {
@@ -38,7 +41,18 @@ export default {
       window.addEventListener('resize', () => {
         this._rem()
       })
-    }
+    },
+    isLogin () {
+      if (localTake('userMsg') != null) {
+        console.log(localTake('userMsg'))
+        this.setLoginFlag(true)
+      }
+    },
+    ...mapActions([
+      'toTest',
+      'setLoginFlag',
+      'toGetUserMsg'
+    ])
   },
   components: {
     UserLogin

@@ -1,18 +1,14 @@
 import * as types from './mutation-types'
-import { localSave, localTake, localremove } from 'common/js/localStore'
 
 export const toTest = function ({commit}) {
-  commit(console.log('打印', types.MY_TEST_STR))
+  commit(types.MY_TEST_STR)
 }
 
-export const toLocalSave = function ({commit}, key, val) {
-  commit(localSave(key, val))
+export const setLoginFlag = function ({commit, state}, flag) {
+  commit(types.SET_LOGIN_FLAG, flag)
+  console.log(state.isLogin)
 }
 
-export const toLocalTake = function ({commit}, key) {
-  commit(localTake(key))
-}
-
-export const toLocalremove = function ({commit}, key) {
-  commit(localremove(key))
+export const toGetUserMsg = function ({commit}) {
+  commit(types.GET_USER_MSG)
 }

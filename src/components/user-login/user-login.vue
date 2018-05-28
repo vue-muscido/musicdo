@@ -90,8 +90,8 @@
     <div class="other-way-bar" >
       <h3 ><span >其他账号登录</span ></h3 >
       <div class="other-way" >
-        <div class="wx" ></div >
-        <div class="qq" ></div >
+        <div class="wx" @click="clUserMsg()" ></div >
+        <div class="qq" @click="testSSSS()" ></div >
       </div >
     </div >
     </div >
@@ -230,10 +230,11 @@ export default {
         } else {
           if (res.Code === 1) {
             console.log(res.Data)
-            console.log('登录成功，本地存储逻辑TODO，设置全局数据，登录页面退出')
-            this._localremove('userMsg')
-            this._localSave('userMsg', res.Data)
-            this.$store.commit('types.SET_LOGIN_FLAG', true)
+            console.log('登录成功，本地存储逻辑(done)，设置全局数据(islogin,)，登录页面退出')
+            //            this._localremove('userMsg')
+            //            this._localSave('userMsg', res.Data)
+            //            this.$store.commit('SET_LOGIN_FLAG', true)
+            this.loginSuccess(res.Data)
           } else if (res.Code === 0) {
             console.log('账号或密码不正确，弹框提醒，并要求重新填写')
             this.errEvent = 'DEFAULT'
@@ -267,8 +268,7 @@ export default {
             this.userMsg = res
             console.log(res)
             console.log('登录成功，本地存储逻辑TODO，登录页面退出')
-            this._localremove('userMsg')
-            this._localSave('userMsg', res.Data)
+            this.loginSuccess(res.Data)
           }
         }
       })
@@ -376,8 +376,16 @@ export default {
         }
       }, 1000)
     },
-    loginSuccess () {
-      console.log('22')
+    clUserMsg () {
+      console.log('is _localremove')
+      //      this._localremove('userMsg')
+      this.$store.commit('REMOVE_USER_MSG')
+    },
+    loginSuccess (userMsg) {
+      this.$store.commit('SET_USER_MSG', userMsg)
+      this.$store.commit('GET_USER_MSG')
+      console.log(this.$store.getters.userMsg)
+      this.setLoginFlag(true)
     },
     // 本地储存
     _localSave (key, val) {
@@ -391,8 +399,13 @@ export default {
     _localremove (key) {
       localremove(key)
     },
+    testSSSS () {
+      this.setLoginFlag(true)
+    },
     ...mapActions([
-      'toTest'
+      'toTest',
+      'setLoginFlag',
+      'toGetUserMsg'
     ])
   },
   // 实时计算数据（一个数据受多个数据影响）
@@ -401,7 +414,8 @@ export default {
       'test'
     ]),
     ...mapMutations([
-      'types.SET_LOGIN_FLAG'
+      //      'types.SET_LOGIN_FLAG',
+      'types.GET_USER_MSG'
     ])
   },
   // 实时计算数据（一个数据影响多个数据）
