@@ -1,99 +1,100 @@
 <template >
   <transition name="slideUp" >
     <div class="user-login" >
-    <div class="logo-bar" >
-      <div class="logo" ></div >
-    </div >
-
-    <div class="input-bar" >
-
-      <div class="account-box" >
-        <cube-input
-          class="input-account"
-          v-model="userAccount.value"
-          :placeholder="userAccount.placeholder"
-          :type="userAccount.type"
-          :maxlength="userAccount.maxlength"
-          :readonly="userAccount.readonly"
-          :disabled="userAccount.disabled"
-          :autofocus="userAccount.autofocus"
-          :autocomplete="userAccount.autocomplete"
-          :clearable="userAccount.clearable"
-          @input="accountInput()"
-        ></cube-input >
+      
+      <div class="logo-bar" >
+        <div class="logo" ></div >
       </div >
-
-      <div class="password-box" v-if="!isLoginByCode" >
-        <cube-input
-          class="input-password"
-          v-model="userPassword.value"
-          :placeholder="userPassword.placeholder"
-          :type="userPassword.type"
-          :maxlength="userPassword.maxlength"
-          :readonly="userPassword.readonly"
-          :disabled="userPassword.disabled"
-          :autofocus="userPassword.autofocus"
-          :autocomplete="userPassword.autocomplete"
-          :clearable="userPassword.clearable"
-          :eye="userPassword.eye"
-          @input="passwordInput()"
-        ></cube-input >
+  
+      <div class="input-bar" >
+  
+        <div class="account-box" >
+          <cube-input
+            class="input-account"
+            v-model="userAccount.value"
+            :placeholder="userAccount.placeholder"
+            :type="userAccount.type"
+            :maxlength="userAccount.maxlength"
+            :readonly="userAccount.readonly"
+            :disabled="userAccount.disabled"
+            :autofocus="userAccount.autofocus"
+            :autocomplete="userAccount.autocomplete"
+            :clearable="userAccount.clearable"
+            @input="accountInput()"
+          ></cube-input >
+        </div >
+  
+        <div class="password-box" v-if="!isLoginByCode" >
+          <cube-input
+            class="input-password"
+            v-model="userPassword.value"
+            :placeholder="userPassword.placeholder"
+            :type="userPassword.type"
+            :maxlength="userPassword.maxlength"
+            :readonly="userPassword.readonly"
+            :disabled="userPassword.disabled"
+            :autofocus="userPassword.autofocus"
+            :autocomplete="userPassword.autocomplete"
+            :clearable="userPassword.clearable"
+            :eye="userPassword.eye"
+            @input="passwordInput()"
+          ></cube-input >
+        </div >
+  
+        <div class="vcode-box" v-else="isLoginByCode" >
+          <cube-input
+            class="input-vcode"
+            v-model="userVcode.value"
+            :placeholder="userVcode.placeholder"
+            :type="userVcode.type"
+            :maxlength="userVcode.maxlength"
+            :readonly="userVcode.readonly"
+            :disabled="userVcode.disabled"
+            :autofocus="userVcode.autofocus"
+            :autocomplete="userVcode.autocomplete"
+            :clearable="userVcode.clearable"
+            :eye="userVcode.eye"
+            @input="vCodeInput()"
+          ></cube-input >
+          <div class="get-code-btn" :class="getCodeDisable?'disable':''" >
+            <span v-show="!isCountDown" @click="getCode()" >获取验证码</span >
+            <span v-show="isCountDown" >{{timeLimit - secondNumber}}秒后重新获取</span >
+          </div >
+        </div >
+  
       </div >
-
-      <div class="vcode-box" v-else="isLoginByCode" >
-        <cube-input
-          class="input-vcode"
-          v-model="userVcode.value"
-          :placeholder="userVcode.placeholder"
-          :type="userVcode.type"
-          :maxlength="userVcode.maxlength"
-          :readonly="userVcode.readonly"
-          :disabled="userVcode.disabled"
-          :autofocus="userVcode.autofocus"
-          :autocomplete="userVcode.autocomplete"
-          :clearable="userVcode.clearable"
-          :eye="userVcode.eye"
-          @input="vCodeInput()"
-        ></cube-input >
-        <div class="get-code-btn" :class="getCodeDisable?'disable':''" >
-          <span v-show="!isCountDown" @click="getCode()" >获取验证码</span >
-          <span v-show="isCountDown" >{{timeLimit - secondNumber}}秒后重新获取</span >
+  
+      <div class="quick-bar" >
+        <div @click="chengeLoginMode()" >
+          <!--短信快速登录-->
+          {{isLoginByCode ? '密码登录' : '短信快速登录'}}
+        </div >
+        <div >
+          忘记密码?
         </div >
       </div >
-
-    </div >
-
-    <div class="quick-bar" >
-      <div @click="chengeLoginMode()" >
-        <!--短信快速登录-->
-        {{isLoginByCode ? '密码登录' : '短信快速登录'}}
+  
+      <div class="btn-bar" >
+        <ripple-btn class="login-btn" :class="loginBtnDisable?'disable':''" v-on:click.native="toLogin()" >
+          登录
+        </ripple-btn >
       </div >
-      <div >
-        忘记密码?
+  
+      <div class="new-account-bar" >
+        <span class="new-account-btn" >
+          注册新账号{{$store.state.isLogin}}----{{$store.getters.otest}} <!-- TODO & test-->
+        </span >
       </div >
-    </div >
-
-    <div class="btn-bar" >
-      <ripple-btn class="login-btn" :class="loginBtnDisable?'disable':''" v-on:click.native="toLogin()" >
-        登录
-      </ripple-btn >
-    </div >
-
-    <div class="new-account-bar" >
-      <span class="new-account-btn" >
-        注册新账号{{$store.state.isLogin}}----{{$store.getters.otest}} <!-- TODO & test-->
-      </span >
-    </div >
-      
-      msg:{{$store.state.userMsg}}
-
-    <div class="other-way-bar" >
-      <h3 ><span >其他账号登录</span ></h3 >
-      <div class="other-way" >
-        <div class="wx" @click="clUserMsg()" ></div >
-        <div class="qq" @click="testSSSS()" ></div >
+        
+        msg:{{$store.state.userMsg}}
+  
+      <div class="other-way-bar" >
+        <h3 ><span >其他账号登录</span ></h3 >
+        <div class="other-way" >
+          <div class="wx" @click="clUserMsg()" ></div >
+          <div class="qq" @click="testSSSS()" ></div >
+        </div >
       </div >
-    </div >
     </div >
   </transition >
 </template >
@@ -153,7 +154,7 @@ export default {
       isCountDown: false, // 是否在倒计时
       loginBtnDisable: true,
       errEvent: 'DEFAULT',
-      userMsg: {}
+      userData: {}
     }
   },
   // 子组件
@@ -218,7 +219,7 @@ export default {
         }
       })
     },
-    _login () {
+    _loginByPSW () {
       let oParams = Object.assign({}, {}, {
         userName: this.userAccount.value,
         pwd: this.userPassword.value
@@ -265,9 +266,9 @@ export default {
           this.codeError(errText)
         } else {
           if (res.Code === 1) {
-            this.userMsg = res
-            console.log(res)
-            console.log('登录成功，本地存储逻辑TODO，登录页面退出')
+            //            this.userData = res
+            //            console.log(res)
+            //            console.log('登录成功，本地存储逻辑TODO，登录页面退出')
             this.loginSuccess(res.Data)
           }
         }
@@ -318,7 +319,7 @@ export default {
           console.log('验证码登录')
           this._loginByCode()
         } else {
-          this._login()
+          this._loginByPSW()
         }
       }
       console.log('点击登录')
@@ -382,10 +383,11 @@ export default {
       this.$store.commit('REMOVE_USER_MSG')
     },
     loginSuccess (userMsg) {
-      this.$store.commit('SET_USER_MSG', userMsg)
-      this.$store.commit('GET_USER_MSG')
-      console.log(this.$store.getters.userMsg)
-      this.setLoginFlag(true)
+      //      this.$store.commit('SET_USER_MSG', userMsg)
+      //      this.$store.commit('GET_USER_MSG')
+      //      console.log(this.$store.getters.userMsg)
+      //      this.xSetLoginFlag(true)
+      this.xToLogin(userMsg)
     },
     // 本地储存
     _localSave (key, val) {
@@ -400,18 +402,22 @@ export default {
       localremove(key)
     },
     testSSSS () {
-      this.setLoginFlag(true)
+      this.xSetLoginFlag(true)
     },
     ...mapActions([
       'toTest',
-      'setLoginFlag',
-      'toGetUserMsg'
+      'xSetLoginFlag',
+      'xToGetUserMsg',
+      'xToLogin',
+      'xExitLogin'
     ])
   },
   // 实时计算数据（一个数据受多个数据影响）
   computed: {
     ...mapGetters([
-      'test'
+      'test',
+      'isLogin',
+      'userMsg'
     ]),
     ...mapMutations([
       //      'types.SET_LOGIN_FLAG',

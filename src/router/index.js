@@ -137,7 +137,7 @@ router.beforeEach((to, from, next) => {
   // console.log('navigation-guards')
 
   // console.log('this.$store.state.isLogin', router.app.$options.store.isLogin)
-  // console.log(store.state.isLogin)
+  console.log(store.state.isLogin)
   // to: Route: 即将要进入的目标 路由对象
   // from: Route: 当前导航正要离开的路由
 

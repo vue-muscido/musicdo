@@ -10,6 +10,7 @@ const matutaions = {
   },
   [types.SET_USER_MSG] (state, userMsg) {
     localSave('userMsg', userMsg)
+    state.userMsg = localTake('userMsg')
     console.log('state', state)
     console.log('save userMsg', userMsg)
   },
@@ -19,7 +20,7 @@ const matutaions = {
   },
   [types.REMOVE_USER_MSG] (state) {
     localremove('userMsg')
-    state.userMsg = null
+    state.userMsg = localTake('userMsg')
     console.log(localTake('userMsg'))
     console.log('state.userMsg', state.userMsg)
   }
