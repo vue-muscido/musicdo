@@ -7,11 +7,11 @@
         :data="cartData"
         :options="options"
         @pulling-down="onPullingDown">
-        <div class="edit-all">
+        <div v-if="cartData.length" class="edit-all">
           <div class="msg-btn">
             <img src="./img/xiaoxi@2x.png" />
           </div >
-          <div class="btn-edit-all">编辑</div>
+          <div @click="editAll" class="btn-edit-all">{{editText}}</div>
         </div>
         <div v-if="shop.list.length" v-for="(shop, top) in cartData" :key="shop.shopName" class="shop-con">
           <div class="shop-title">
@@ -22,7 +22,7 @@
               <div @click="chooseShopGoods(top)" class="btn-shop"></div>
             </div>
             <div class="btn-shop-edit">
-              <span>编辑</span>
+              <span></span>
             </div>
           </div>
            <cube-swipe>
@@ -45,10 +45,22 @@
                     <div class="icon">
                       <img @click="onItemClick(data.item, index)" :src="data.item.imgurl">
                     </div>
-                    <div @click="onItemClick(data.item, index)" class="text">
+                    <div v-if="editFlag" class="actions">
+                      <div class="action-type">
+                        <div class="type-text">官方标配 + 原装进口xcxcxcxcxca</div>
+                      </div>
+                      <div class="action-num">
+                        <span class="reduce" v-on:click="numChange(top, index, -1)" v-bind:class="{ 'disable' : data.item.num==1 }">－</span>
+                        <div class="isinput" v-bind:data-realStock="data.item.realStock">
+                          {{data.item.num}}
+                        </div>
+                        <span class="add" v-on:click="numChange(top, index, 1)" v-bind:class="{ 'disable' : data.item.num===data.item.realStock}">＋</span>
+                      </div>
+                    </div>
+                    <div v-if="!editFlag" class="options" @click="onItemClick(data.item, index)">
                       <h2 class="item-name" v-html="data.item.name"></h2>
                       <p class="item-desc" v-html="data.item.desc"></p>
-                      <div class="options">
+                      <div class="price-box">
                         <div class="price">
                           <span>¥{{data.item.price*data.item.num}}</span>.00
                         </div>
@@ -64,24 +76,30 @@
           </cube-swipe>
         </div>
         <!-- 未添加商品提示 -->
-        <empty class="cart-empty" v-if="!cartData.length" :emptyStr='notGoodsMsg' :dataType='dataTypeMsg'></empty >
+        <empty v-if="!cartData.length" class="cart-empty" :emptyStr='notGoodsMsg' :dataType='dataTypeMsg'></empty >
+        <!-- 购买跳转 -->
+        <div v-if="!cartData.length" @click="goBuy()" class="go-buy">
+          去添加
+        </div>
       </cube-scroll>
     </div>
     <!-- 结算栏 -->
-    <div class="count">
+    <div v-if="cartData.length" class="count">
       <div class="check-all">
         <cube-checkbox v-model="allChecked">
           <span>全选</span>
         </cube-checkbox>
         <div @click="chooseAllGoods()" class="btn-all"></div>
       </div>
-      <div class="count-all">
+      <div v-if="!editFlag" class="count-all">
         合计:
-        <span>¥{{payAll}}.00</span>
+        <span :class="{fred: payAll > 0}">¥{{payAll}}.00</span>
       </div>
-      <div class="btn-count" :class="{isred: payAll > 0}">
+      <div v-if="!editFlag" class="btn-count" :class="{bgred: payAll > 0}">
         结算<span></span>
       </div>
+      <div v-if="editFlag" @click="editAction ('start')" class="btn-start" :class="{bgyellow: payAll > 0}">收藏</div>
+      <div v-if="editFlag" @click="editAction ('delete')" class="btn-delete" :class="{bgred: payAll > 0}">删除</div>
     </div>
     <!-- tab -->
     <tab v-show="true"></tab>
@@ -99,6 +117,8 @@ export default {
       checkList: [],
       selectTop: 0,
       selectItem: 0,
+      editFlag: false,
+      editText: '编辑',
       notGoodsMsg: '购物车空空的，先去添加商品吧~',
       dataTypeMsg: '1',
       options: {
@@ -118,6 +138,7 @@ export default {
                 name: '威斯曼WEISMANN 数码钢琴 MET-8G钢琴，优雅大气,最纯粹的音质，最优雅的气质，最自然的音色',
                 desc: '官方标配 + 原装进口',
                 imgurl: 'http://musicdo.cn/Upload/0/201710237239.jpg',
+                realStock: 8,
                 price: 18000,
                 num: 1
               },
@@ -145,8 +166,9 @@ export default {
                 name: '罗兰Roland电钢琴PHA-50',
                 desc: '官方标配 + 原装进口',
                 imgurl: 'http://musicdo.cn/Upload/3134/20180518143141.png',
+                realStock: 3,
                 price: 2400,
-                num: 10000
+                num: 2
               },
               btns: [
                 {
@@ -167,6 +189,7 @@ export default {
                 name: '星海凯旋 立式钢琴 K系列 K-119',
                 desc: '官方标配 + 原装进口',
                 imgurl: 'http://musicdo.cn/Upload/3134/20171212155316.jpg',
+                realStock: 5,
                 price: 5600,
                 num: 1
               },
@@ -208,6 +231,7 @@ export default {
     this.activeIndex = -1
   },
   methods: {
+    // 定位选择的店铺
     topSelect (index, top, event) {
       this.selectTop = top
       var isIndex = 0
@@ -294,6 +318,136 @@ export default {
       }
       flag1 === true ? this.allChecked = true : this.allChecked = false
     },
+    // 更改商品个数
+    numChange (top, index, numChange) {
+      var list = this.cartData[top]['list']
+      var goods = list[index]['item']
+      if (numChange === 1) {
+        goods.num++
+      } else if (numChange === -1) {
+        goods.num--
+      }
+      if (goods.num <= 1) {
+        goods.num = 1
+      }
+      if (goods.num >= goods.realStock) {
+        goods.num = goods.realStock
+      }
+    },
+    // 点击商品 查看详情
+    onItemClick (item) {
+      console.log('click item:', item)
+    },
+    // 单个商品删除/收藏操作
+    onBtnClick (btn, index) {
+      if (btn.action === 'delete') {
+        this.$createActionSheet({
+          title: '确认要删除吗',
+          active: 0,
+          data: [
+            {content: '删除'}
+          ],
+          onSelect: () => {
+            this.cartData[this.selectTop].list.splice(index, 1)
+            this.showToastType('删除成功', 'correct')
+            if (this.cartData[this.selectTop].list.length === 0) {
+              this.cartData.splice(this.selectTop, 1)
+            }
+          },
+          onCancel: () => {
+            for (var i = 0; i < this.$refs.swipeItem.length; i++) {
+              this.$refs.swipeItem[i].shrink()
+            }
+          }
+        }).show()
+      } else {
+        this.cartData[this.selectTop].list.splice(index, 1)
+        this.showToastType('收藏成功', 'correct')
+        if (this.cartData[this.selectTop].list.length === 0) {
+          this.cartData.splice(this.selectTop, 1)
+        }
+      }
+    },
+    //  切换编辑状态
+    editAll () {
+      this.editFlag = !this.editFlag
+      if (this.editFlag) {
+        this.editText = '完成'
+      } else {
+        this.editText = '编辑'
+        this.showToastType('编辑成功', 'correct')
+      }
+    },
+    // 编辑状态删除
+    deleteSelect () {
+      for (var i = this.cartData.length - 1; i >= 0; i--) {
+        var list = this.cartData[i]['list']
+        for (var k = list.length - 1; k >= 0; k--) {
+          if (list[k]['checked'] === true) {
+            this.cartData[i].list.splice(k, 1)
+          }
+        }
+        if (this.cartData[i].list.length === 0) {
+          this.cartData.splice(i, 1)
+        }
+      }
+      this.showToastType('删除成功', 'correct')
+    },
+    // 编辑状态收藏
+    startSelect () {
+      for (var i = this.cartData.length - 1; i >= 0; i--) {
+        var list = this.cartData[i]['list']
+        for (var k = list.length - 1; k >= 0; k--) {
+          if (list[k]['checked'] === true) {
+            this.cartData[i].list.splice(k, 1)
+          }
+        }
+        if (this.cartData[i].list.length === 0) {
+          this.cartData.splice(i, 1)
+        }
+      }
+      this.showToastType('收藏成功', 'correct')
+    },
+    // 删除多个商品操作
+    editAction (action) {
+      if (action === 'delete') {
+        this.$createActionSheet({
+          title: '确认要删除吗',
+          active: 0,
+          data: [
+            {content: '删除'}
+          ],
+          onSelect: () => {
+            this.deleteSelect()
+          },
+          onCancel: () => {
+            for (var i = 0; i < this.$refs.swipeItem.length; i++) {
+              this.$refs.swipeItem[i].shrink()
+            }
+          }
+        }).show()
+      } else {
+        this.startSelect()
+      }
+    },
+    onItemActive (index) {
+      this.activeIndex = index
+    },
+    // 去购买
+    goBuy () {
+      this.$router.push({
+        path: '/home'
+      })
+    },
+    // 提示框
+    showToastType (text, type) {
+      const toast = this.$createToast({
+        txt: text,
+        type: type,
+        time: 500
+      })
+      toast.show()
+    },
     // 下拉刷新
     onPullingDown () {
       // Mock async load.
@@ -308,41 +462,6 @@ export default {
           console.log('已是最新数据')
         }
       }, 1000)
-    },
-    // 点击商品 查看详情
-    onItemClick (item) {
-      console.log('click item:', item)
-    },
-    // 单个商品移入购物车操作
-    // 删除单个商品操作
-    onBtnClick (btn, index) {
-      if (btn.action === 'delete') {
-        this.$createActionSheet({
-          title: '确认要删除吗',
-          active: 0,
-          data: [
-            {content: '删除'}
-          ],
-          onSelect: () => {
-            this.cartData[this.selectTop].list.splice(index, 1)
-            if (this.cartData[this.selectTop].list.length === 0) {
-              this.cartData.splice(this.selectTop, 1)
-            }
-          },
-          onCancel: () => {
-            for (var i = 0; i < this.$refs.swipeItem.length; i++) {
-              this.$refs.swipeItem[i].shrink()
-            }
-          }
-        }).show()
-      } else {
-        for (var i = 0; i < this.$refs.swipeItem.length; i++) {
-          this.$refs.swipeItem[i].shrink()
-        }
-      }
-    },
-    onItemActive (index) {
-      this.activeIndex = index
     }
   },
   components: {
