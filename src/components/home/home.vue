@@ -10,7 +10,7 @@
         <div class="search-icon"></div>
       </form >
       <div class="msg-btn">
-        <img src="./img/xiaoxi@2x.png" />
+        <img src="./img/xiaoxi@3x.png" />
         <p >消息</p >
       </div >
     </div >
