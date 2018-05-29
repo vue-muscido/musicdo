@@ -1,15 +1,22 @@
 <template >
   <div id="app" >
-    <transition :name="transitionName">
+    
+    <div
+      style="position: fixed;top: 0;z-index: 99999;width: 100%;max-width: 750px;max-height: 50vh;background-color: rgba(0,0,0,.5);color: #fff" >
+      <div style="background-color: red;color: #fff;text-align: center" >点击退出登录</div >
+      <div >登录状态：{{loginFlag}}</div >
+      <div >用户信息：{{userData}}</div >
+    </div >
+    <transition :name="transitionName" >
       <keep-alive >
-        <router-view  v-if="$route.meta.keepAlive" class="router-view" ></router-view >
+        <router-view v-if="$route.meta.keepAlive" class="router-view" ></router-view >
       </keep-alive >
     </transition >
-    <transition :name="transitionName">
-      <router-view  v-if="!$route.meta.keepAlive" class="router-view" ></router-view >
+    <transition :name="transitionName" >
+      <router-view v-if="!$route.meta.keepAlive" class="router-view" ></router-view >
     </transition >
-    <transition :name="transitionName">
-      <user-login v-if="loginFlag"></user-login>
+    <transition :name="transitionName" >
+      <user-login v-if="loginFlag" ></user-login >
     </transition >
   </div >
 </template >
@@ -17,29 +24,45 @@
 <script type="text/ecmascript-6" >
 import { rem } from 'common/js/rem'
 import UserLogin from 'components/user-login/user-login'
+import { localTake } from 'common/js/localStore'
+import { mapActions } from 'vuex'
 export default {
   name: 'app',
   data () {
     return {
       loginFlag: this.$store.state.isLogin,
+      userData: this.$store.state.userMsg,
       tabFlag: true,
       transitionName: 'fade'
-      //      rfontSiz: 0 || document.getElementsByTagName('html')[0].style.fontSize
     }
   },
   created () {
     this._rem()
     this._watchRem()
+    this.isLogin()
   },
   methods: {
     _rem () {
+      console.log('this.$store.getter.isLogin', this.$store.getters.isLogin)
+      console.log('this.$store.getter.userMsg', this.$store.getters.userMsg)
       rem()
     },
     _watchRem () {
       window.addEventListener('resize', () => {
         this._rem()
       })
-    }
+    },
+    isLogin () {
+      if (localTake('userMsg') != null) {
+        console.log(localTake('userMsg'))
+        this.xSetLoginFlag(true)
+      }
+    },
+    ...mapActions([
+      'toTest',
+      'xSetLoginFlag',
+      'xToGetUserMsg'
+    ])
   },
   components: {
     UserLogin
@@ -50,11 +73,11 @@ export default {
       const toDepth = to.path.split('/')
       const fromDepth = from.path.split('/')
       this.transitionName = toDepth[1] === 'goods-detail' ? 'slide' : 'fade'
-      if (toDepth[1] === 'user') {
-        this.loginFlag = true
-      } else {
-        this.loginFlag = false
-      }
+      //      if (toDepth[1] === 'user') {
+      //        this.loginFlag = true
+      //      } else {
+      //        this.loginFlag = false
+      //      }
       if (toDepth[1] === 'goods-detail') {
         this.transitionName = 'slideIn'
         return
@@ -73,6 +96,10 @@ export default {
       }
       this.transitionName = 'fade'
     }
+  },
+  userData (n, o) {
+    console.log('nnn', n)
+    console.log('ooo', o)
   }
 }
 </script >
@@ -85,18 +112,21 @@ export default {
   max-width: $g-page-max-width;
   overflow-x hidden
   background-color $l-bgc-app
+
 #app:after
-    z-index $g-zindex-bot
-    position fixed
-    width 100%
-    top 0
-    left 0
-    bottom 0
-    background-color $l-bgc-wx
-    font-size $g-fs-normal
-    color $g-col-gray-w
-    line-height 12rem
-    text-align center
-    content ""/* 文案 */
+  z-index $g-zindex-bot
+  position fixed
+  width 100%
+  top 0
+  left 0
+  bottom 0
+  background-color $l-bgc-wx
+  font-size $g-fs-normal
+  color $g-col-gray-w
+  line-height 12rem
+  text-align center
+  content ""
+
+/* 文案 */
 
 </style >
