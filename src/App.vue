@@ -1,11 +1,10 @@
 <template >
   <div id="app" >
-    
+
     <div
       style="position: fixed;top: 0;z-index: 99999;width: 100%;max-width: 750px;max-height: 50vh;background-color: rgba(0,0,0,.5);color: #fff" >
-      <div style="background-color: red;color: #fff;text-align: center" >点击退出登录</div >
-      <div >登录状态：{{loginFlag}}</div >
-      <div >用户信息：{{userData}}</div >
+      <div style="background-color: red;color: #fff;text-align: center"  @click="outSign()" >点击退出登录</div >
+      <div >用户信息：{{userMsg}}</div >
     </div >
     <transition :name="transitionName" >
       <keep-alive >
@@ -16,7 +15,7 @@
       <router-view v-if="!$route.meta.keepAlive" class="router-view" ></router-view >
     </transition >
     <transition :name="transitionName" >
-      <user-login v-if="loginFlag" ></user-login >
+      <user-login v-if="true" ></user-login >
     </transition >
   </div >
 </template >
@@ -24,14 +23,12 @@
 <script type="text/ecmascript-6" >
 import { rem } from 'common/js/rem'
 import UserLogin from 'components/user-login/user-login'
-import { localTake } from 'common/js/localStore'
-import { mapActions } from 'vuex'
+// import { localTake } from 'common/js/localStore'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'app',
   data () {
     return {
-      loginFlag: this.$store.state.isLogin,
-      userData: this.$store.state.userMsg,
       tabFlag: true,
       transitionName: 'fade'
     }
@@ -39,12 +36,17 @@ export default {
   created () {
     this._rem()
     this._watchRem()
-    this.isLogin()
+  },
+  computed: {
+    ...mapGetters([
+      'userMsg'
+    ])
   },
   methods: {
+    outSign () {
+      this.xRrmoveUserMsg('未登录')
+    },
     _rem () {
-      console.log('this.$store.getter.isLogin', this.$store.getters.isLogin)
-      console.log('this.$store.getter.userMsg', this.$store.getters.userMsg)
       rem()
     },
     _watchRem () {
@@ -52,16 +54,9 @@ export default {
         this._rem()
       })
     },
-    isLogin () {
-      if (localTake('userMsg') != null) {
-        console.log(localTake('userMsg'))
-        this.xSetLoginFlag(true)
-      }
-    },
     ...mapActions([
-      'toTest',
-      'xSetLoginFlag',
-      'xToGetUserMsg'
+      'xSetUserMsg',
+      'xRrmoveUserMsg'
     ])
   },
   components: {
@@ -96,10 +91,6 @@ export default {
       }
       this.transitionName = 'fade'
     }
-  },
-  userData (n, o) {
-    console.log('nnn', n)
-    console.log('ooo', o)
   }
 }
 </script >

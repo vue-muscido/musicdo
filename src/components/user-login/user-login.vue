@@ -1,13 +1,13 @@
 <template >
   <transition name="slideUp" >
     <div class="user-login" >
-      
+
       <div class="logo-bar" >
         <div class="logo" ></div >
       </div >
-  
+
       <div class="input-bar" >
-  
+
         <div class="account-box" >
           <cube-input
             class="input-account"
@@ -23,7 +23,7 @@
             @input="accountInput()"
           ></cube-input >
         </div >
-  
+
         <div class="password-box" v-if="!isLoginByCode" >
           <cube-input
             class="input-password"
@@ -40,7 +40,7 @@
             @input="passwordInput()"
           ></cube-input >
         </div >
-  
+
         <div class="vcode-box" v-else="isLoginByCode" >
           <cube-input
             class="input-vcode"
@@ -61,9 +61,9 @@
             <span v-show="isCountDown" >{{timeLimit - secondNumber}}秒后重新获取</span >
           </div >
         </div >
-  
+
       </div >
-  
+
       <div class="quick-bar" >
         <div @click="chengeLoginMode()" >
           <!--短信快速登录-->
@@ -73,21 +73,21 @@
           忘记密码?
         </div >
       </div >
-  
+
       <div class="btn-bar" >
         <ripple-btn class="login-btn" :class="loginBtnDisable?'disable':''" v-on:click.native="toLogin()" >
           登录
         </ripple-btn >
       </div >
-  
+
       <div class="new-account-bar" >
         <span class="new-account-btn" >
           注册新账号{{$store.state.isLogin}}----{{$store.getters.otest}} <!-- TODO & test-->
         </span >
       </div >
-        
+
         msg:{{$store.state.userMsg}}
-  
+
       <div class="other-way-bar" >
         <h3 ><span >其他账号登录</span ></h3 >
         <div class="other-way" >
@@ -104,7 +104,7 @@ import { getVerificationCode } from 'api/verificationCode'
 import { login, loginByCode } from 'api/userLogin'
 import RippleBtn from 'base/ripple-btn/ripple-btn'
 import { localSave, localTake, localremove } from 'common/js/localStore'
-import { mapGetters, mapActions, mapMutations } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   // 别名
   name: 'UserLogIn',
@@ -387,7 +387,7 @@ export default {
       //      this.$store.commit('GET_USER_MSG')
       //      console.log(this.$store.getters.userMsg)
       //      this.xSetLoginFlag(true)
-      this.xToLogin(userMsg)
+      this.xSetUserMsg(userMsg)
     },
     // 本地储存
     _localSave (key, val) {
@@ -405,23 +405,14 @@ export default {
       this.xSetLoginFlag(true)
     },
     ...mapActions([
-      'toTest',
-      'xSetLoginFlag',
-      'xToGetUserMsg',
-      'xToLogin',
-      'xExitLogin'
+      'xSetUserMsg',
+      'xRrmoveUserMsg'
     ])
   },
   // 实时计算数据（一个数据受多个数据影响）
   computed: {
     ...mapGetters([
-      'test',
-      'isLogin',
       'userMsg'
-    ]),
-    ...mapMutations([
-      //      'types.SET_LOGIN_FLAG',
-      'types.GET_USER_MSG'
     ])
   },
   // 实时计算数据（一个数据影响多个数据）
