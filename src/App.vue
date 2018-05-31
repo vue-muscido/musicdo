@@ -38,8 +38,10 @@ export default {
     this._watchRem()
   },
   mounted () {
-    let isLogin = JSON.parse(localTake('userMsg'))
-    this.xSetUserMsg(isLogin)
+    if (localTake('userMsg')) {
+      let isLogin = JSON.parse(localTake('userMsg'))
+      this.xSetUserMsg(isLogin)
+    }
   },
   computed: {
     ...mapGetters([

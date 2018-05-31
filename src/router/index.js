@@ -137,7 +137,7 @@ const router = new Router({
 // 全局路由守卫
 router.beforeEach((to, from, next) => {
   // console.log('navigation-guards')
-
+  // router.push({name: 'UserLogIn'})
   // console.log('this.$store.state.isLogin', router.app.$options.store.isLogin)
   let oLogin = localTake('userMsg')
   console.log('本地:' + oLogin)
@@ -148,9 +148,15 @@ router.beforeEach((to, from, next) => {
   const nextRoute = ['Todo', 'User', 'Cart', 'GoodsDetail'] // 需要登录的页面
   let isLogin = localTake('userMsg')  // 是否登录
   // 未登录状态；当路由到 nextRoute 指定页时，跳转至 UserLogIn
+  //
+  //
   if (nextRoute.indexOf(to.name) >= 0) {
     if (!isLogin) {
       console.log('what the fuck')
+      if (from.name === 'UserLogIn') {
+        next('/')
+        return
+      }
       router.push({name: 'UserLogIn'})
     }
   }
