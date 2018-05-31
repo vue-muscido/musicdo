@@ -142,7 +142,7 @@ router.beforeEach((to, from, next) => {
   // from: Route: 当前导航正要离开的路由
 
   const nextRoute = ['Todo', 'User', 'Cart', 'GoodsDetail'] // 需要登录的页面
-  let isLogin = store.state.isLogin  // 是否登录
+  let isLogin = store.state.userMsg  // 是否登录
   // 未登录状态；当路由到 nextRoute 指定页时，跳转至 UserLogIn
   if (nextRoute.indexOf(to.name) >= 0) {
     if (isLogin === false) {
