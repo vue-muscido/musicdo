@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     outSign () {
-      this.xRrmoveUserMsg('未登录')
+      this.xRrmoveUserMsg('')
     },
     _rem () {
       rem()

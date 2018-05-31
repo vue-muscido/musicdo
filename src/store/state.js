@@ -1,5 +1,5 @@
 const state = {
-  userMsg: '未登录'
+  userMsg: ''
   // userMsg: {},
 }
 export default state

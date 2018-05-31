@@ -8,5 +8,5 @@ export const xSetUserMsg = function ({commit}, msg) {
 
 export const xRrmoveUserMsg = function ({commit}, msg) {
   localremove('userMsg')
-  commit(types.SET_USER_MSG, {msg})
+  commit(types.SET_USER_MSG, msg)
 }

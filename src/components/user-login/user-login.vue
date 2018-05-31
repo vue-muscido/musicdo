@@ -86,7 +86,7 @@
         </span >
       </div >
 
-        msg:{{$store.state.userMsg}}
+        用户信息:{{userMsg}}
 
       <div class="other-way-bar" >
         <h3 ><span >其他账号登录</span ></h3 >
