@@ -4,7 +4,7 @@
     <div
       style="position: fixed;top: 0;z-index: 99999;width: 100%;max-width: 750px;max-height: 50vh;background-color: rgba(0,0,0,.5);color: #fff" >
       <div style="background-color: red;color: #fff;text-align: center"  @click="outSign()" >点击退出登录</div >
-      <div >用户信息：{{userMsg}}</div >
+      <div >用户信息：{{'vuex' + userMsg}}</div >
     </div >
     <transition :name="transitionName" >
       <keep-alive >
@@ -15,7 +15,7 @@
       <router-view v-if="!$route.meta.keepAlive" class="router-view" ></router-view >
     </transition >
     <transition :name="transitionName" >
-      <user-login v-if="true" ></user-login >
+      <user-login v-if="false" ></user-login >
     </transition >
   </div >
 </template >
@@ -23,7 +23,7 @@
 <script type="text/ecmascript-6" >
 import { rem } from 'common/js/rem'
 import UserLogin from 'components/user-login/user-login'
-// import { localTake } from 'common/js/localStore'
+import { localTake } from 'common/js/localStore'
 import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'app',
@@ -36,6 +36,10 @@ export default {
   created () {
     this._rem()
     this._watchRem()
+  },
+  mounted () {
+    let isLogin = JSON.parse(localTake('userMsg'))
+    this.xSetUserMsg(isLogin)
   },
   computed: {
     ...mapGetters([
@@ -64,7 +68,6 @@ export default {
   },
   watch: {
     '$route' (to, from) {
-      document.title = to.meta.title || '乐都城'
       const toDepth = to.path.split('/')
       const fromDepth = from.path.split('/')
       this.transitionName = toDepth[1] === 'goods-detail' ? 'slide' : 'fade'

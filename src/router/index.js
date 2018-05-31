@@ -17,6 +17,8 @@ import SearchList from 'components/search-list/search-list' // 搜索列表
 
 import GoodsDetail from 'components/goods-detail/goods-detail' // 商品详情页
 
+import { localTake } from 'common/js/localStore'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -137,15 +139,17 @@ router.beforeEach((to, from, next) => {
   // console.log('navigation-guards')
 
   // console.log('this.$store.state.isLogin', router.app.$options.store.isLogin)
-  console.log(store.state.isLogin)
+  let oLogin = localTake('userMsg')
+  console.log('本地:' + oLogin)
+  console.log('全局:' + store.state.userMsg)
   // to: Route: 即将要进入的目标 路由对象
   // from: Route: 当前导航正要离开的路由
 
   const nextRoute = ['Todo', 'User', 'Cart', 'GoodsDetail'] // 需要登录的页面
-  let isLogin = store.state.userMsg  // 是否登录
+  let isLogin = localTake('userMsg')  // 是否登录
   // 未登录状态；当路由到 nextRoute 指定页时，跳转至 UserLogIn
   if (nextRoute.indexOf(to.name) >= 0) {
-    if (isLogin === false) {
+    if (!isLogin) {
       console.log('what the fuck')
       router.push({name: 'UserLogIn'})
     }
@@ -155,7 +159,7 @@ router.beforeEach((to, from, next) => {
   // 已登录状态；当路由到 UserLogIn 时，跳转至 Home
   if (to.name === 'UserLogIn') {
     console.log('isLogin:', isLogin)
-    if (isLogin === true) {
+    if (isLogin) {
       router.push({name: 'Home'})
     }
   }
