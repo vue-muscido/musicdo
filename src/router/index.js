@@ -145,19 +145,21 @@ router.beforeEach((to, from, next) => {
   // to: Route: 即将要进入的目标 路由对象
   // from: Route: 当前导航正要离开的路由
 
-  const nextRoute = ['Todo', 'User', 'Cart', 'GoodsDetail'] // 需要登录的页面
+  const nextRoute = ['User', 'Cart', 'GoodsDetail'] // 需要登录的页面
   let isLogin = localTake('userMsg')  // 是否登录
   // 未登录状态；当路由到 nextRoute 指定页时，跳转至 UserLogIn
-  //
-  //
-  if (nextRoute.indexOf(to.name) >= 0) {
-    if (!isLogin) {
-      console.log('what the fuck')
+  if (nextRoute.indexOf(to.name) >= 0) { // 检测是否要跳到守卫页面
+    if (!isLogin) { // 如果未登录，并且要跳到守卫页面
       if (from.name === 'UserLogIn') {
         next('/')
         return
       }
-      router.push({name: 'UserLogIn'})
+
+      router.replace({
+        name: 'UserLogIn',
+        params: {redirect: to.fullPath}
+      })
+      console.log('redirect--to.fullPath:::', to.fullPath)
     }
   }
 
@@ -166,7 +168,10 @@ router.beforeEach((to, from, next) => {
   if (to.name === 'UserLogIn') {
     console.log('isLogin:', isLogin)
     if (isLogin) {
-      router.push({name: 'Home'})
+      // router.push({name: 'Home'})
+      console.log('已登录，不能跳到登陆页')
+      next('/')
+      return
     }
   }
   next() // 必须使用 next ,执行效果依赖 next 方法的调用参数

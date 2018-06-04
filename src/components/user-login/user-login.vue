@@ -154,7 +154,8 @@ export default {
       isCountDown: false, // 是否在倒计时
       loginBtnDisable: true,
       errEvent: 'DEFAULT',
-      userData: {}
+      userData: {},
+      pathData: ''
     }
   },
   // 子组件
@@ -379,15 +380,11 @@ export default {
     },
     clUserMsg () {
       console.log('is _localremove')
-      //      this._localremove('userMsg')
       this.$store.commit('REMOVE_USER_MSG')
     },
     loginSuccess (userMsg) {
-      //      this.$store.commit('SET_USER_MSG', userMsg)
-      //      this.$store.commit('GET_USER_MSG')
-      //      console.log(this.$store.getters.userMsg)
-      //      this.xSetLoginFlag(true)
       this.xSetUserMsg(userMsg)
+      this.$router.push(this.$route.params.redirect || '/')
     },
     // 本地储存
     _localSave (key, val) {
@@ -416,7 +413,8 @@ export default {
     ])
   },
   // 实时计算数据（一个数据影响多个数据）
-  watch: {}
+  watch: {
+  }
 }
 </script >
 
