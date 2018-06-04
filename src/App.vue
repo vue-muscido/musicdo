@@ -1,12 +1,5 @@
 <template >
-  <div id="app" >
-
-    <div
-      style="position: fixed;top: 0;z-index: 99999;width: 100%;max-width: 750px;max-height: 50vh;background-color: rgba(0,0,0,.5);color: #fff" >
-      <div style="background-color: red;color: #fff;text-align: center"  @click="outSign()" >点击退出登录</div >
-      <div >用户信息：{{'vuex' + userMsg}}</div >
-    </div >
-    <transition :name="transitionName" >
+  <div id="app" >    <transition :name="transitionName" >
       <keep-alive >
         <router-view v-if="$route.meta.keepAlive" class="router-view" ></router-view >
       </keep-alive >
@@ -49,9 +42,6 @@ export default {
     ])
   },
   methods: {
-    outSign () {
-      this.xRrmoveUserMsg('')
-    },
     _rem () {
       rem()
     },
