@@ -384,7 +384,7 @@ export default {
     },
     loginSuccess (userMsg) {
       this.xSetUserMsg(userMsg)
-      this.$router.push(this.$route.params.redirect || '/')
+      this.$router.replace(this.$route.params.redirect || '/')
     },
     // 本地储存
     _localSave (key, val) {

@@ -155,7 +155,7 @@ router.beforeEach((to, from, next) => {
         return
       }
 
-      router.replace({
+      router.push({
         name: 'UserLogIn',
         params: {redirect: to.fullPath}
       })
