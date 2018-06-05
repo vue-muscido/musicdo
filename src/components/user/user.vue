@@ -35,6 +35,7 @@ export default {
     // 退出登陆
     outSign () {
       this.xRrmoveUserMsg('')
+      this.$router.replace('home')
     },
     ...mapActions([
       'xSetUserMsg',
