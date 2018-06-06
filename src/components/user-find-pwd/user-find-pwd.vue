@@ -1,6 +1,5 @@
-<template >
-  <div class="user-register" >
-
+<template>
+  <div class="user-find-pwd">
     <div class="input-bar" >
       <div class="phone-num-box" >
         <cube-input
@@ -44,11 +43,10 @@
         下一步
       </ripple-btn >
     </div >
+  </div>
+</template>
 
-  </div >
-</template >
-
-<script type="text/ecmascript-6" >
+<script>
 import {
   getVerificationCode,
   checkVerificationCode,
@@ -57,7 +55,7 @@ import {
 import RippleBtn from 'base/ripple-btn/ripple-btn'
 export default {
   // 别名
-  name: 'UserRegister',
+  name: 'UserFindPwd',
   // 数据
   data () {
     return {
@@ -336,8 +334,8 @@ export default {
   // 实时计算数据（一个数据影响多个数据）
   watch: {}
 }
-</script >
+</script>
 
-<style lang="stylus" rel="stylesheet/stylus" >
-@import 'user-register.styl'
+<style scoped lang="stylus" rel="stylesheet/stylus" >
+@import 'user-find-pwd.styl'
 </style >

@@ -81,7 +81,7 @@
       </div >
 
       <div class="new-account-bar" >
-        <span class="new-account-btn" >
+        <span class="new-account-btn" @click="toRegister()" >
           注册新账号{{$store.state.isLogin}}----{{$store.getters.otest}} <!-- TODO & test-->
         </span >
       </div >
@@ -400,6 +400,16 @@ export default {
     },
     testSSSS () {
       this.xSetLoginFlag(true)
+    },
+    toRegister () {
+      this.$router.push({
+        name: 'UserRegister'
+      })
+    },
+    toFindPwd () {
+      this.$router.push({
+        name: 'UserRegister'
+      })
     },
     ...mapActions([
       'xSetUserMsg',
