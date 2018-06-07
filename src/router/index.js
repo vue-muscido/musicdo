@@ -11,6 +11,7 @@ import User from 'components/user/user' // 用户中心组件
 import UserLogIn from 'components/user-login/user-login' // 用户登录组件
 import UserRegister from 'components/user-register/user-register' // 用户注册组件
 import UserRegisterSetPassword from 'components/user-register-set-password/user-register-set-password' // 用户注册设置密码
+import UserFindPwd from 'components/user-find-pwd/user-find-pwd' // 用户注册组件
 
 import MainSearch from 'components/main-search/main-search' // 搜索页
 import SearchList from 'components/search-list/search-list' // 搜索列表
@@ -95,6 +96,16 @@ const router = new Router({
       component: UserRegisterSetPassword,
       name: 'UserRegisterSetPassword',
       meta: {
+        title: '设置密码',
+        keepAlive: true // 需要被缓存
+      }
+    },
+    {
+      path: '/user-find-pwd',
+      component: UserFindPwd,
+      name: 'UserFindPwd',
+      meta: {
+        title: '找回密码',
         keepAlive: true // 需要被缓存
       }
     },

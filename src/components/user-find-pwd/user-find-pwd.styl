@@ -1,0 +1,95 @@
+@import '~common/stylus/variable.styl'
+@import '~common/stylus/mixin.styl'
+// 注册输入框公共样式 -begin
+.input-bar
+  box-sizing border-box
+  .cube-input
+    position relative
+    font-size $g-fs-lg
+    line-height 1.429
+    border-bottom 1px solid $g-brc-normal
+    input
+      width 100%
+      padding .75rem
+      color $g-fc-black
+      line-height inherit
+      background-color transparent
+      border-radius 2px
+      outline none
+    .cube-input_active
+      &::after
+        border-color transparent
+    .cube-input-clear, .cube-input-eye
+      position absolute
+      right 1rem
+      top 50%
+      padding 0
+      margin 0
+      width auto
+      height auto
+      line-height 1
+      transform translate3d(0,-50%,0)
+      > i
+        display inline-block
+        transform scale(1.2)
+      + input
+        padding-right 2.6em
+    .cube-input-eye
+      >
+      .cubeic-eye-invisible, .cubeic-eye-visible
+        transform scale(1.4)
+    .cube-input-clear
+      + .cube-input-eye
+        right 2.6em
+        + input
+          padding-right 5.2em
+// 注册输入框公共样式 -end
+
+.user-find-pwd
+  background $g-bgc-con
+  z-index 1
+  .input-bar
+    padding 1rem
+    .phone-code-box
+      position relative
+      .input-phone-code
+        input
+//width 10rem
+.cube-input-clear
+//right 20rem
+.get-code-btn
+  position absolute
+  right 1rem
+  top 50%
+  display flex
+  justify-content center
+  align-items center
+  width 10rem
+  height 3rem
+  border-radius 3rem
+  background $g-bgc-btn-red
+  color $g-fc-white
+  transform translate3d(0,-50%,0)
+  &.timer,
+  &.disable
+    background $g-bgc-btn-gray
+    color $g-fc-black
+
+.btn-bar
+  height 4rem
+  width 100%
+  margin 6rem auto 0
+  font-size $g-fs-xl
+  .next-btn
+    display flex
+    justify-content center
+    align-items center
+    margin 0 auto
+    height 100%
+    width 80%
+    border-radius 4rem
+    background $g-col-red
+    color $g-fc-white
+    &.disable
+      background $g-bgc-btn-gray
+      color $g-fc-black
