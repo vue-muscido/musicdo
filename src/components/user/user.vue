@@ -1,8 +1,59 @@
 <template >
   <div class="user" >
-    <span >我的</span >
+    <!-- 用户信息 -->
+    <div class="user-msg">
+      <div class="bar-action">
+        <div class="btn-edit"></div>
+        <div class="btn-msg"></div>
+      </div>
+      <div class="bar-show">
+        <div class="photo">
+          <img src="" alt="">
+        </div>
+        <div class="text">
+          <h2 class="user-name">JINGJING028</h2>
+          <p class="user-lever">普通用户</p>
+        </div>
+      </div>
+    </div>
+    <!-- 我的订单 -->
+    <div class="user-order">
+      <div class="bar-order">
+        <div class="my-order">我的订单</div>
+        <div class="btn-show-all">全部订单</div>
+      </div>
+      <div class="order-type">
+        <div class="btn-order">
+          <div class="icon"></div>
+          <div class="text">待付款</div>
+        </div>
+        <div class="btn-order">
+          <div class="icon"></div>
+          <div class="text">待发货</div>
+        </div>
+        <div class="btn-order">
+          <div class="icon"></div>
+          <div class="text">待收货</div>
+        </div>
+        <div class="btn-order">
+          <div class="icon"></div>
+          <div class="text">待评价</div>
+        </div>
+        <div class="btn-order">
+          <div class="icon"></div>
+          <div class="text">退换货</div>
+        </div>
+      </div>
+    </div>
+    <!-- 用户关于 -->
+    <div class="user-about">
+      <div class="btn-about">
+        <div class="icon">#</div>
+        <div class="text">宝贝收藏</div>
+      </div>
+    </div>
     <div
-      style="position: fixed;top: 0;z-index: 99999;width: 100%;max-width: 750px;max-height: 50vh;background-color: rgba(0,0,0,.5);color: #fff" >
+      style="display: none;position: fixed;top: 0;z-index: 99999;width: 100%;max-width: 750px;max-height: 50vh;background-color: rgba(0,0,0,.5);color: #fff" >
       <div style="background-color: red;color: #fff;text-align: center" @click="outSign()" >点击退出登录</div >
       <div >用户信息：{{'vuex' + strUserMsg}}</div >
     </div >

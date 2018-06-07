@@ -1,2 +1,76 @@
 @import '~common/stylus/variable.styl'
 @import '~common/stylus/mixin.styl'
+.user
+  .user-msg
+    padding 0 1.5rem 2.0rem
+    bg-image('./img/bg', top 100%)
+    .bar-action
+      padding 0.9rem 0
+      width 100%
+      display flex
+      justify-content space-between
+      .btn-edit
+        width 2rem
+        height 2rem
+        bg-image('./img/shezhi', 100% 100%)
+      .btn-msg
+        width 2rem
+        height 2rem
+        bg-image('./img/xiaoxi', 100% 100%)
+    .bar-show
+      display flex
+      align-items center
+      bg-image('./img/jiantou', 0.8rem)
+      background-position center right
+      .photo
+        border 1px solid $g-brc-default
+        width 6.5rem
+        height 6.5rem
+        img
+          width 6.5rem
+          height 6.5rem
+      .text
+        padding-left 0.75rem
+        .user-name
+          font-size $g-fs-xxl
+          color $g-white
+        .user-lever
+          padding-top 0.75rem
+          font-size $g-fs-md
+          color $g-white
+  .user-order
+    background-color $g-bgc-con
+    .bar-order
+      display flex
+      justify-content space-between
+      padding 0 1.5rem
+      border-bottom 1px solid $g-brc-default
+      .my-order
+        height 4.0rem
+        line-height 4.0rem
+        font-size $g-fs-lg
+        color $g-fc-black
+      .btn-show-all
+        padding-right 1.2rem
+        height 4.0rem
+        line-height 4.0rem
+        font-size $g-fs-sm
+        color $g-fc-gray
+        bg-image('./img/jiantou2', 0.6rem)
+        background-position center right
+    .order-type
+      display flex
+      height 7.5rem
+      .btn-order
+        flex 1
+        .icon
+          margin 1.25rem auto 1.0rem
+          width 2.5rem
+          height 2.5rem
+          bg-image('./img/daifu', 2.5rem)
+        .text
+          text-align center
+  .user-about
+    margin-top $g-margin-sm
+    background-color $g-bgc-con
+    height 10rem
