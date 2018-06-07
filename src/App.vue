@@ -33,7 +33,7 @@ export default {
   mounted () {
     if (localTake('userMsg')) {
       console.log('check userMsg')
-      let isLogin = JSON.parse(localTake('userMsg'))
+      let isLogin = localTake('userMsg')
       this.xSetUserMsg(isLogin)
     }
   },

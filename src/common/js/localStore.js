@@ -6,7 +6,7 @@ export function localTake (key) {
     return ''
   } else {
     console.log('返回：', JSON.parse(localStorage.getItem(key)))
-    return localStorage.getItem(key)
+    return JSON.parse(localStorage.getItem(key))
   }
 }
 export function localremove (key) {

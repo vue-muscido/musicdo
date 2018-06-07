@@ -78,7 +78,7 @@ const router = new Router({
       name: 'UserLogIn',
       meta: {
         title: '登陆',
-        keepAlive: true // 需要被缓存
+        keepAlive: false // 不需要被缓存
       }
     },
     {
@@ -104,7 +104,7 @@ const router = new Router({
       name: 'MainSearch',
       meta: {
         title: '商品搜索',
-        keepAlive: true // 不需要被缓存
+        keepAlive: true // 需要被缓存
       }
     },
     {
