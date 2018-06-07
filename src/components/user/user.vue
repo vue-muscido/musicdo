@@ -18,20 +18,21 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   data () {
     return {
-      local: 'http://musicdo.cn',
-      strUserMsg: ''
+      local: 'http://musicdo.cn'
     }
   },
   computed: {
     ...mapGetters([
       'userMsg'
-    ])
+    ]),
+    strUserMsg () {
+      return JSON.stringify(this.userMsg)
+    }
   },
   components: {
     Tab
   },
   mounted () {
-    this.strUserMsg = JSON.stringify(this.userMsg)
   },
   created () {
   },
