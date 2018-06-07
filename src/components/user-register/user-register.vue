@@ -40,7 +40,7 @@
     </div >
 
     <div class="btn-bar" >
-      <ripple-btn class="next-btn" :class="nextBtnDisable?'disable':''" @click="checkCode()" >
+      <ripple-btn class="next-btn" :class="nextBtnDisable?'disable':''" v-on:click.native="checkCode()" >
         下一步
       </ripple-btn >
     </div >
