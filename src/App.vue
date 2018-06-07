@@ -32,7 +32,8 @@ export default {
   },
   mounted () {
     if (localTake('userMsg')) {
-      console.log('check userMsg')
+      console.log('check userMsg::', localTake('userMsg'))
+      console.log('type userMsg::', typeof localTake('userMsg'))
       let isLogin = localTake('userMsg')
       this.xSetUserMsg(isLogin)
     }
