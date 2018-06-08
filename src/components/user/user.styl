@@ -1,9 +1,12 @@
 @import '~common/stylus/variable.styl'
 @import '~common/stylus/mixin.styl'
 .user
+  // 用户信息
   .user-msg
     padding 0 1.5rem 2.0rem
-    bg-image('./img/bg', top 100%)
+    bg-image('./img/bg', 100%)
+    background-repeat: repeat-y
+    height 12.3rem
     .bar-action
       padding 0.9rem 0
       width 100%
@@ -23,12 +26,18 @@
       bg-image('./img/jiantou', 0.8rem)
       background-position center right
       .photo
-        border 1px solid $g-brc-default
+        position relative
         width 6.5rem
         height 6.5rem
+        border 1px solid $g-brc-default
+        overflow hidden
         img
-          width 6.5rem
-          height 6.5rem
+          position absolute
+          top 50%
+          left 50%
+          transform translate(-50%, -50%)
+          width 100%
+          height auto
       .text
         padding-left 0.75rem
         .user-name
@@ -38,6 +47,13 @@
           padding-top 0.75rem
           font-size $g-fs-md
           color $g-white
+  .scroll
+    position fixed
+    top 12.3rem
+    bottom $g-bot-bar-height
+    width 100%
+    max-width 750px
+  // 订单状态
   .user-order
     background-color $g-bgc-con
     .bar-order
@@ -67,10 +83,55 @@
           margin 1.25rem auto 1.0rem
           width 2.5rem
           height 2.5rem
-          bg-image('./img/daifu', 2.5rem)
         .text
           text-align center
+        .daifu
+          bg-image("img/daifu", 100%)
+        .daifa
+          bg-image("img/daifa", 100%)
+        .daishou
+          bg-image("img/daishou", 100%)
+        .daiping
+          bg-image("img/daiping", 100%)
+        .tuihuan
+          bg-image("img/tuihuan", 100%)
+  // 用户关于
   .user-about
     margin-top $g-margin-sm
     background-color $g-bgc-con
-    height 10rem
+    .btn-about
+      display flex
+      align-items center
+      padding 0 1.5rem
+      height 4.0rem
+      border-bottom 1px solid $g-brc-default
+      .icon
+        width 1.75rem
+        height 1.75rem
+      .text
+        padding-left 1.5rem
+        font-size 1.5rem
+        color $g-fc-black
+      .soucang
+        bg-image("img/soucang", 100%)
+      .guanzhu
+        bg-image("img/guanzhu", 100%)
+      .fenxiang
+        bg-image("img/fenxiang", 100%)
+      .pingjia
+        bg-image("img/pingjia", 100%)
+      .dizhi
+        bg-image("img/dizhi", 100%)
+      .qiandao
+        bg-image("img/qiandao", 100%)
+      .kefu
+        bg-image("img/kefu", 100%)
+      .huiyuan
+        bg-image("img/huiyuan", 100%)
+      .zhanghu
+        bg-image("img/zhanghu", 100%)
+      .jifen
+        bg-image("img/jifen", 100%)
+  // 用户私有
+  .user-private
+    margin-top 0.5rem
