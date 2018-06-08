@@ -385,7 +385,7 @@ export default {
     },
     toFindPwd () {
       this.$router.push({
-        name: 'UserRegister'
+        name: 'UserFindPwd'
       })
     },
     ...mapActions([

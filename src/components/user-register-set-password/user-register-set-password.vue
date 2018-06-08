@@ -42,6 +42,8 @@
       </div >
     </div >
     
+    <div >test-要注册的手机号：{{phoneNumber}}</div >
+    
   </div >
 </template >
 
@@ -76,7 +78,8 @@ export default {
         clearable: false,
         eye: {open: false}
       },
-      btnDisable: true
+      btnDisable: true,
+      phoneNumber: this.$route.query.phoneNumber
     }
   },
   // 子组件
@@ -113,6 +116,23 @@ export default {
         return false
       } else {
         console.log('开启中，这里验证两次输入是否相同、密码长度、正则验证数字英文或符号、没通过提示重新输入、通过就提交后台提示用户跳转页面')
+        if (this.setPassword.value === this.againPassword.value) {
+          console.log('两次密码相同')
+          // 强：字母+数字+特殊字符
+          let reg = /^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&*]+$)(?![a-zA-z\d]+$)(?![a-zA-z!@#$%^&*]+$)(?![\d!@#$%^&*]+$)[a-zA-Z\d!@#$%^&*]+$/
+          // 中：字母+数字，字母+特殊字符，数字+特殊字符
+          // let reg = /^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&*]+$)[a-zA-Z\d!@#$%^&*]+$/
+          // 弱：纯数字，纯字母，纯特殊字符
+          // let reg = /^(?:\d+|[a-zA-Z]+|[!@#$%^&*]+)$/
+          let pwdStr = this.againPassword.value
+          if (!reg.test(pwdStr)) {
+            console.log('密码规格不对，密码需由字母+数字+特殊字符!@#$%^&*混合组成')
+          } else {
+            console.log('密码设置成功，跳转到登录页，路由传参手机号与密码，并把手机和密码自动填到对应输入框')
+          }
+        } else {
+          console.log('两次密码不相同')
+        }
       }
     },
     isBtnDisable () {
