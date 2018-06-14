@@ -150,9 +150,41 @@
             color $g-fc-normal
         .comment-item
           border-top 1px solid $g-brc-default
-          padding 0 1.5rem
-          height 10.0rem
           background-color $g-bgc-con
+          .title
+            padding 1.0rem 1.5rem 0
+            display flex
+            justify-content space-between
+            align-items center
+            .con
+              height 2.0rem
+              img
+                width 2.0rem
+                height 2.0rem
+              .name
+                vertical-align top
+                display inline-block
+                padding-left 0.75rem
+                height 2.0rem
+                line-height 2.0rem
+                font-size 1.2rem
+                color $g-fc-black
+            .start
+              width 8.0rem
+          .dec
+            padding 1.0rem 1.5rem 0
+            line-height 1.3rem
+            font-size 1.3rem
+            color $g-fc-black
+          .img-list
+            display flex
+            padding 1.0rem 1.0rem 0
+            .img-con
+              width 25%
+              padding 1.0rem 0.5rem
+              img
+                width 100%
+                height auto
       .show-all
         padding 1rem
         background-color $g-bgc-con
@@ -166,13 +198,78 @@
           text-align center
           font-size $g-fs-sm
           color $g-fc-gray
+      // 店铺展示
       .shop
         margin-top 0.5rem
+        padding 0 1.5rem
         height 13.5rem
         background-color $g-bgc-con
-    //商品详情信息
+        .shop-title
+          display flex
+          padding-top 1.25rem
+          justify-content space-between
+          align-items center
+          .con
+            display flex
+            .img-con
+              position relative
+              height 4.3rem
+              width 4.3rem
+              text-align: center
+              border 1px solid $g-brc-default
+              overflow hidden
+              .shop-img
+                position absolute
+                top 50%
+                left 50%
+                transform translate(-50%, -50%)
+                width 100%
+                height auto
+            .shop-name
+              padding-left 1.25rem
+              height 4.3rem
+              line-height 4.3rem
+              font-size 1.4rem
+              color $g-fc-black
+          .btn-into
+            width 6.0rem
+            height 2.5rem
+            line-height 2.5rem
+            text-align center
+            font-size 1.2rem
+            color color $g-fc-black
+            border-radius 50px
+            border 1px solid $g-brc-default
+        .shop-show
+          display flex
+          padding-top 1.6rem
+          justify-content space-between
+          align-items center
+          .shop-item
+            text-align center
+            .item-num
+              font-size 1.5rem
+              color $g-fc-black
+            .item-name
+              padding-top 1.0rem
+              font-size 1.1rem
+              color $g-fc-normal
+            .shop-dec
+              padding-top 0.6rem
+              font-size 1.1rem
+              color $g-fc-normal
+              span
+                color $g-col-red
+    // 商品详情信息
     .detail
-      padding 1.5rem
+      h2
+        padding 1.5rem
+        text-align center
+        font-size 1.1rem
+        color $g-fc-gray
+        background-color $g-col-white-g
+      .detail-img
+        width 100%
   // 底部操作按钮
   .bottom-bar-action
     max-width $g-page-max-width

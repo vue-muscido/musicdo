@@ -76,13 +76,30 @@
               <!-- 商品评价 -->
               <div class="comment">
                 <div class="comment-header">
-                  <div class="title">商品评价(暂无评论)</div>
-                  <div class="good-percent">98.99%好评率</div>
+                  <div class="title">商品评价
+                    <span v-if="!commentData.UserName">(暂无评论)</span>
+                  </div>
+                  <div v-if="commentData.UserName" class="good-percent">98.99%好评率</div>
                 </div>
-                <div class="comment-item">
-                  用户评论~
+                <!-- 评价内容 -->
+                <div v-if="commentData.UserName" class="comment-item">
+                  <div class="title">
+                    <div class="con">
+                      <img class="user-img" :src="commentData.Ico" alt="">
+                      <span class="name">{{commentData.UserName}}</span>
+                    </div>
+                    <div class="start">
+                      <cube-rate v-model="commentData.StarNum"></cube-rate>
+                    </div>
+                  </div>
+                  <div class="dec">{{commentData.Content}}</div>
+                  <div v-if="commentData.ImgList" class="img-list">
+                    <div v-for="(item, index) in commentData.ImgList" :key="index"class="img-con">
+                      <img class="user-img" :src="getImg(item)" alt="">
+                    </div>
+                  </div>
                 </div>
-                <div class="show-all">
+                <div v-if="commentData.UserName" class="show-all">
                   <div class="btn-show-all">
                     查看全部评论
                   </div>
@@ -90,12 +107,50 @@
               </div>
               <!-- 店铺展示 -->
               <div class="shop">
-                店铺展示~
+                <div class="shop-title">
+                  <div class="con">
+                    <div class="img-con">
+                      <img class="shop-img" :src="getImg(goodsData.ShopIco)" alt="">
+                    </div>
+                    <div class="shop-name">{{goodsData.ShopName}}</div>
+                  </div>
+                  <div class="btn-into">进店逛逛</div>
+                </div>
+                <div class="shop-show">
+                  <div class="shop-item">
+                    <div class="item-num">1888</div>
+                    <div class="item-name">全部宝贝</div>
+                  </div>
+                  <div class="shop-item">
+                    <div class="item-num">1888</div>
+                    <div class="item-name">上新宝贝</div>
+                  </div>
+                  <div class="shop-item">
+                    <div class="item-num">1888</div>
+                    <div class="item-name">关注人数</div>
+                  </div>
+                  <div class="shop-item">
+                    <div class="shop-dec">宝贝描述
+                      <span>4.8</span>
+                    </div>
+                    <div class="shop-dec">卖家服务
+                      <span>4.8</span>
+                    </div>
+                    <div class="shop-dec">物流服务
+                      <span>4.8</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <!-- 商品详情展示 -->
             <div class="detail">
-              商品详情···
+              <h2>—— 宝贝详情 ——</h2>
+              <div
+                v-for="(item, index) in slide"
+                :key="index">
+                <img class="detail-img" :src="getImg(item)" >
+              </div >
             </div>
           </cube-scroll>
         </div>
@@ -136,6 +191,7 @@ export default {
     return {
       goodsId: '',
       goodsData: {},
+      commentData: {},
       slide: [],
       loopFlag: true,
       transitionName: 'fade',
@@ -162,6 +218,7 @@ export default {
       getProductDetail(goodsId).then((res) => {
         if (res.Flag === true) {
           this.goodsData = res.ReturnData
+          this.commentData = res.ReturnData.Data
           this.slide = res.ReturnData.ImgUrl.split(',')
           if (this.slide.length === 1) {
             this.loopFlag = false
