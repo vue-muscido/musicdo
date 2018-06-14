@@ -1,0 +1,315 @@
+@import '~common/stylus/variable.styl'
+@import '~common/stylus/mixin.styl'
+.goods-detail
+  overflow-x hidden
+  // 顶栏
+  .top-bar-select
+    max-width $g-page-max-width
+    display flex
+    position fixed
+    z-index $g-zindex-fix
+    top 0
+    padding 0 1.5rem
+    border-bottom 1px solid $g-brc-default
+    width 100%
+    height $g-fix-bar-height
+    background-color $g-bgc-con
+    .select-left
+      flex 2rem 0 0
+      .icon-goback
+        display inline-block
+        margin-top 1rem
+        width 2rem
+        height 2rem
+        bg-image("img/back", 2rem)
+    .select-right
+      flex 2rem 0 0
+      align-item center
+      .icon-cart
+        display inline-block
+        margin-top 1rem
+        width 2rem
+        height 2rem
+        bg-image("img/che", 2rem)
+    .select-middle
+      flex 1
+      text-align center
+    .select-item
+      margin 0 1rem
+      display inline-block
+      padding 1.1rem 0
+      font-size 1.5rem
+      height $g-fix-bar-height
+    .active
+      border-bottom 0.2rem solid $g-col-red
+      color $g-col-red
+  //滚动部分
+  .scroll
+    position fixed
+    width 100%
+    max-width $g-page-max-width
+    top $g-fix-bar-height
+    bottom $g-bot-bar-height
+    //商品基本信息
+    .base
+      .goods-img-container
+        .cube-slider
+          width 100%
+          .cube-slide-dots
+            bottom 0.5rem
+            span
+              height 2px
+          .slider-img-con
+            display inline-block
+            position relative
+            width 100%
+            padding-top 100%
+            overflow hidden
+          .slider-img
+            position absolute
+            top 50%
+            left 50%
+            transform translate(-50%, -50%)
+            width 100%
+            height auto
+            max-width $g-page-max-width
+      .goods-title
+        display flex
+        padding 1.5rem
+        background-color $g-bgc-con
+        .goods-name
+          flex 1
+          font-size $g-fs-xl
+          color $g-fc-black
+      .goods-share
+        margin-left 1rem
+        text-align center
+        p
+          font-size $g-fs-min
+          color $g-fc-gray
+        .icon-share
+          display inline-block
+          width 1.8rem
+          height 1.8rem
+          bg-image("img/fenxiang", 1.8rem)
+      .goods-price
+        padding 0 $g-padding-lg
+        background-color $g-bgc-con
+        font-size $g-fs-xl
+        text-align bottom
+        .price-now
+          color $g-col-red
+          span
+            font-size $g-fs-tit-xs
+        .price-old
+          padding-left 1rem
+          color $g-col-gray-w
+          vertical-align bottom
+          text-decoration line-through
+      .goods-about
+        display flex
+        justify-content space-between
+        padding $g-padding-lg
+        background-color $g-bgc-con
+        .about-item
+          align-item center
+          text-align center
+          font-size $g-fs-normal
+          color $g-fc-gray
+      .classify
+      .parameter
+        padding $g-padding-lg
+        border-top 1px solid $g-brc-default
+        background-color $g-bgc-con
+        .con
+          bg-image("img/jiantou", 0.6rem)
+          background-position center right
+          font-size $g-fs-normal
+          color $g-fc-normal
+          span
+            padding-left 0.4rem
+            font-size $g-fs-normal
+            color $g-fc-gray-b
+      .comment
+        margin-top 0.5rem
+        border-top 1px solid $g-brc-default
+        background-color $g-bgc-con
+        .comment-header
+          padding 0 1.5rem
+          display flex
+          justify-content space-between
+          .title
+            height 3.0rem
+            line-height 3.0rem
+            font-size $g-fs-normal
+            color $g-fc-normal
+          .good-percent
+            height 3.0rem
+            line-height 3.0rem
+            font-size $g-fs-normal
+            color $g-fc-normal
+        .comment-item
+          border-top 1px solid $g-brc-default
+          background-color $g-bgc-con
+          .title
+            padding 1.0rem 1.5rem 0
+            display flex
+            justify-content space-between
+            align-items center
+            .con
+              height 2.0rem
+              img
+                width 2.0rem
+                height 2.0rem
+              .name
+                vertical-align top
+                display inline-block
+                padding-left 0.75rem
+                height 2.0rem
+                line-height 2.0rem
+                font-size 1.2rem
+                color $g-fc-black
+            .start
+              width 8.0rem
+          .dec
+            padding 1.0rem 1.5rem 0
+            line-height 1.3rem
+            font-size 1.3rem
+            color $g-fc-black
+          .img-list
+            display flex
+            padding 1.0rem 1.0rem 0
+            .img-con
+              width 25%
+              padding 1.0rem 0.5rem
+              img
+                width 100%
+                height auto
+      .show-all
+        padding 1rem
+        background-color $g-bgc-con
+        .btn-show-all
+          margin auto
+          border 1px solid $g-brc-default
+          border-radius 50px
+          width 9.25rem
+          height 2.5rem
+          line-height 2.5rem
+          text-align center
+          font-size $g-fs-sm
+          color $g-fc-gray
+      // 店铺展示
+      .shop
+        margin-top 0.5rem
+        padding 0 1.5rem
+        height 13.5rem
+        background-color $g-bgc-con
+        .shop-title
+          display flex
+          padding-top 1.25rem
+          justify-content space-between
+          align-items center
+          .con
+            display flex
+            .img-con
+              position relative
+              height 4.3rem
+              width 4.3rem
+              text-align: center
+              border 1px solid $g-brc-default
+              overflow hidden
+              .shop-img
+                position absolute
+                top 50%
+                left 50%
+                transform translate(-50%, -50%)
+                width 100%
+                height auto
+            .shop-name
+              padding-left 1.25rem
+              height 4.3rem
+              line-height 4.3rem
+              font-size 1.4rem
+              color $g-fc-black
+          .btn-into
+            width 6.0rem
+            height 2.5rem
+            line-height 2.5rem
+            text-align center
+            font-size 1.2rem
+            color color $g-fc-black
+            border-radius 50px
+            border 1px solid $g-brc-default
+        .shop-show
+          display flex
+          padding-top 1.6rem
+          justify-content space-between
+          align-items center
+          .shop-item
+            text-align center
+            .item-num
+              font-size 1.5rem
+              color $g-fc-black
+            .item-name
+              padding-top 1.0rem
+              font-size 1.1rem
+              color $g-fc-normal
+            .shop-dec
+              padding-top 0.6rem
+              font-size 1.1rem
+              color $g-fc-normal
+              span
+                color $g-col-red
+    // 商品详情信息
+    .detail
+      h2
+        padding 1.5rem
+        text-align center
+        font-size 1.1rem
+        color $g-fc-gray
+        background-color $g-col-white-g
+      .detail-img
+        width 100%
+  // 底部操作按钮
+  .bottom-bar-action
+    max-width $g-page-max-width
+    display flex
+    position fixed
+    z-index $g-zindex-mask
+    bottom 0
+    width 100%
+    height $g-bot-bar-height
+    background-color $g-bgc-con
+    .action-left
+      flex 1
+      display flex
+      .btn-action
+        flex 1
+        padding-top 0.5rem
+        border-right 1px solid $g-brc-default
+        text-align center
+        color $g-fc-normal
+        font-size $g-fs-normal
+      .icon
+        display inline-block
+        width 2rem
+        height 2rem
+      .icon-custom
+        bg-image("img/kefu", 2rem)
+      .icon-shop
+        bg-image("img/shop", 2rem)
+      .icon-start
+        bg-image("img/soucang", 2rem)
+    .action-right
+      display flex
+      flex 22rem 0 1
+      font-size 1.6rem
+      .btn-action
+        flex 1
+        line-height $g-bot-bar-height
+        text-align center
+        color $g-fc-white
+      .btn-add-cart
+        background-color $g-bgc-btn-yellow
+      .btn-buy
+        background-color $g-bgc-btn-red
