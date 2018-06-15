@@ -2,7 +2,7 @@
   <div class="main-search" >
     <div class="inner" >
       <div class="top-bar" >
-        <form class="search-form" action="#" @submit.prevent="_toSearch(mainSearch.value)">
+        <form class="search-form" action="#" @submit.prevent="_toSearch(mainSearch.value)" >
           <!--@submit.prevent="_toSearch(mainSearch.value)"-->
           <input class="search-input"
                  ref="input"
@@ -180,6 +180,7 @@
      },
      // 搜索参数接收处理
      _comeSearch () {
+       console.log('is this.$route.path::', this.$route.path)
        if (this.$route.path === '/main-search') {
          this.mainSearch.value = this.$route.query.keyword || ''
          this.$refs.input.focus()
@@ -194,10 +195,10 @@
    destroyed () {},
    watch: {
      '$route' (to, from) {
-       const fromDepth = from.path.split('/')
-       if (fromDepth[1] === 'home') {
-         this._comeSearch()
-       }
+       //       const fromDepth = from.path.split('/')
+       //       if (fromDepth[1] === 'home') {
+       this._comeSearch()
+       //       }
      }
    }
  }

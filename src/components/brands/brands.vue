@@ -1,31 +1,32 @@
 <template >
   <div class="brands" >
     <!-- 选择栏 -->
-    <ul class="selectBar">
-      <li @click="itemSelect(index)" v-for="(item, index) in selectBar" :key="index" class="select-item" :class="{active:selectIndex === index}">
+    <ul class="selectBar" >
+      <li @click="itemSelect(index)" v-for="(item, index) in selectBar" :key="index" class="select-item"
+          :class="{active:selectIndex === index}" >
         {{item}}
-      </li>
-    </ul>
+      </li >
+    </ul >
     <!-- 展示栏 -->
-    <div class="selectCon">
+    <div class="selectCon" >
       <cube-scroll
         ref="scroll"
         :data="brandsData"
-        :options="options">
-        <transition :name="transitionName">
-          <ul v-show="brandList.length" class="brand-list">
-            <li class="brand-con" v-for="(item, index) in brandList" :key="index">
-              <div class="img-con">
+        :options="options" >
+        <transition :name="transitionName" >
+          <ul v-show="brandList.length" class="brand-list" >
+            <li class="brand-con" v-for="(item, index) in brandList" :key="index" @click="searchBrand(item.Name)" >
+              <div class="img-con" >
                 <img class="isimg" :src="getImg(item.Logo)" alt="" />
-              </div>
-              <p>{{item.Name}}</p>
-            </li>
-          </ul>
+              </div >
+              <p >{{item.Name}}</p >
+            </li >
+          </ul >
         </transition >
-      </cube-scroll>
-    </div>
+      </cube-scroll >
+    </div >
     <!-- tab -->
-    <tab v-show="true"></tab>
+    <!--<tab v-show="true" ></tab >-->
     <!-- loading -->
     <loading v-show="!brandList.length" title="正在载入..." ></loading >
   </div >
@@ -34,7 +35,7 @@
 <script type="text/ecmascript-6" >
 import { getBrandClassify } from 'api/brandsData'
 import { LOCAL_HOST } from 'api/config'
-import Tab from 'components/tab/tab'
+// import Tab from 'components/tab/tab'
 import loading from 'base/loading/loading'
 export default {
   data () {
@@ -87,11 +88,18 @@ export default {
         ret.push(str[key])
       }
       return ret
+    },
+    searchBrand (brand) {
+      console.log('search-brand::', brand)
+      this.$router.push({
+        path: '/main-search',
+        query: {'keyword': brand}
+      })
     }
   },
   components: {
-    loading,
-    Tab
+    loading
+    //    Tab
   }
 }
 </script >

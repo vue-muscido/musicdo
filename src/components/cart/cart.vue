@@ -1,115 +1,118 @@
 <template >
-  <div class="cart">
+  <div class="cart" >
     <!-- 商品列表容器 -->
-    <div class="cartCon">
-      <div v-if="cartData.length" class="edit-all">
-          <div class="msg-btn">
+    <div class="cartCon" >
+      <div v-if="cartData.length" class="edit-all" >
+          <div class="msg-btn" >
             <img src="./img/xiaoxi@2x.png" />
           </div >
-          <div @click="editAll" class="btn-edit-all">{{editText}}</div>
-      </div>
-      <div class="scroll">
+          <div @click="editAll" class="btn-edit-all" >{{editText}}</div >
+      </div >
+      <div class="scroll" >
         <cube-scroll
-        ref="scroll"
-        :data="cartData"
-        :options="options"
-        @pulling-down="onPullingDown">
-        <div v-if="shop.list.length" v-for="(shop, top) in cartData" :key="shop.shopName" class="shop-con">
-          <div class="shop-title">
-            <div class="shop">
-              <cube-checkbox class="shop-check" v-model="shop.checked">
-                <span>{{shop.shopName}}</span>
-              </cube-checkbox>
-              <div @click="chooseShopGoods(top)" class="btn-shop"></div>
-            </div>
-            <div class="btn-shop-edit">
-              <span></span>
-            </div>
-          </div>
-           <cube-swipe>
-            <transition-group name="swipe" tag="ul">
+          ref="scroll"
+          :data="cartData"
+          :options="options"
+          @pulling-down="onPullingDown" >
+        <div v-if="shop.list.length" v-for="(shop, top) in cartData" :key="shop.shopName" class="shop-con" >
+          <div class="shop-title" >
+            <div class="shop" >
+              <cube-checkbox class="shop-check" v-model="shop.checked" >
+                <span >{{shop.shopName}}</span >
+              </cube-checkbox >
+              <div @click="chooseShopGoods(top)" class="btn-shop" ></div >
+            </div >
+            <div class="btn-shop-edit" >
+              <span ></span >
+            </div >
+          </div >
+           <cube-swipe >
+            <transition-group name="swipe" tag="ul" >
                <!-- 商品列表 -->
-              <li ref="swipeList" @touchstart="topSelect(index,top,$event)" class="swipe-item-wrapper" v-for="(data, index) in shop.list" :key="data.item.id">
+              <li ref="swipeList" @touchstart="topSelect(index,top,$event)" class="swipe-item-wrapper"
+                  v-for="(data, index) in shop.list" :key="data.item.id" >
                 <cube-swipe-item
-                    ref="swipeItem"
-                    :btns="data.btns"
-                    :index="index"
-                    @btn-click="onBtnClick"
-                    @active="onItemActive">
-                  <div class="item-inner">
-                    <div class="choose">
-                      <cube-checkbox class="check" v-model="data.checked">
-                        <span></span>
-                      </cube-checkbox>
-                      <div @click="choose(top, index)" class="btn-choose"></div>
-                    </div>
-                    <div class="icon">
-                      <img @click="onItemClick(data.item, index)" :src="data.item.imgurl">
-                    </div>
-                    <div v-if="editFlag" class="actions">
-                      <div class="action-type">
-                        <div class="type-text">官方标配 + 原装进口xcxcxcxcxca</div>
-                      </div>
-                      <div class="action-num">
-                        <span class="reduce" v-on:click="numChange(top, index, -1)" v-bind:class="{ 'disable' : data.item.num==1 }">－</span>
-                        <div class="isinput" v-bind:data-realStock="data.item.realStock">
+                  ref="swipeItem"
+                  :btns="data.btns"
+                  :index="index"
+                  @btn-click="onBtnClick"
+                  @active="onItemActive" >
+                  <div class="item-inner" >
+                    <div class="choose" >
+                      <cube-checkbox class="check" v-model="data.checked" >
+                        <span ></span >
+                      </cube-checkbox >
+                      <div @click="choose(top, index)" class="btn-choose" ></div >
+                    </div >
+                    <div class="icon" >
+                      <img @click="onItemClick(data.item, index)" :src="data.item.imgurl" >
+                    </div >
+                    <div v-if="editFlag" class="actions" >
+                      <div class="action-type" >
+                        <div class="type-text" >官方标配 + 原装进口xcxcxcxcxca</div >
+                      </div >
+                      <div class="action-num" >
+                        <span class="reduce" v-on:click="numChange(top, index, -1)"
+                              v-bind:class="{ 'disable' : data.item.num==1 }" >－</span >
+                        <div class="isinput" v-bind:data-realStock="data.item.realStock" >
                           {{data.item.num}}
-                        </div>
-                        <span class="add" v-on:click="numChange(top, index, 1)" v-bind:class="{ 'disable' : data.item.num===data.item.realStock}">＋</span>
-                      </div>
-                    </div>
-                    <div v-if="!editFlag" class="options" @click="onItemClick(data.item, index)">
-                      <h2 class="item-name" v-html="data.item.name"></h2>
-                      <p class="item-desc" v-html="data.item.desc"></p>
-                      <div class="price-box">
-                        <div class="price">
-                          <span>¥{{data.item.price*data.item.num}}</span>.00
-                        </div>
-                        <div class="num">
+                        </div >
+                        <span class="add" v-on:click="numChange(top, index, 1)"
+                              v-bind:class="{ 'disable' : data.item.num===data.item.realStock}" >＋</span >
+                      </div >
+                    </div >
+                    <div v-if="!editFlag" class="options" @click="onItemClick(data.item, index)" >
+                      <h2 class="item-name" v-html="data.item.name" ></h2 >
+                      <p class="item-desc" v-html="data.item.desc" ></p >
+                      <div class="price-box" >
+                        <div class="price" >
+                          <span >¥{{data.item.price * data.item.num}}</span >.00
+                        </div >
+                        <div class="num" >
                           x{{data.item.num}}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </cube-swipe-item>
-              </li>
-            </transition-group>
-          </cube-swipe>
-        </div>
-        <!-- 未添加商品提示 -->
-        <empty v-if="!cartData.length" class="cart-empty" :emptyStr='notGoodsMsg' :dataType='dataTypeMsg'></empty >
-        <!-- 购买跳转 -->
-        <div v-if="!cartData.length" @click="goBuy()" class="go-buy">
+                        </div >
+                      </div >
+                    </div >
+                  </div >
+                </cube-swipe-item >
+              </li >
+            </transition-group >
+          </cube-swipe >
+        </div >
+          <!-- 未添加商品提示 -->
+        <empty v-if="!cartData.length" class="cart-empty" :emptyStr='notGoodsMsg' :dataType='dataTypeMsg' ></empty >
+          <!-- 购买跳转 -->
+        <div v-if="!cartData.length" @click="goBuy()" class="go-buy" >
           去添加
-        </div>
-      </cube-scroll>
-      </div>
-    </div>
+        </div >
+      </cube-scroll >
+      </div >
+    </div >
     <!-- 结算栏 -->
-    <div v-if="cartData.length" class="count">
-      <div class="check-all">
-        <cube-checkbox v-model="allChecked">
-          <span>全选</span>
-        </cube-checkbox>
-        <div @click="chooseAllGoods()" class="btn-all"></div>
-      </div>
-      <div v-if="!editFlag" class="count-all">
+    <div v-if="cartData.length" class="count" >
+      <div class="check-all" >
+        <cube-checkbox v-model="allChecked" >
+          <span >全选</span >
+        </cube-checkbox >
+        <div @click="chooseAllGoods()" class="btn-all" ></div >
+      </div >
+      <div v-if="!editFlag" class="count-all" >
         合计:
-        <span :class="{fred: payAll > 0}">¥{{payAll}}.00</span>
-      </div>
-      <div v-if="!editFlag" class="btn-count" :class="{bgred: payAll > 0}">
-        结算<span></span>
-      </div>
-      <div v-if="editFlag" @click="editAction ('start')" class="btn-start" :class="{bgyellow: payAll > 0}">收藏</div>
-      <div v-if="editFlag" @click="editAction ('delete')" class="btn-delete" :class="{bgred: payAll > 0}">删除</div>
-    </div>
+        <span :class="{fred: payAll > 0}" >¥{{payAll}}.00</span >
+      </div >
+      <div v-if="!editFlag" class="btn-count" :class="{bgred: payAll > 0}" >
+        结算<span ></span >
+      </div >
+      <div v-if="editFlag" @click="editAction ('start')" class="btn-start" :class="{bgyellow: payAll > 0}" >收藏</div >
+      <div v-if="editFlag" @click="editAction ('delete')" class="btn-delete" :class="{bgred: payAll > 0}" >删除</div >
+    </div >
     <!-- tab -->
-    <tab v-show="true"></tab>
+    <!--<tab v-show="true"></tab>-->
   </div >
 </template >
 
 <script type="text/ecmascript-6" >
-import Tab from 'components/tab/tab'
+// import Tab from 'components/tab/tab'
 import empty from 'base/empty/empty'
 export default {
   data () {
@@ -231,8 +234,7 @@ export default {
       return allNum
     }
   },
-  watch: {
-  },
+  watch: {},
   created () {
     this.activeIndex = -1
   },
@@ -299,7 +301,6 @@ export default {
         this.$set(list[index], 'checked', false)
       } else {
         this.$set(list[index], 'checked', true)
-
         // 判断是否选择当前店铺的全选
         var flag = true
         for (var i = 0; i < len; i++) {
@@ -471,7 +472,7 @@ export default {
     }
   },
   components: {
-    Tab,
+    //    Tab,
     empty
   }
 }

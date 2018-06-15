@@ -1,5 +1,6 @@
 const state = {
-  userMsg: ''
+  userMsg: '',
   // userMsg: {},
+  tabFlag: false
 }
 export default state
