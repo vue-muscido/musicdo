@@ -2,17 +2,18 @@
   <div class="cart">
     <!-- 商品列表容器 -->
     <div class="cartCon">
-      <cube-scroll
-        ref="scroll"
-        :data="cartData"
-        :options="options"
-        @pulling-down="onPullingDown">
-        <div v-if="cartData.length" class="edit-all">
+      <div v-if="cartData.length" class="edit-all">
           <div class="msg-btn">
             <img src="./img/xiaoxi@2x.png" />
           </div >
           <div @click="editAll" class="btn-edit-all">{{editText}}</div>
-        </div>
+      </div>
+      <div class="scroll">
+        <cube-scroll
+        ref="scroll"
+        :data="cartData"
+        :options="options"
+        @pulling-down="onPullingDown">
         <div v-if="shop.list.length" v-for="(shop, top) in cartData" :key="shop.shopName" class="shop-con">
           <div class="shop-title">
             <div class="shop">
@@ -82,6 +83,7 @@
           去添加
         </div>
       </cube-scroll>
+      </div>
     </div>
     <!-- 结算栏 -->
     <div v-if="cartData.length" class="count">
@@ -122,6 +124,10 @@ export default {
       notGoodsMsg: '购物车空空的，先去添加商品吧~',
       dataTypeMsg: '1',
       options: {
+        scrollbar: {
+          fade: true,
+          nteractive: false // 1.8.0 新增
+        },
         pullDownRefresh: {
           threshold: 60,
           stop: 40,
