@@ -69,7 +69,7 @@
           <!--短信快速登录-->
           {{isLoginByCode ? '密码登录' : '短信快速登录'}}
         </div >
-        <div >
+        <div @click="toFindPwd()" >
           忘记密码?
         </div >
       </div >
@@ -82,17 +82,17 @@
 
       <div class="new-account-bar" >
         <span class="new-account-btn" @click="toRegister()" >
-          注册新账号{{$store.state.isLogin}}----{{$store.getters.otest}} <!-- TODO & test-->
+          注册新账号
         </span >
       </div >
 
-        用户信息:{{userMsg}}
+        test用户信息:{{userMsg}}
 
       <div class="other-way-bar" >
         <h3 ><span >其他账号登录</span ></h3 >
         <div class="other-way" >
-          <div class="wx" @click="clUserMsg()" ></div >
-          <div class="qq" @click="testSSSS()" ></div >
+          <div class="wx" ></div >
+          <div class="qq" ></div >
         </div >
       </div >
     </div >
@@ -103,7 +103,6 @@
 import { getVerificationCode } from 'api/verificationCode'
 import { login, loginByCode } from 'api/userLogin'
 import RippleBtn from 'base/ripple-btn/ripple-btn'
-import { localSave, localTake, localremove } from 'common/js/localStore'
 import { mapGetters, mapActions } from 'vuex'
 export default {
   // 别名
@@ -233,9 +232,6 @@ export default {
           if (res.Code === 1) {
             console.log(res.Data)
             console.log('登录成功，本地存储逻辑(done)，设置全局数据(islogin,)，登录页面退出')
-            //            this._localremove('userMsg')
-            //            this._localSave('userMsg', res.Data)
-            //            this.$store.commit('SET_LOGIN_FLAG', true)
             this.loginSuccess(res.Data)
           } else if (res.Code === 0) {
             console.log('账号或密码不正确，弹框提醒，并要求重新填写')
@@ -378,28 +374,9 @@ export default {
         }
       }, 1000)
     },
-    clUserMsg () {
-      console.log('is _localremove')
-      this.$store.commit('REMOVE_USER_MSG')
-    },
     loginSuccess (userMsg) {
       this.xSetUserMsg(userMsg)
       this.$router.replace(this.$route.params.redirect || '/')
-    },
-    // 本地储存
-    _localSave (key, val) {
-      localSave(key, val)
-    },
-    // 读取本地储存
-    _localTake (key) {
-      return localTake(key)
-    },
-    // 清除本地储存
-    _localremove (key) {
-      localremove(key)
-    },
-    testSSSS () {
-      this.xSetLoginFlag(true)
     },
     toRegister () {
       this.$router.push({
@@ -408,7 +385,7 @@ export default {
     },
     toFindPwd () {
       this.$router.push({
-        name: 'UserRegister'
+        name: 'UserFindPwd'
       })
     },
     ...mapActions([

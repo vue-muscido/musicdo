@@ -1,5 +1,6 @@
 <template >
-  <div id="app" >    <transition :name="transitionName" >
+  <div id="app" >
+    <transition :name="transitionName" >
       <keep-alive >
         <router-view v-if="$route.meta.keepAlive" class="router-view" ></router-view >
       </keep-alive >
@@ -32,7 +33,8 @@ export default {
   },
   mounted () {
     if (localTake('userMsg')) {
-      console.log('check userMsg')
+      console.log('check userMsg::', localTake('userMsg'))
+      console.log('type userMsg::', typeof localTake('userMsg'))
       let isLogin = localTake('userMsg')
       this.xSetUserMsg(isLogin)
     }

@@ -93,3 +93,58 @@
       &.disable
         background $g-bgc-btn-gray
         color $g-fc-black
+
+.tips-text
+  margin-top 1rem
+  text-align center
+  font-size 1.2rem
+  color $g-fc-gray-l
+  > span
+    color $g-fc-red
+
+.protocol-wrap
+  position fixed
+  top 0
+  max-width $g-page-max-width
+  height 100%
+  width 100%
+  background #fff
+  .top-bar
+    display flex
+    justify-content space-between
+    align-items center
+    height 3rem
+    width 100%
+    padding 0 1rem
+    box-shadow 0 0 .25rem 0 $g-brc-dark
+    .back-btn
+      position relative
+      width 1.8rem
+      height 1.8rem
+      &:after
+        content ""
+        position absolute
+        top 50%
+        left 50%
+        width 50%
+        height 50%
+        border-top 2px solid $g-fc-black
+        border-left  2px solid $g-fc-black
+        transform: translate3d(-50%,-50%,0) rotate(-45deg)
+        transform-origin center
+    .protocol-title
+      font-weight 700
+      font-size 1.5rem
+      text-align center
+      color $g-fc-black
+  .protocol-con
+    overflow-y: auto;
+    height calc(100% - 3rem)
+    width 100%
+    padding .5rem
+    > p
+      text-indent 2em
+      letter-spacing .1rem
+      margin-bottom .5rem
+      font-size 1.3rem
+      color $g-fc-black
