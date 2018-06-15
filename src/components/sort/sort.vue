@@ -1,43 +1,44 @@
 <template >
   <div class="sort" >
     <!-- 固定定位容器 -->
-    <div class="sortContainer">
+    <div class="sortContainer" >
     <!-- 选择栏 -->
-      <div class="select-bar">
+      <div class="select-bar" >
         <cube-scroll
-        ref="scroll"
-        :data="selectList">
-          <ul class="select-con">
-              <li  @click="itemSelect(item, index)" v-for="(item, index) in selectList" class="select-item"  :class="{active:selectIndex === index}">
-                <span>{{item.Name}}</span>
-              </li>
-          </ul>
-        </cube-scroll>
-      </div>
+          ref="scroll"
+          :data="selectList" >
+          <ul class="select-con" >
+              <li @click="itemSelect(item, index)" v-for="(item, index) in selectList" class="select-item"
+                  :class="{active:selectIndex === index}" >
+                <span >{{item.Name}}</span >
+              </li >
+          </ul >
+        </cube-scroll >
+      </div >
       <!-- 展示栏 -->
-      <div class="select-show">
+      <div class="select-show" >
         <cube-scroll
-        ref="scroll"
-        :data="sortList"
-        :options="options">
-          <div class="classify-title">
-            <span>{{sortTitle}}</span>
-          </div>
-          <transition :name="transitionName">
-            <ul v-show="sortList.length" class="classify-con">
-              <li v-for="(item, index) in sortList" class="classify-item">
-                <div class="img-con">
-                   <img class="isimg" :src="getImg(item.SrcDetail)" alt="">
-                </div>
-                <p>{{item.Name}}</p>
-              </li>
-            </ul>
-          </transition >
-        </cube-scroll>
-      </div>
-    </div>
+          ref="scroll"
+          :data="sortList"
+          :options="options" >
+          <div class="classify-title" >
+            <span >{{sortTitle}}</span >
+          </div >
+          <transition :name="transitionName" >
+            <ul v-show="sortList.length" class="classify-con" >
+              <li v-for="(item, index) in sortList" class="classify-item" @click="searchSort(item.Name)" >
+                <div class=" img-con" >
+                   <img class="isimg" :src="getImg(item.SrcDetail)" alt="" >
+                </div >
+                <p >{{item.Name}}</p >
+      </li >
+      </ul >
+      </transition >
+      </cube-scroll >
+      </div >
+    </div >
     <!-- tab -->
-    <tab v-show="true"></tab>
+    <!--<tab v-show="true" ></tab >-->
     <!-- loading -->
     <loading v-show="!sortList.length" title="正在载入..." ></loading >
   </div >
@@ -45,7 +46,7 @@
 
 <script type="text/ecmascript-6" >
 import { getProductCategoryLevel, getProductCategory } from 'api/sortData'
-import Tab from 'components/tab/tab'
+// import Tab from 'components/tab/tab'
 import loading from 'base/loading/loading'
 import { LOCAL_HOST } from 'api/config'
 export default {
@@ -91,11 +92,18 @@ export default {
     },
     getImg (img) {
       return LOCAL_HOST + img
+    },
+    searchSort (sort) {
+      console.log(sort)
+      this.$router.push({
+        path: '/main-search',
+        query: {'keyword': sort}
+      })
     }
   },
   components: {
-    loading,
-    Tab
+    loading
+    //    Tab
   }
 }
 </script >

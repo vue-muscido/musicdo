@@ -11,6 +11,7 @@
     <transition :name="transitionName" >
       <user-login v-if="false" ></user-login >
     </transition >
+    <tab v-show="tabFlag"></tab>
   </div >
 </template >
 
@@ -19,11 +20,11 @@ import { rem } from 'common/js/rem'
 import UserLogin from 'components/user-login/user-login'
 import { localTake } from 'common/js/localStore'
 import { mapGetters, mapActions } from 'vuex'
+import Tab from 'components/tab/tab'
 export default {
   name: 'app',
   data () {
     return {
-      tabFlag: true,
       transitionName: 'fade'
     }
   },
@@ -41,7 +42,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'userMsg'
+      'userMsg',
+      'tabFlag'
     ])
   },
   methods: {
@@ -59,6 +61,7 @@ export default {
     ])
   },
   components: {
+    Tab,
     UserLogin
   },
   watch: {

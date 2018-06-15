@@ -157,6 +157,7 @@ router.beforeEach((to, from, next) => {
   // from: Route: 当前导航正要离开的路由
 
   const nextRoute = ['User', 'Cart', 'GoodsDetail'] // 需要登录的页面
+  const showTabPage = ['Home', 'Brands', 'Sort', 'Cart', 'User']
   let isLogin = localTake('userMsg')  // 是否登录
   // 未登录状态；当路由到 nextRoute 指定页时，跳转至 UserLogIn
   if (nextRoute.indexOf(to.name) >= 0) { // 检测是否要跳到守卫页面
@@ -172,6 +173,14 @@ router.beforeEach((to, from, next) => {
       })
       console.log('redirect--to.fullPath:::', to.fullPath)
     }
+  }
+
+  if (showTabPage.indexOf(to.name) >= 0) {
+    store.commit('SET_TAB_FLAG', true)
+    console.log('tabFlag  aaaa---', store.state.tabFlag)
+  } else {
+    store.commit('SET_TAB_FLAG', false)
+    console.log('tabFlag  aaaa---', store.state.tabFlag)
   }
 
   console.log('to.name', to.name)

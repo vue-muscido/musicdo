@@ -6,10 +6,10 @@
                readonly
                placeholder="请输入要搜索的内容"
                type="text"
-               @focus.prevent="_focus()">
-        <div class="search-icon"></div>
+               @focus.prevent="_focus()" >
+        <div class="search-icon" ></div >
       </form >
-      <div class="msg-btn">
+      <div class="msg-btn" >
         <img src="./img/xiaoxi@3x.png" />
         <p >消息</p >
       </div >
@@ -19,42 +19,42 @@
         ref="scroll"
         :data="homeSecond"
         :options="options"
-        @pulling-down="onPullingDown">
-        <div>
+        @pulling-down="onPullingDown" >
+        <div >
           <cube-slide
-           class="cube-slider"
-           v-if="slide.length"
-           ref="slide"
-           :data="slide">
+            class="cube-slider"
+            v-if="slide.length"
+            ref="slide"
+            :data="slide" >
             <cube-slide-item
               v-for="(item, index) in slide"
-              :key="index">
+              :key="index" >
               <a class="link" >
                 <img class="slider-img" :src="getImg(item.ImgUrl)" >
               </a >
             </cube-slide-item >
           </cube-slide >
-          <div v-if="slide.length" class="tab-container">
-            <div  v-for="(tab, index) in tabList" :key="index" @click="tabClick(tab.name, index)" class="tab-item">
-              <div class="tab-img" :class="tab.pic"></div>
-              <p class="tab-name">{{tab.name}}</p>
-            </div>
-          </div>
-          <div v-if="brand.length" class="brand-container">
-            <div class="brand-more">
-              <div class="con">
-                <span class="title">品牌</span>
-                <span @click="tabClick('品牌')" class="btn-more">更多</span>
-              </div>
-            </div>
-            <ul class="brand-list">
-              <li v-for="(brand, index) in brand" :key="index" class="brand">
-                <div class="tab-img-con">
-                  <img class="tab-img" :src="getImg(brand.Logo)" alt="">
-                </div>
-              </li>
-            </ul>
-          </div>
+          <div v-if="slide.length" class="tab-container" >
+            <div v-for="(tab, index) in tabList" :key="index" @click="tabClick(tab.name, index)" class="tab-item" >
+              <div class="tab-img" :class="tab.pic" ></div >
+              <p class="tab-name" >{{tab.name}}</p >
+            </div >
+          </div >
+          <div v-if="brand.length" class="brand-container" >
+            <div class="brand-more" >
+              <div class="con" >
+                <span class="title" >品牌</span >
+                <span @click="tabClick('品牌')" class="btn-more" >更多</span >
+              </div >
+            </div >
+            <ul class="brand-list" >
+              <li v-for="(brand, index) in brand" :key="index" class="brand" >
+                <div class="tab-img-con" >
+                  <img class="tab-img" :src="getImg(brand.Logo)" alt="" >
+                </div >
+              </li >
+            </ul >
+          </div >
           <div class="goods-container" >
             <div v-for="(list, index) in homeSecond" :key="index" class="goods-item-list" >
               <div class="list-title" >
@@ -73,12 +73,12 @@
                     <div class="goods-title" >
                       <h2 >{{goods.Name}}</h2 >
                     </div >
-                    <div class="goods-action">
-                      <div class="goods-price">
-                        ¥<span>{{goods.MarketPrice}}</span>.00
-                      </div>
-                      <div class="goods-buy"></div>
-                    </div>
+                    <div class="goods-action" >
+                      <div class="goods-price" >
+                        ¥<span >{{goods.MarketPrice}}</span >.00
+                      </div >
+                      <div class="goods-buy" ></div >
+                    </div >
                   </div >
                 </div >
               </div >
@@ -88,7 +88,7 @@
       </cube-scroll >
     </div >
     <!-- tab -->
-    <tab v-show="true"></tab>
+    <!--<tab v-show="true"></tab>-->
     <!-- loading -->
     <loading v-show="!homeSecond.length" title="正在载入..." ></loading >
   </div >
@@ -97,7 +97,7 @@
 <script type="text/ecmascript-6" >
 import { getHomeFirst, getHomeSecond, tabData } from 'api/homeData'
 import { LOCAL_HOST } from 'api/config'
-import Tab from 'components/tab/tab'
+// import Tab from 'components/tab/tab'
 import loading from 'base/loading/loading'
 export default {
   data () {
@@ -192,8 +192,8 @@ export default {
     }
   },
   components: {
-    loading,
-    Tab
+    loading
+    //    Tab
   },
   watch: {
     '$route' () {
