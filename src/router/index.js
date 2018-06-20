@@ -20,6 +20,8 @@ import GoodsDetail from 'components/goods-detail/goods-detail' // 商品详情�
 
 import { localTake } from 'common/js/localStore'
 
+import TestBox from 'components/test-box/cube-slide' // 商品详情页
+
 Vue.use(Router)
 
 const router = new Router({
@@ -27,6 +29,15 @@ const router = new Router({
     {
       path: '/', // 默认地址
       redirect: '/home'
+    },
+    {
+      path: '/test',
+      component: TestBox,
+      name: 'TestBox',
+      meta: {
+        title: '测试页面',
+        keepAlive: true // 需要被缓存
+      }
     },
     {
       path: '/home',

@@ -1,7 +1,7 @@
 <template >
   <button @click="reppleClick" class="ripple-btn" :class="{active: reppleButton.toggle}" >
-    <slot ></slot >
     <span class="ripple-elf" :class="{'animate': reppleButton.animate}" ></span >
+    <slot ></slot >
   </button >
 </template >
 
@@ -21,7 +21,12 @@ export default {
   // 子组件
   components: {},
   // 接受父组件传递数据
-  props: {},
+  props: {
+    pos: {
+      type: Boolean,
+      default: true
+    }
+  },
   // 组件实例创建前
   beforeCreate () {
   },
@@ -50,14 +55,19 @@ export default {
   methods: {
     reppleClick (e) {
       if (this.reppleButton.animate === false) {
-        this.reppleButton.animate = true
         let button = e.target
         let ripple = button.querySelector('.ripple-elf')
         if (ripple) {
           let d = Math.max(button.offsetHeight, button.offsetWidth)
           let x = e.layerX - ripple.offsetWidth / 2
           let y = e.layerY - ripple.offsetHeight / 2
-          ripple.setAttribute('style', 'height: ' + d + 'px; width: ' + d + 'px; top: ' + y + 'px; left: ' + x + 'px;')
+          console.log(x, y)
+          if (this.pos) {
+            ripple.setAttribute('style', 'height: ' + d + 'px; width: ' + d + 'px; top: ' + y + 'px; left: ' + x + 'px;')
+          } else {
+            ripple.setAttribute('style', 'height: ' + d + 'px; width: ' + d + 'px;')
+          }
+          this.reppleButton.animate = true
           this.$nextTick(() => {
             setTimeout(() => {
               this.reppleButton.animate = false
@@ -113,10 +123,8 @@ export default {
   border-radius 100%
   transform scale(0)
 
-
 .ripple-elf.animate
-  animation rippleAni 0.66s cubic-bezier(0,0,.66,1)
-
+  animation rippleAni 0.66s cubic-bezier(0, 0, .66, 1)
 
 @keyframes rippleAni
   100%
