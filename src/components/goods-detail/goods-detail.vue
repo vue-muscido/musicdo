@@ -1,6 +1,6 @@
 <template >
 	<transition name="" >
-		<div class="goods-detail">
+		<div class="goods-detail" >
       <!-- 头部 -->
       <div class="top-bar-select" >
         <div @click="back" class="select-left" >
@@ -16,14 +16,14 @@
         </div >
       </div >
       <!-- 滚动部分-->
-      <transition :name="transitionName">
-        <div v-if="slide.length" class="scroll">
+      <transition :name="transitionName" >
+        <div v-if="slide.length" class="scroll" >
           <cube-scroll
             ref="scroll"
             :data="slide"
-            :options="options">
+            :options="options" >
             <!-- 商品基本展示 -->
-            <div class="base">
+            <div class="base" >
               <!-- 商品图片 -->
               <div class="goods-img-container" >
                 <cube-slide
@@ -33,7 +33,7 @@
                   :data="slide" >
                   <cube-slide-item
                     v-for="(item, index) in slide"
-                    :key="index">
+                    :key="index" >
                     <a class="link slider-img-con" >
                       <img class="slider-img" :src="getImg(item)" >
                     </a >
@@ -60,100 +60,100 @@
                 <div v-show="goodsData.ProducingArea" class="about-item goods-area" >{{goodsData.ProducingArea}}</div >
               </div >
               <!-- 选择分类 -->
-              <div class="classify">
-                <div class="con">
+              <div class="classify" >
+                <div class="con" >
                   参数
-                  <span>选择规格</span>
-                </div>
-              </div>
+                  <span >选择规格</span >
+                </div >
+              </div >
               <!-- 选择参数 -->
-              <div class="parameter">
-                <div class="con">
+              <div class="parameter" >
+                <div class="con" >
                   送至
-                  <span>广州天河区豪景花园2213</span>
-                </div>
-              </div>
+                  <span >广州天河区豪景花园2213</span >
+                </div >
+              </div >
               <!-- 商品评价 -->
-              <div class="comment">
-                <div class="comment-header">
-                  <div class="title">商品评价
-                    <span v-if="!commentData.UserName">(暂无评论)</span>
-                  </div>
-                  <div v-if="commentData.UserName" class="good-percent">98.99%好评率</div>
-                </div>
+              <div class="comment" >
+                <div class="comment-header" >
+                  <div class="title" >商品评价
+                    <span v-if="!commentData.UserName" >(暂无评论)</span >
+                  </div >
+                  <div v-if="commentData.UserName" class="good-percent" >98.99%好评率</div >
+                </div >
                 <!-- 评价内容 -->
-                <div v-if="commentData.UserName" class="comment-item">
-                  <div class="title">
-                    <div class="con">
-                      <img class="user-img" :src="commentData.Ico" alt="">
-                      <span class="name">{{commentData.UserName}}</span>
-                    </div>
-                    <div class="start">
-                      <cube-rate v-model="commentData.StarNum"></cube-rate>
-                    </div>
-                  </div>
-                  <div class="dec">{{commentData.Content}}</div>
-                  <div v-if="commentData.ImgList" class="img-list">
-                    <div v-for="(item, index) in commentData.ImgList" :key="index"class="img-con">
-                      <img class="user-img" :src="getImg(item)" alt="">
-                    </div>
-                  </div>
-                </div>
-                <div v-if="commentData.UserName" class="show-all">
-                  <div class="btn-show-all">
+                <div v-if="commentData.UserName" class="comment-item" >
+                  <div class="title" >
+                    <div class="con" >
+                      <img class="user-img" :src="commentData.Ico" alt="" >
+                      <span class="name" >{{commentData.UserName}}</span >
+                    </div >
+                    <div class="start" >
+                      <cube-rate v-model="commentData.StarNum" ></cube-rate >
+                    </div >
+                  </div >
+                  <div class="dec" >{{commentData.Content}}</div >
+                  <div v-if="commentData.ImgList" class="img-list" >
+                    <div v-for="(item, index) in commentData.ImgList" :key="index" class="img-con" >
+                      <img class="user-img" :src="getImg(item)" alt="" >
+                    </div >
+                  </div >
+                </div >
+                <div v-if="commentData.UserName" class="show-all" >
+                  <div class="btn-show-all" >
                     查看全部评论
-                  </div>
-                </div>
-              </div>
+                  </div >
+                </div >
+              </div >
               <!-- 店铺展示 -->
-              <div class="shop">
-                <div class="shop-title">
-                  <div class="con">
-                    <div class="img-con">
-                      <img class="shop-img" :src="getImg(goodsData.ShopIco)" alt="">
-                    </div>
-                    <div class="shop-name">{{goodsData.ShopName}}</div>
-                  </div>
-                  <div class="btn-into">进店逛逛</div>
-                </div>
-                <div class="shop-show">
-                  <div class="shop-item">
-                    <div class="item-num">1888</div>
-                    <div class="item-name">全部宝贝</div>
-                  </div>
-                  <div class="shop-item">
-                    <div class="item-num">1888</div>
-                    <div class="item-name">上新宝贝</div>
-                  </div>
-                  <div class="shop-item">
-                    <div class="item-num">1888</div>
-                    <div class="item-name">关注人数</div>
-                  </div>
-                  <div class="shop-item">
-                    <div class="shop-dec">宝贝描述
-                      <span>4.8</span>
-                    </div>
-                    <div class="shop-dec">卖家服务
-                      <span>4.8</span>
-                    </div>
-                    <div class="shop-dec">物流服务
-                      <span>4.8</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+              <div class="shop" >
+                <div class="shop-title" >
+                  <div class="con" >
+                    <div class="img-con" >
+                      <img class="shop-img" :src="getImg(goodsData.ShopIco)" alt="" >
+                    </div >
+                    <div class="shop-name" >{{goodsData.ShopName}}</div >
+                  </div >
+                  <div class="btn-into" >进店逛逛</div >
+                </div >
+                <div class="shop-show" >
+                  <div class="shop-item" >
+                    <div class="item-num" >1888</div >
+                    <div class="item-name" >全部宝贝</div >
+                  </div >
+                  <div class="shop-item" >
+                    <div class="item-num" >1888</div >
+                    <div class="item-name" >上新宝贝</div >
+                  </div >
+                  <div class="shop-item" >
+                    <div class="item-num" >1888</div >
+                    <div class="item-name" >关注人数</div >
+                  </div >
+                  <div class="shop-item" >
+                    <div class="shop-dec" >宝贝描述
+                      <span >4.8</span >
+                    </div >
+                    <div class="shop-dec" >卖家服务
+                      <span >4.8</span >
+                    </div >
+                    <div class="shop-dec" >物流服务
+                      <span >4.8</span >
+                    </div >
+                  </div >
+                </div >
+              </div >
+            </div >
             <!-- 商品详情展示 -->
-            <div class="detail">
-              <h2>—— 宝贝详情 ——</h2>
+            <div class="detail" >
+              <h2 >—— 宝贝详情 ——</h2 >
               <div
                 v-for="(item, index) in slide"
-                :key="index">
+                :key="index" >
                 <img class="detail-img" :src="getImg(item)" >
               </div >
-            </div>
-          </cube-scroll>
-        </div>
+            </div >
+          </cube-scroll >
+        </div >
       </transition >
       <!-- 底部操作按钮 -->
       <div class="bottom-bar-action" >
@@ -175,10 +175,10 @@
           <div class="btn-action btn-add-cart" >加入购物车</div >
           <div class="btn-action btn-buy" >立即购买</div >
         </div >
-      </div>
+      </div >
       <!-- loading -->
       <loading v-show="!slide.length" title="正在载入..." ></loading >
-		</div>
+		</div >
 	</transition >
 </template >
 
@@ -220,6 +220,7 @@ export default {
           this.goodsData = res.ReturnData
           this.commentData = res.ReturnData.Data
           this.slide = res.ReturnData.ImgUrl.split(',')
+          console.log(res)
           if (this.slide.length === 1) {
             this.loopFlag = false
           } else {
