@@ -270,6 +270,29 @@
         background-color $g-col-white-g
       .detail-img
         width 100%
+  //评论区
+  .comment-container
+    position fixed
+    width 100%
+    max-width $g-page-max-width
+    top $g-fix-bar-height
+    bottom $g-bot-bar-height
+    background-color $l-bgc-app
+    .top-bar
+      display flex
+      height 4.0rem
+      background-color $g-bgc-con
+      .btn-back
+        flex 4.0rem 0 0
+        line-height 4.0rem
+        text-align center
+      .title
+        flex 1
+        height 4.0rem
+        line-height 4.0rem
+        text-align center
+    .comment-item
+      padding 1.5rem
   // 底部操作按钮
   .bottom-bar-action
     max-width $g-page-max-width
