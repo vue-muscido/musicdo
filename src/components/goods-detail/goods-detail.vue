@@ -6,24 +6,26 @@
         <div @click="back" class="select-left" >
           <span class="icon-goback" ></span >
         </div >
-        <div class="select-middle" >
-          <span class="select-item active" >商品</span >
-          <span class="select-item" >详情</span >
-          <span class="select-item" >评价</span >
-        </div >
+        <ul class="select-middle" >
+          <li @click="itemSelect(index)" v-for="(item, index) in selectBar" :key="index" class="select-item"
+          :class="{active:selectIndex === index}" >
+          {{item}}
+          </li >
+        </ul >
         <div class="select-right" >
           <span class="icon-cart" ></span >
         </div >
       </div >
-      <!-- 滚动部分-->
+      <!-- 商品介绍滚动部分-->
       <transition :name="transitionName">
         <div v-if="slide.length" class="scroll">
           <cube-scroll
             ref="scroll"
             :data="slide"
-            :options="options">
+            :options="options"
+            @scrollStart="isscroll">
             <!-- 商品基本展示 -->
-            <div class="base">
+            <div ref="base" class="base">
               <!-- 商品图片 -->
               <div class="goods-img-container" >
                 <cube-slide
@@ -74,7 +76,7 @@
                 </div>
               </div>
               <!-- 商品评价 -->
-              <div class="comment">
+              <div ref="comment" class="comment">
                 <div class="comment-header">
                   <div class="title">商品评价
                     <span v-if="!commentData.UserName">(暂无评论)</span>
@@ -100,7 +102,7 @@
                   </div>
                 </div>
                 <div v-if="commentData.UserName" class="show-all">
-                  <div class="btn-show-all">
+                  <div @click="commentSwitch" class="btn-show-all">
                     查看全部评论
                   </div>
                 </div>
@@ -144,7 +146,7 @@
               </div>
             </div>
             <!-- 商品详情展示 -->
-            <div class="detail">
+            <div ref="detail" class="detail">
               <h2>—— 宝贝详情 ——</h2>
               <div
                 v-for="(item, index) in slide"
@@ -155,6 +157,29 @@
           </cube-scroll>
         </div>
       </transition >
+      <!-- 评论区滚动部分 -->
+      <div v-if="commentFlag" class="comment-container">
+        <div class="top-bar">
+          <div @click="commentSwitch" class="btn-back">
+          </div>
+          <div class="title">
+            评论区
+          </div>
+          <div class="btn-back">
+          </div>
+        </div>
+        <ul class="comment-list">
+          <li class="comment-item">
+            这是一条评论
+          </li>
+          <li class="comment-item">
+            这是一条评论
+          </li>
+          <li class="comment-item">
+            这是一条评论
+          </li>
+        </ul>
+      </div>
       <!-- 底部操作按钮 -->
       <div class="bottom-bar-action" >
         <div class="action-left" >
@@ -199,8 +224,15 @@ export default {
         scrollbar: {
           fade: true,
           nteractive: false // 1.8.0 新增
+        },
+        listenScroll: {
+          type: Boolean,
+          default: true
         }
-      }
+      },
+      selectIndex: 0,
+      selectBar: ['商品', '详情', '评价'],
+      commentFlag: false
     }
   },
   created () {
@@ -208,10 +240,36 @@ export default {
     this._getProductDetail(this.goodsId)
   },
   methods: {
+    isscroll () {
+      console.log('dd')
+    },
+    commentSwitch () {
+      this.itemSelect(2)
+    },
+    itemSelect (index) {
+      this.selectIndex = index
+      if (index === 0) {
+        this.commentFlag = false
+        this.$refs.scroll.scrollToElement(this.$refs.base, 500, 0, 0, 'easing')
+      }
+      if (index === 1) {
+        this.commentFlag = false
+        this.$refs.scroll.scrollToElement(this.$refs.detail, 500, 0, 0, 'easing')
+      }
+      if (index === 2) {
+        this.commentFlag = true
+        this.$refs.scroll.scrollToElement(this.$refs.comment, 500, 0, 0, 'easing')
+      }
+    },
+    gotoDetail () {
+      this.$refs.scroll.scrollToElement(this.$refs.detail, 500, 0, 0, 'easing')
+    },
     getImg (img) {
       return LOCAL_HOST + img
     },
     back () {
+      this.commentFlag = false
+      this.selectIndex = 0
       this.$router.back()
     },
     _getProductDetail (goodsId) {

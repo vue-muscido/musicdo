@@ -85,9 +85,6 @@
           注册新账号
         </span >
       </div >
-
-        test用户信息:{{userMsg}}
-
       <div class="other-way-bar" >
         <h3 ><span >其他账号登录</span ></h3 >
         <div class="other-way" >
