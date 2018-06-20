@@ -195,10 +195,10 @@
    destroyed () {},
    watch: {
      '$route' (to, from) {
-       //       const fromDepth = from.path.split('/')
-       //       if (fromDepth[1] === 'home') {
-       this._comeSearch()
-       //       }
+        const fromDepth = from.path.split('/')
+        if (fromDepth[1] === 'home') {
+          this._comeSearch()
+        }
      }
    }
  }
