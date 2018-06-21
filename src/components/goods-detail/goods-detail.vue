@@ -18,11 +18,12 @@
       </div >
       <!-- 商品介绍滚动部分-->
       <transition :name="transitionName">
-        <div v-if="slide.length" class="scroll">
+        <div ref="wrap" v-if="slide.length" class="scroll">
           <cube-scroll
             ref="scroll"
             :data="slide"
             :options="options"
+            :listenScroll="listenScroll"
             @scroll="isscroll">
             <!-- 商品基本展示 -->
             <div ref="base" class="base">
@@ -221,15 +222,15 @@ export default {
       loopFlag: true,
       transitionName: 'fade',
       options: {
+        probeType: 3,
         scrollbar: {
           fade: true,
           nteractive: false // 1.8.0 新增
-        },
-        listenScroll: {
-          type: Boolean,
-          default: true
         }
       },
+      listenScroll: true,
+      pageY: 0,
+      scrollEvents: ['scroll'],
       selectIndex: 0,
       selectBar: ['商品', '详情', '评价'],
       commentFlag: false
@@ -240,8 +241,17 @@ export default {
     this._getProductDetail(this.goodsId)
   },
   methods: {
-    isscroll () {
-      console.log('dd')
+    isscroll (pos) {
+      this.pageY = pos.y | 0
+      if (this.$refs.base.offsetHeight + this.$refs.detail.offsetHeight + this.pageY <= this.$refs.wrap.offsetHeight || this.pageY + this.$refs.base.offsetHeight <= 0) {
+        if (this.selectIndex !== 2) {
+          this.selectIndex = 1
+        }
+      } else {
+        if (this.selectIndex !== 2) {
+          this.selectIndex = 0
+        }
+      }
     },
     commentSwitch () {
       this.itemSelect(2)
@@ -250,15 +260,15 @@ export default {
       this.selectIndex = index
       if (index === 0) {
         this.commentFlag = false
-        this.$refs.scroll.scrollToElement(this.$refs.base, 500, 0, 0, 'easing')
+        this.$refs.scroll.scrollToElement(this.$refs.base, 280, 0, 0, 'easing')
       }
       if (index === 1) {
         this.commentFlag = false
-        this.$refs.scroll.scrollToElement(this.$refs.detail, 500, 0, 0, 'easing')
+        this.$refs.scroll.scrollToElement(this.$refs.detail, 280, 0, 0, 'easing')
       }
       if (index === 2) {
+        // this.$refs.scroll.stop()
         this.commentFlag = true
-        this.$refs.scroll.scrollToElement(this.$refs.comment, 500, 0, 0, 'easing')
       }
     },
     gotoDetail () {
