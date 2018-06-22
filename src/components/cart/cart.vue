@@ -127,10 +127,6 @@ export default {
       notGoodsMsg: '购物车空空的，先去添加商品吧~',
       dataTypeMsg: '1',
       options: {
-        scrollbar: {
-          fade: true,
-          nteractive: false // 1.8.0 新增
-        },
         pullDownRefresh: {
           threshold: 60,
           stop: 40,
