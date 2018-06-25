@@ -1,0 +1,52 @@
+@import '~common/stylus/variable.styl'
+@import '~common/stylus/mixin.styl'
+.user-about
+   background-color $g-bgc-app
+  // 用户信息
+  .goback
+    padding 0 1.5rem
+    background-color red
+    height 3.0rem
+    line-height 3.0rem
+    font-size 1.3rem
+    color #fff
+  .user-msg
+    display flex
+    align-items center
+    padding 0.8rem 1.5rem
+    background-color $g-bgc-con
+    .photo
+      position relative
+      width 6.5rem
+      height 6.5rem
+      border 1px solid $g-brc-default
+      overflow hidden
+      img
+        position absolute
+        top 50%
+        left 50%
+        transform translate(-50%, -50%)
+        width 100%
+        height auto
+    .text
+      padding-left 0.75rem
+      height 3.0rem
+      h2
+        font-size $g-fs-xxl
+      p
+        padding-top 0.75rem
+        font-size $g-fs-md
+        color $g-fc-gray-b
+  .scroll
+    position fixed
+    top 12.0rem
+    bottom $g-bot-bar-height
+    width 100%
+    max-width 750px
+    .msg
+      padding 0 1.5rem
+      background-color $g-bgc-con
+    li
+      border-bottom 1px solid $g-brc-default
+      height 4.0rem
+      line-height 4.0rem
