@@ -91,7 +91,7 @@ const router = new Router({
       name: 'UserAbout',
       meta: {
         title: '个人资料',
-        keepAlive: false // 需要被缓存
+        keepAlive: true // 需要被缓存
       }
     },
     {

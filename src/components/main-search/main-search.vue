@@ -196,7 +196,7 @@ export default {
   watch: {
     '$route' (to, from) {
       const fromDepth = from.path.split('/')
-      if (fromDepth[1] === 'home') {
+      if (fromDepth[1] !== 'goods-detail') {
         this._comeSearch()
       }
     }

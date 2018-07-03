@@ -376,6 +376,8 @@ export default {
           pageSize: this.retSearchData.length
         })
       }
+      this.$refs.scroll.refresh()
+      this.$refs.scroll.scrollTo(0, 0, 280, 'easing')
     },
     _isSalesVolumeUp (flag) { // 销量排序（传入true-排序为4，传入false-排序为3）
       //        销量升序 = 3,

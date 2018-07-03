@@ -4,24 +4,24 @@
     <div @click="goBack" class="goback">
       <返回
     </div>
-    <!-- 用户信息 -->
-    <div class="user-msg" >
-      <div class="photo" >
-        <img :src="userMsg.ImageUrl" alt="" >
-      </div >
-      <div class="text" >
-        <h2 class="user-name" >{{userMsg.NickName}}</h2 >
-        <p class="user-lever" >点击更换头像</p >
-      </div >
-    </div >
     <!-- 滚动开始 -->
     <div class="scroll" >
       <cube-scroll
         ref="scroll"
         :data="PrivateList"
         :options="options" >
+        <!-- 用户信息 -->
+        <div class="user-msg" >
+          <div class="photo" >
+            <img :src="userMsg.ImageUrl" alt="" >
+          </div >
+          <div class="text" >
+            <h2 class="user-name" >{{userMsg.NickName}}</h2 >
+            <p class="user-lever" >点击更换头像</p >
+          </div >
+        </div >
         <!-- 我的资料 -->
-        <ul class="msg" >
+        <ul class="msg-list" >
           <li class="phone">昵称：{{userMsg.NickName}}</li>
           <li class="phone">电话：{{userMsg.Phone}}</li>
           <li class="phone">性别：{{getSex(userMsg.Sex)}}</li>
@@ -87,7 +87,7 @@ export default {
       this.$router.replace('home')
     },
     goBack () {
-      this.$router.back()
+      this.$router.push('user')
     },
     ...mapActions([
       'xSetUserMsg',
