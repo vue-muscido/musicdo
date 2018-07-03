@@ -40,7 +40,7 @@
             <div class="delete" @click="_localremove ('historySearch')" ></div >
           </dt >
           <dd >
-            <ul >
+            <ul class="reverse-box" >
               <li v-for="(item,index) in historyData" :key="index" >
                 <a @click="_replayceSearch (item)" >{{item}}</a >
               </li >
@@ -122,11 +122,16 @@ export default {
       // 本地如果无存储，就为空
       this.historyData = this._localTake('historySearch') ? this._localTake('historySearch') : []
     },
-    // 历史搜索去空去重设置
+    // 历史搜索去空、去重、排序设置
     _historyDataSet (val) {
       if (val.replace(/\s/g, '') !== '') { // 去掉头尾空格不为空
-        this.historyData.push(val)
-        return Array.from(new Set(this.historyData))
+        if (this.historyData.indexOf(val) >= 0) { // 如果有此关键词
+          this.historyData.splice(this.historyData.indexOf(val), 1) // 通过索引删除，去重
+          this.historyData.unshift(val) // 前面插入(相当于排序)
+        } else {
+          this.historyData.unshift(val) // 前面插入(相当于排序)
+        }
+        return this.historyData
       } else {
         return this.historyData
       }
@@ -196,7 +201,11 @@ export default {
   watch: {
     '$route' (to, from) {
       const fromDepth = from.path.split('/')
-      if (fromDepth[1] === 'home') {
+      const fromPathArr = ['home', 'brands'] // 用于判断跳转路径
+      //      if (fromDepth[1] === 'home' || fromDepth[1] === 'brands') {
+      //        this._comeSearch()
+      //      }
+      if (fromPathArr.indexOf(fromDepth[1]) >= 0) {
         this._comeSearch()
       }
     }

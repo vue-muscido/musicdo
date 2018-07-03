@@ -1,6 +1,6 @@
 <template >
 	<transition name="" >
-		<div class="goods-detail">
+		<div class="goods-detail" >
       <!-- 头部 -->
       <div class="top-bar-select" >
         <div @click="back" class="select-left" >
@@ -8,7 +8,7 @@
         </div >
         <ul class="select-middle" >
           <li @click="itemSelect(index)" v-for="(item, index) in selectBar" :key="index" class="select-item"
-          :class="{active:selectIndex === index}" >
+              :class="{active:selectIndex === index}" >
           {{item}}
           </li >
         </ul >
@@ -17,16 +17,16 @@
         </div >
       </div >
       <!-- 商品介绍滚动部分-->
-      <transition :name="transitionName">
-        <div ref="wrap" v-if="slide.length" class="scroll">
+      <transition :name="transitionName" >
+        <div ref="wrap" v-if="slide.length" class="scroll" >
           <cube-scroll
             ref="scroll"
             :data="slide"
             :options="options"
             :listenScroll="listenScroll"
-            @scroll="isscroll">
+            @scroll="isscroll" >
             <!-- 商品基本展示 -->
-            <div ref="base" class="base">
+            <div ref="base" class="base" >
               <!-- 商品图片 -->
               <div class="goods-img-container" >
                 <cube-slide
@@ -36,7 +36,7 @@
                   :data="slide" >
                   <cube-slide-item
                     v-for="(item, index) in slide"
-                    :key="index">
+                    :key="index" >
                     <a class="link slider-img-con" >
                       <img class="slider-img" :src="getImg(item)" >
                     </a >
@@ -63,124 +63,124 @@
                 <div v-show="goodsData.ProducingArea" class="about-item goods-area" >{{goodsData.ProducingArea}}</div >
               </div >
               <!-- 选择分类 -->
-              <div class="classify">
-                <div class="con">
+              <div class="classify" >
+                <div class="con" >
                   参数
-                  <span>选择规格</span>
-                </div>
-              </div>
+                  <span >选择规格</span >
+                </div >
+              </div >
               <!-- 选择参数 -->
-              <div class="parameter">
-                <div class="con">
+              <div class="parameter" >
+                <div class="con" >
                   送至
-                  <span>广州天河区豪景花园2213</span>
-                </div>
-              </div>
+                  <span >广州天河区豪景花园2213</span >
+                </div >
+              </div >
               <!-- 商品评价 -->
-              <div ref="comment" class="comment">
-                <div class="comment-header">
-                  <div class="title">商品评价
-                    <span v-if="!commentData.UserName">(暂无评论)</span>
-                  </div>
-                  <div v-if="commentData.UserName" class="good-percent">98.99%好评率</div>
-                </div>
+              <div ref="comment" class="comment" >
+                <div class="comment-header" >
+                  <div class="title" >商品评价
+                    <span v-if="!commentData.UserName" >(暂无评论)</span >
+                  </div >
+                  <div v-if="commentData.UserName" class="good-percent" >98.99%好评率</div >
+                </div >
                 <!-- 评价内容 -->
-                <div v-if="commentData.UserName" class="comment-item">
-                  <div class="title">
-                    <div class="con">
-                      <img class="user-img" :src="commentData.Ico" alt="">
-                      <span class="name">{{commentData.UserName}}</span>
-                    </div>
-                    <div class="start">
-                      <cube-rate v-model="commentData.StarNum"></cube-rate>
-                    </div>
-                  </div>
-                  <div class="dec">{{commentData.Content}}</div>
-                  <div v-if="commentData.ImgList" class="img-list">
-                    <div v-for="(item, index) in commentData.ImgList" :key="index"class="img-con">
-                      <img class="user-img" :src="getImg(item)" alt="">
-                    </div>
-                  </div>
-                </div>
-                <div v-if="commentData.UserName" class="show-all">
-                  <div @click="commentSwitch" class="btn-show-all">
+                <div v-if="commentData.UserName" class="comment-item" >
+                  <div class="title" >
+                    <div class="con" >
+                      <img class="user-img" :src="commentData.Ico" alt="" >
+                      <span class="name" >{{commentData.UserName}}</span >
+                    </div >
+                    <div class="start" >
+                      <cube-rate v-model="commentData.StarNum" ></cube-rate >
+                    </div >
+                  </div >
+                  <div class="dec" >{{commentData.Content}}</div >
+                  <div v-if="commentData.ImgList" class="img-list" >
+                    <div v-for="(item, index) in commentData.ImgList" :key="index" class="img-con" >
+                      <img class="user-img" :src="getImg(item)" alt="" >
+                    </div >
+                  </div >
+                </div >
+                <div v-if="commentData.UserName" class="show-all" >
+                  <div @click="commentSwitch" class="btn-show-all" >
                     查看全部评论
-                  </div>
-                </div>
-              </div>
+                  </div >
+                </div >
+              </div >
               <!-- 店铺展示 -->
-              <div class="shop">
-                <div class="shop-title">
-                  <div class="con">
-                    <div class="img-con">
-                      <img class="shop-img" :src="getImg(goodsData.ShopIco)" alt="">
-                    </div>
-                    <div class="shop-name">{{goodsData.ShopName}}</div>
-                  </div>
-                  <div class="btn-into">进店逛逛</div>
-                </div>
-                <div class="shop-show">
-                  <div class="shop-item">
-                    <div class="item-num">1888</div>
-                    <div class="item-name">全部宝贝</div>
-                  </div>
-                  <div class="shop-item">
-                    <div class="item-num">1888</div>
-                    <div class="item-name">上新宝贝</div>
-                  </div>
-                  <div class="shop-item">
-                    <div class="item-num">1888</div>
-                    <div class="item-name">关注人数</div>
-                  </div>
-                  <div class="shop-item">
-                    <div class="shop-dec">宝贝描述
-                      <span>4.8</span>
-                    </div>
-                    <div class="shop-dec">卖家服务
-                      <span>4.8</span>
-                    </div>
-                    <div class="shop-dec">物流服务
-                      <span>4.8</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+              <div class="shop" >
+                <div class="shop-title" >
+                  <div class="con" >
+                    <div class="img-con" >
+                      <img class="shop-img" :src="getImg(goodsData.ShopIco)" alt="" >
+                    </div >
+                    <div class="shop-name" >{{goodsData.ShopName}}</div >
+                  </div >
+                  <div class="btn-into" >进店逛逛</div >
+                </div >
+                <div class="shop-show" >
+                  <div class="shop-item" >
+                    <div class="item-num" >1888</div >
+                    <div class="item-name" >全部宝贝</div >
+                  </div >
+                  <div class="shop-item" >
+                    <div class="item-num" >1888</div >
+                    <div class="item-name" >上新宝贝</div >
+                  </div >
+                  <div class="shop-item" >
+                    <div class="item-num" >1888</div >
+                    <div class="item-name" >关注人数</div >
+                  </div >
+                  <div class="shop-item" >
+                    <div class="shop-dec" >宝贝描述
+                      <span >4.8</span >
+                    </div >
+                    <div class="shop-dec" >卖家服务
+                      <span >4.8</span >
+                    </div >
+                    <div class="shop-dec" >物流服务
+                      <span >4.8</span >
+                    </div >
+                  </div >
+                </div >
+              </div >
+            </div >
             <!-- 商品详情展示 -->
-            <div ref="detail" class="detail">
-              <h2>—— 宝贝详情 ——</h2>
+            <div ref="detail" class="detail" >
+              <h2 >—— 宝贝详情 ——</h2 >
               <div
                 v-for="(item, index) in slide"
-                :key="index">
+                :key="index" >
                 <img class="detail-img" :src="getImg(item)" >
               </div >
-            </div>
-          </cube-scroll>
-        </div>
+            </div >
+          </cube-scroll >
+        </div >
       </transition >
       <!-- 评论区滚动部分 -->
-      <div v-if="commentFlag" class="comment-container">
-        <div class="top-bar">
-          <div @click="commentSwitch" class="btn-back">
-          </div>
-          <div class="title">
+      <div v-if="commentFlag" class="comment-container" >
+        <div class="top-bar" >
+          <div @click="commentSwitch" class="btn-back" >
+          </div >
+          <div class="title" >
             评论区
-          </div>
-          <div class="btn-back">
-          </div>
-        </div>
-        <ul class="comment-list">
-          <li class="comment-item">
+          </div >
+          <div class="btn-back" >
+          </div >
+        </div >
+        <ul class="comment-list" >
+          <li class="comment-item" >
             这是一条评论
-          </li>
-          <li class="comment-item">
+          </li >
+          <li class="comment-item" >
             这是一条评论
-          </li>
-          <li class="comment-item">
+          </li >
+          <li class="comment-item" >
             这是一条评论
-          </li>
-        </ul>
-      </div>
+          </li >
+        </ul >
+      </div >
       <!-- 底部操作按钮 -->
       <div class="bottom-bar-action" >
         <div class="action-left" >
@@ -201,21 +201,31 @@
           <div class="btn-action btn-add-cart" >加入购物车</div >
           <div class="btn-action btn-buy" >立即购买</div >
         </div >
-      </div>
+      </div >
       <!-- loading -->
       <loading v-show="!slide.length" title="正在载入..." ></loading >
-		</div>
+      <div v-if="xqhtml!=''" style="height: 100vh;width: 100vw;position: fixed;top: 0;background: red" >{{xqhtml}}</div >
+		</div >
 	</transition >
 </template >
 
-<script type="text/ecmascript-6" >
-import { getProductDetail } from 'api/goodsDetail'
+<!-- <script type="text/ecmascript" > -->
+<script >
+import {
+  getProductDetail,
+  getSpec,
+  getProParameters,
+  showProductContent,
+  //  getProductCommentList,
+  getShopProductCount
+} from 'api/goodsDetail'
 import { LOCAL_HOST } from 'api/config'
 import loading from 'base/loading/loading'
 export default {
   data () {
     return {
       goodsId: '',
+      shopId: '',
       goodsData: {},
       commentData: {},
       slide: [],
@@ -233,14 +243,34 @@ export default {
       scrollEvents: ['scroll'],
       selectIndex: 0,
       selectBar: ['商品', '详情', '评价'],
-      commentFlag: false
+      commentFlag: false,
+      xqhtml: ''
     }
   },
   created () {
     this.goodsId = this.$route.query.goodsId
     this._getProductDetail(this.goodsId)
+    // -
+    // 获取商品数据
+    // -
+    this._getSpec(this.goodsId)
+    this._getProParameters(this.goodsId)
+    this._showProductContent(this.goodsId)
+    //    this._getProductCommentList(this.goodsId)
+    //    this._getShopProductCount(this.shopId)
   },
   methods: {
+    cutOutStr (str) {
+      let REG_BODY = /<body[^>]*>([\s\S]*)<\/body>/ // body标签正则，用于截取body里面的内容
+      let REG_SCRIPT = /<script[\s\S]*?<\/script>/ig // script标签正则，用于剔除body里面的script标签及script标签里面的内容
+      let sss = ''
+      sss = str.replace(REG_SCRIPT, '') // 先剔除掉body里面的script标签
+      let result = REG_BODY.exec(sss) // 再截取body的内容
+      if (result && result.length === 2) { // 截取出来的是一个数组
+        return result[1] // 数组第二项是我们要的图文
+      }
+      return str // 如果上面的result找不到或者没有，就返回传进来的未改变的内容
+    },
     isscroll (pos) {
       this.pageY = pos.y | 0
       if (this.$refs.base.offsetHeight + this.$refs.detail.offsetHeight + this.pageY <= this.$refs.wrap.offsetHeight || this.pageY + this.$refs.base.offsetHeight <= 0) {
@@ -285,14 +315,56 @@ export default {
     _getProductDetail (goodsId) {
       getProductDetail(goodsId).then((res) => {
         if (res.Flag === true) {
+          console.log('_getProductDetail::', res)
           this.goodsData = res.ReturnData
           this.commentData = res.ReturnData.Data
           this.slide = res.ReturnData.ImgUrl.split(',')
+          this.shopId = res.ReturnData.ShopID
+          this._getShopProductCount(this.shopId)
           if (this.slide.length === 1) {
             this.loopFlag = false
           } else {
             this.loopFlag = true
           }
+        }
+      })
+    },
+    _getSpec (ProductID) {
+      getSpec(ProductID).then((res) => {
+        //        if (res.Flag === true) {
+        console.log('_getSpec:::', res)
+        //        }
+      })
+    },
+    _getProParameters (ProductID) {
+      getProParameters(ProductID).then((res) => {
+        //        if (res.Flag === true) {
+        console.log('_getProParameters:;-', res)
+        //        }
+      })
+    },
+    _showProductContent (ProductID) {
+      showProductContent(ProductID).then((res) => {
+        //        if (res.Flag === true) {
+        //        console.log('_showProductContent::--', res)
+        //        console.log('剪切后：：：：', this.cutOutStr(res))
+        this.cutOutStr(res)
+        this.xqhtml = this.cutOutStr(res)
+        console.log('this.xqhtml----------:::', this.xqhtml)
+        //        }
+      })
+    },
+    //    _getProductCommentList (ProductID) {
+    //      getProductCommentList(ProductID).then((res) => {
+    //        if (res.Flag === true) {
+    //          console.log('_getProductCommentList--::', res)
+    //        }
+    //      })
+    //    },
+    _getShopProductCount (ShopID) {
+      getShopProductCount(ShopID).then((res) => {
+        if (res.Flag === true) {
+          console.log('_getShopProductCount-::', res)
         }
       })
     }
@@ -309,6 +381,14 @@ export default {
       }
       this.goodsId = this.$route.query.goodsId
       this._getProductDetail(this.goodsId)
+      // -
+      // 获取商品数据
+      // -
+      this._getSpec(this.goodsId)
+      this._getProParameters(this.goodsId)
+      this._showProductContent(this.goodsId)
+      //      this._getProductCommentList(this.goodsId)
+      //      this._getShopProductCount(this.shopId)
     }
   }
 }
