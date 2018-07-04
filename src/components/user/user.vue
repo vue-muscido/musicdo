@@ -1,7 +1,7 @@
 <template >
   <div class="user" >
     <!-- 用户信息 -->
-    <div class="user-msg" >
+    <div @click="toMsg" class="user-msg" >
       <div class="bar-action" >
         <div class="btn-edit" ></div >
         <div class="btn-msg" ></div >
@@ -54,13 +54,6 @@
       </cube-scroll >
     </div >
     <!-- 滚动结束 -->
-    <div
-      style="display: block;position: fixed;top: 0;z-index: 99999;width: 100%;max-width: 750px;max-height: 50vh;background-color: rgba(0,0,0,.5);color: #fff" >
-      <div style="background-color: red;color: #fff;text-align: center" @click="outSign()" >点击退出登录</div >
-      <div >test用户信息：{{strUserMsg}}</div >
-    </div >
-    <!-- tab -->
-    <!--<tab v-show="true" ></tab >-->
   </div >
 </template >
 
@@ -114,6 +107,10 @@ export default {
     // 获取用户私人信息
     _getPrivateData () {
       this.privateList = privateData
+    },
+    // 跳转个人页面
+    toMsg () {
+      this.$router.push('user-about')
     },
     // 退出登陆
     outSign () {
