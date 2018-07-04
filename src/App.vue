@@ -74,11 +74,11 @@ export default {
       //      } else {
       //        this.loginFlag = false
       //      }
-      if (toDepth[1] === 'goods-detail') {
+      if (toDepth[1] === 'goods-detail' || toDepth[1] === 'user-about') {
         this.transitionName = 'slideIn'
         return
       }
-      if (fromDepth[1] === 'goods-detail') {
+      if (fromDepth[1] === 'goods-detail' || fromDepth[1] === 'user-about') {
         this.transitionName = 'slideOut'
         return
       }

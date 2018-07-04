@@ -12,6 +12,7 @@ import UserLogIn from 'components/user-login/user-login' // 用户登录组件
 import UserRegister from 'components/user-register/user-register' // 用户注册组件
 import UserRegisterSetPassword from 'components/user-register-set-password/user-register-set-password' // 用户注册设置密码
 import UserFindPwd from 'components/user-find-pwd/user-find-pwd' // 用户注册组件
+import UserAbout from 'components/user-about/user-about' // 用户资料组件
 
 import MainSearch from 'components/main-search/main-search' // 搜索页
 import SearchList from 'components/search-list/search-list' // 搜索列表
@@ -70,6 +71,15 @@ const router = new Router({
       name: 'User',
       meta: {
         title: '我的',
+        keepAlive: true // 需要被缓存
+      }
+    },
+    {
+      path: '/user-about',
+      component: UserAbout,
+      name: 'UserAbout',
+      meta: {
+        title: '个人资料',
         keepAlive: true // 需要被缓存
       }
     },

@@ -201,11 +201,7 @@ export default {
   watch: {
     '$route' (to, from) {
       const fromDepth = from.path.split('/')
-      const fromPathArr = ['home', 'brands'] // 用于判断跳转路径
-      //      if (fromDepth[1] === 'home' || fromDepth[1] === 'brands') {
-      //        this._comeSearch()
-      //      }
-      if (fromPathArr.indexOf(fromDepth[1]) >= 0) {
+      if (fromDepth[1] !== 'goods-detail') {
         this._comeSearch()
       }
     }
