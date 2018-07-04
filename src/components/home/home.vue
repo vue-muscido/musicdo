@@ -40,7 +40,7 @@
               <p class="tab-name" >{{tab.name}}</p >
             </div >
           </div >
-          <div v-if="brand.length" class="brand-container" >
+          <div v-if="brands.length" class="brand-container" >
             <div class="brand-more" >
               <div class="con" >
                 <span class="title" >品牌</span >
@@ -48,8 +48,8 @@
               </div >
             </div >
             <ul class="brand-list" >
-              <li v-for="(brand, index) in brand" :key="index" class="brand" >
-                <div class="tab-img-con" >
+              <li v-for="(brand, index) in brands" :key="index" class="brand">
+                <div class="tab-img-con" @click="searchBrand(brand.Name)" >
                   <img class="tab-img" :src="getImg(brand.Logo)" alt="" >
                 </div >
               </li >
@@ -105,7 +105,7 @@ export default {
       homeFrist: [],
       homeSecond: [],
       slide: [],
-      brand: [],
+      brands: [],
       options: {
         scrollbar: {
           fade: true,
@@ -159,7 +159,7 @@ export default {
       getHomeFirst().then((res) => {
         this.homeFrist = res.Data
         this.slide = res.Data.AdInfoRun
-        this.brand = res.Data.Brand_Top10_Recommend
+        this.brands = res.Data.Brand_Top10_Recommend
         this._getHomeSecond()
       })
     },
@@ -189,6 +189,13 @@ export default {
       setTimeout(() => {
         this._getHomeFirst()
       }, 1000)
+    },
+    searchBrand (brand) {
+      console.log('search-brand::', brand)
+      this.$router.push({
+        path: '/main-search',
+        query: {'keyword': brand}
+      })
     }
   },
   components: {

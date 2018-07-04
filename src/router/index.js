@@ -21,8 +21,6 @@ import GoodsDetail from 'components/goods-detail/goods-detail' // 商品详情�
 
 import { localTake } from 'common/js/localStore'
 
-import TestBox from 'components/test-box/cube-slide' // 商品详情页
-
 Vue.use(Router)
 
 const router = new Router({
@@ -30,15 +28,6 @@ const router = new Router({
     {
       path: '/', // 默认地址
       redirect: '/home'
-    },
-    {
-      path: '/test',
-      component: TestBox,
-      name: 'TestBox',
-      meta: {
-        title: '测试页面',
-        keepAlive: true // 需要被缓存
-      }
     },
     {
       path: '/home',
@@ -178,7 +167,7 @@ router.beforeEach((to, from, next) => {
   // from: Route: 当前导航正要离开的路由
 
   const nextRoute = ['User', 'Cart', 'GoodsDetail'] // 需要登录的页面
-  const showTabPage = ['Home', 'Brands', 'Sort', 'Cart', 'User']
+  const showTabPage = ['Home', 'Brands', 'Sort', 'Cart', 'User'] // 需要显示底栏的页面
   let isLogin = localTake('userMsg')  // 是否登录
   // 未登录状态；当路由到 nextRoute 指定页时，跳转至 UserLogIn
   if (nextRoute.indexOf(to.name) >= 0) { // 检测是否要跳到守卫页面
