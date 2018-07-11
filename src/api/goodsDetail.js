@@ -116,6 +116,15 @@ export function getProductCommentList (Params) {
 
 // 店铺基本统计信息
 export function getShopProductCount (ShopID) {
+  // 返回
+  //  ProductCount - 全部宝贝数
+  //  ProductNewCount - 上新宝贝数
+  //  ShopCollectCount - 关注人数
+  //  ProDes - 宝贝描述
+  //  Service - 卖家服务
+  //  Logistics - 物流服务
+  //  ShopName - 店铺名称
+  //  ShopIco - LOGO
   const url = '/api/Product/GetShop_ProductCount'
   const data = Object.assign({}, commonParams, {
     ID: ShopID || ''

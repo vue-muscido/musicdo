@@ -5,7 +5,7 @@ export function localTake (key) {
   if (JSON.parse(localStorage.getItem(key)) === null) {
     return ''
   } else {
-    console.log('返回：', JSON.parse(localStorage.getItem(key)))
+    // console.log('返回：', JSON.parse(localStorage.getItem(key)))
     return JSON.parse(localStorage.getItem(key))
   }
 }

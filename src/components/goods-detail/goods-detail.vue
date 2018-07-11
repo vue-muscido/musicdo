@@ -109,38 +109,38 @@
                 </div >
               </div >
               <!-- 店铺展示 -->
-              <div class="shop" >
+              <div class="shop"  >
                 <div class="shop-title" >
                   <div class="con" >
                     <div class="img-con" >
-                      <img class="shop-img" :src="getImg(goodsData.ShopIco)" alt="" >
+                      <img class="shop-img" :src="getImg(shopInfo.ShopIco)" alt="" >
                     </div >
-                    <div class="shop-name" >{{goodsData.ShopName}}</div >
+                    <div class="shop-name" >{{shopInfo.ShopName}}</div >
                   </div >
                   <div class="btn-into" >进店逛逛</div >
                 </div >
                 <div class="shop-show" >
                   <div class="shop-item" >
-                    <div class="item-num" >1888</div >
+                    <div class="item-num" >{{shopInfo.ProductCount}}</div >
                     <div class="item-name" >全部宝贝</div >
                   </div >
                   <div class="shop-item" >
-                    <div class="item-num" >1888</div >
+                    <div class="item-num" >{{shopInfo.ProductNewCount}}</div >
                     <div class="item-name" >上新宝贝</div >
                   </div >
                   <div class="shop-item" >
-                    <div class="item-num" >1888</div >
+                    <div class="item-num" >{{shopInfo.ShopCollectCount}}</div >
                     <div class="item-name" >关注人数</div >
                   </div >
                   <div class="shop-item" >
                     <div class="shop-dec" >宝贝描述
-                      <span >4.8</span >
+                      <span >{{shopInfo.ProDes}}</span >
                     </div >
                     <div class="shop-dec" >卖家服务
-                      <span >4.8</span >
+                      <span >{{shopInfo.Service}}</span >
                     </div >
                     <div class="shop-dec" >物流服务
-                      <span >4.8</span >
+                      <span >{{shopInfo.Logistics}}</span >
                     </div >
                   </div >
                 </div >
@@ -149,11 +149,7 @@
             <!-- 商品详情展示 -->
             <div ref="detail" class="detail" >
               <h2 >—— 宝贝详情 ——</h2 >
-              <div
-                v-for="(item, index) in slide"
-                :key="index" >
-                <img class="detail-img" :src="getImg(item)" >
-              </div >
+              <div class="detail-con" v-if="detailImg!=''" v-html="detailImg" ></div >
             </div >
           </cube-scroll >
         </div >
@@ -204,7 +200,6 @@
       </div >
       <!-- loading -->
       <loading v-show="!slide.length" title="正在载入..." ></loading >
-      <div v-if="xqhtml!=''" style="height: 100vh;width: 100vw;position: fixed;top: 0;background: red" >{{xqhtml}}</div >
 		</div >
 	</transition >
 </template >
@@ -244,7 +239,8 @@ export default {
       selectIndex: 0,
       selectBar: ['商品', '详情', '评价'],
       commentFlag: false,
-      xqhtml: ''
+      detailImg: '',
+      shopInfo: ''
     }
   },
   created () {
@@ -344,14 +340,10 @@ export default {
       })
     },
     _showProductContent (ProductID) {
+      // 详情图片接口，返回一个html页面，需要进行整理
       showProductContent(ProductID).then((res) => {
-        //        if (res.Flag === true) {
-        //        console.log('_showProductContent::--', res)
-        //        console.log('剪切后：：：：', this.cutOutStr(res))
-        this.cutOutStr(res)
-        this.xqhtml = this.cutOutStr(res)
-        console.log('this.xqhtml----------:::', this.xqhtml)
-        //        }
+        this.cutOutStr(res) // 进行整理，剪切出body内的图片，并去掉里面的js
+        this.detailImg = this.cutOutStr(res)
       })
     },
     //    _getProductCommentList (ProductID) {
@@ -362,9 +354,18 @@ export default {
     //      })
     //    },
     _getShopProductCount (ShopID) {
+      //  ProductCount - 全部宝贝数
+      //  ProductNewCount - 上新宝贝数
+      //  ShopCollectCount - 关注人数
+      //  ProDes - 宝贝描述
+      //  Service - 卖家服务
+      //  Logistics - 物流服务
+      //  ShopName - 店铺名称
+      //  ShopName店铺 - LOGO
       getShopProductCount(ShopID).then((res) => {
         if (res.Flag === true) {
           console.log('_getShopProductCount-::', res)
+          this.shopInfo = res.ReturnData
         }
       })
     }
