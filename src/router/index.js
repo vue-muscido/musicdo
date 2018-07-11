@@ -160,9 +160,9 @@ router.beforeEach((to, from, next) => {
   // console.log('navigation-guards')
   // router.push({name: 'UserLogIn'})
   // console.log('this.$store.state.isLogin', router.app.$options.store.isLogin)
-  let oLogin = localTake('userMsg')
-  console.log('本地:' + oLogin)
-  console.log('全局:' + store.state.userMsg)
+  // let oLogin = localTake('userMsg')
+  // console.log('本地:' + oLogin)
+  // console.log('全局:' + store.state.userMsg)
   // to: Route: 即将要进入的目标 路由对象
   // from: Route: 当前导航正要离开的路由
 
@@ -181,25 +181,25 @@ router.beforeEach((to, from, next) => {
         name: 'UserLogIn',
         params: {redirect: to.fullPath}
       })
-      console.log('redirect--to.fullPath:::', to.fullPath)
+      // console.log('redirect--to.fullPath:::', to.fullPath)
     }
   }
 
   if (showTabPage.indexOf(to.name) >= 0) {
     store.commit('SET_TAB_FLAG', true)
-    console.log('tabFlag  aaaa---', store.state.tabFlag)
+    // console.log('tabFlag  aaaa---', store.state.tabFlag)
   } else {
     store.commit('SET_TAB_FLAG', false)
-    console.log('tabFlag  aaaa---', store.state.tabFlag)
+    // console.log('tabFlag  aaaa---', store.state.tabFlag)
   }
 
-  console.log('to.name', to.name)
+  // console.log('to.name', to.name)
   // 已登录状态；当路由到 UserLogIn 时，跳转至 Home
   if (to.name === 'UserLogIn') {
-    console.log('isLogin:', isLogin)
+    // console.log('isLogin:', isLogin)
     if (isLogin) {
       // router.push({name: 'Home'})
-      console.log('已登录，不能跳到登陆页')
+      // console.log('已登录，不能跳到登陆页')
       next('/')
       return
     }
