@@ -109,7 +109,7 @@
                 </div >
               </div >
               <!-- 店铺展示 -->
-              <div class="shop"  >
+              <div class="shop" >
                 <div class="shop-title" >
                   <div class="con" >
                     <div class="img-con" >
@@ -199,7 +199,7 @@
         </div >
       </div >
       <!-- loading -->
-      <loading v-show="!slide.length" title="正在载入..." ></loading >
+      <loading v-show="isLoading" title="正在载入..." ></loading >
 		</div >
 	</transition >
 </template >
@@ -240,7 +240,8 @@ export default {
       selectBar: ['商品', '详情', '评价'],
       commentFlag: false,
       detailImg: '',
-      shopInfo: ''
+      shopInfo: '',
+      isLoading: true
     }
   },
   created () {
@@ -254,6 +255,7 @@ export default {
     this._showProductContent(this.goodsId)
     //    this._getProductCommentList(this.goodsId)
     //    this._getShopProductCount(this.shopId)
+    this.isPomiseAll()
   },
   methods: {
     cutOutStr (str) {
@@ -344,6 +346,9 @@ export default {
       showProductContent(ProductID).then((res) => {
         this.cutOutStr(res) // 进行整理，剪切出body内的图片，并去掉里面的js
         this.detailImg = this.cutOutStr(res)
+        setTimeout(() => {
+          this.$refs.detail.refresh()
+        }, 20)
       })
     },
     //    _getProductCommentList (ProductID) {
@@ -367,6 +372,17 @@ export default {
           console.log('_getShopProductCount-::', res)
           this.shopInfo = res.ReturnData
         }
+      })
+    },
+    isPomiseAll () {
+      let pomiseArr = [this._getProductDetail, this._getSpec, this._getProParameters, this._showProductContent, this._getShopProductCount]
+      Promise.all(pomiseArr).then((result) => {
+        console.log('arr----:', pomiseArr)
+        console.log('result::', result)
+        this.isLoading = false
+      }).catch((error) => {
+        this.isLoading = true
+        console.log('error::', error)
       })
     }
   },

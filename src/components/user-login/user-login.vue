@@ -353,6 +353,13 @@ export default {
         }
       }).show()
     },
+    showToastType (tipTxt) {
+      const toast = this.$createToast({
+        txt: tipTxt,
+        type: 'correct'
+      })
+      toast.show()
+    },
     countDown () {
       this.secondNumber = 0 // 重置为0再开始
       let countDownTimer = null // 存倒计时定时器
@@ -373,7 +380,10 @@ export default {
     },
     loginSuccess (userMsg) {
       this.xSetUserMsg(userMsg)
-      this.$router.replace(this.$route.params.redirect || '/')
+      setTimeout(() => {
+        this.$router.replace(this.$route.params.redirect || '/')
+      }, 1000)
+      this.showToastType('登录成功')
     },
     toRegister () {
       this.$router.push({
@@ -397,8 +407,7 @@ export default {
     ])
   },
   // 实时计算数据（一个数据影响多个数据）
-  watch: {
-  }
+  watch: {}
 }
 </script >
 
