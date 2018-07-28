@@ -1,5 +1,5 @@
 <template >
-  <div class="mask" >
+  <div class="loading-mask" >
     <div class="loading" @touchmove.prevent >
       <img width="24" height="24" src="./loading.gif" >
       <p class="desc" >{{title}}</p >
@@ -19,7 +19,7 @@ export default {
 <style scoped lang="stylus" rel="stylesheet/stylus" >
   @import "~common/stylus/variable"
 
-  .mask
+  .loading-mask
     position fixed
     top 0
     z-index 99999
