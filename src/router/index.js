@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import store from './../store'
+import { localTake } from 'common/js/localStore' // 获取本地存储
 
 import Home from 'components/home/home' // 主页组件
 import Brands from 'components/brands/brands' // 品牌页组件
@@ -19,8 +20,6 @@ import SearchList from 'components/search-list/search-list' // 搜索列表
 
 import GoodsDetail from 'components/goods-detail/goods-detail' // 商品详情页
 
-import { localTake } from 'common/js/localStore'
-
 Vue.use(Router)
 
 const router = new Router({
@@ -35,6 +34,7 @@ const router = new Router({
       name: 'Home',
       meta: {
         title: '乐都城',
+        showTabBar: true, // 显示底栏
         keepAlive: true // 需要被缓存
       }
     },
@@ -44,6 +44,7 @@ const router = new Router({
       name: 'Brands',
       meta: {
         title: '品牌',
+        showTabBar: true, // 显示底栏
         keepAlive: true // 需要被缓存
       }
     },
@@ -53,6 +54,7 @@ const router = new Router({
       name: 'Sort',
       meta: {
         title: '分类',
+        showTabBar: true, // 显示底栏
         keepAlive: true // 需要被缓存
       }
     },
@@ -62,7 +64,9 @@ const router = new Router({
       name: 'Cart',
       meta: {
         title: '购物车',
-        keepAlive: true // 需要被缓存
+        showTabBar: true, // 显示底栏
+        keepAlive: true, // 需要被缓存
+        needLogin: true // 需要登录
       }
     },
     {
@@ -71,7 +75,9 @@ const router = new Router({
       name: 'User',
       meta: {
         title: '我的',
-        keepAlive: true // 需要被缓存
+        showTabBar: true, // 显示底栏
+        keepAlive: true, // 需要被缓存
+        needLogin: true // 需要登录
       }
     },
     {
@@ -80,7 +86,8 @@ const router = new Router({
       name: 'UserAbout',
       meta: {
         title: '个人资料',
-        keepAlive: true // 需要被缓存
+        keepAlive: true, // 需要被缓存
+        needLogin: true // 需要登录
       }
     },
     {
@@ -155,56 +162,65 @@ const router = new Router({
   }
 })
 
+// 全局路由守卫 -以数组方式管理（废弃）
+// router.beforeEach((to, from, next) => {
+//
+//   const nextRoute = ['User', 'Cart', 'GoodsDetail'] // 需要登录的页面
+//   const showTabPage = ['Home', 'Brands', 'Sort', 'Cart', 'User'] // 需要显示底栏的页面
+//   let isLogin = localTake('userMsg')  // 是否登录
+//   // 未登录状态；当路由到 nextRoute 指定页时，跳转至 UserLogIn
+//   if (nextRoute.indexOf(to.name) >= 0) { // 检测是否要跳到守卫页面
+//     if (!isLogin) { // 如果未登录，并且要跳到守卫页面
+//       if (from.name === 'UserLogIn') {
+//         next('/')
+//         return
+//       }
+//
+//       router.push({
+//         name: 'UserLogIn',
+//         params: {redirect: to.fullPath}
+//       })
+//     }
+//   }
+//
+//   if (showTabPage.indexOf(to.name) >= 0) {
+//     store.commit('SET_TAB_FLAG', true)
+//   } else {
+//     store.commit('SET_TAB_FLAG', false)
+//   }
+//
+//   // console.log('to.name', to.name)
+//   // 已登录状态；当路由到 UserLogIn 时，跳转至 Home
+//   if (to.name === 'UserLogIn') {
+//     if (isLogin) {
+//       next('/')
+//       return
+//     }
+//   }
+//   next() // 必须使用 next ,执行效果依赖 next 方法的调用参数
+// })
+
 // 全局路由守卫
 router.beforeEach((to, from, next) => {
-  // console.log('navigation-guards')
-  // router.push({name: 'UserLogIn'})
-  // console.log('this.$store.state.isLogin', router.app.$options.store.isLogin)
-  // let oLogin = localTake('userMsg')
-  // console.log('本地:' + oLogin)
-  // console.log('全局:' + store.state.userMsg)
-  // to: Route: 即将要进入的目标 路由对象
-  // from: Route: 当前导航正要离开的路由
-
-  const nextRoute = ['User', 'Cart', 'GoodsDetail'] // 需要登录的页面
-  const showTabPage = ['Home', 'Brands', 'Sort', 'Cart', 'User'] // 需要显示底栏的页面
-  let isLogin = localTake('userMsg')  // 是否登录
-  // 未登录状态；当路由到 nextRoute 指定页时，跳转至 UserLogIn
-  if (nextRoute.indexOf(to.name) >= 0) { // 检测是否要跳到守卫页面
-    if (!isLogin) { // 如果未登录，并且要跳到守卫页面
-      if (from.name === 'UserLogIn') {
-        next('/')
-        return
-      }
-
-      router.push({
-        name: 'UserLogIn',
-        params: {redirect: to.fullPath}
+  let isLogin = localTake('userMsg')
+  if (to.meta.needLogin) {  // 判断该路由是否需要登录权限
+    if (isLogin) { // 判断是否已经登录
+      next()
+    } else {
+      next({
+        path: '/user-login',
+        query: {redirect: to.fullPath}  // 将跳转的路由path作为参数，登录成功后跳转到该路由
       })
-      // console.log('redirect--to.fullPath:::', to.fullPath)
     }
+  } else {
+    next()
   }
-
-  if (showTabPage.indexOf(to.name) >= 0) {
+  // 显示底栏
+  if (to.meta.showTabBar) {
     store.commit('SET_TAB_FLAG', true)
-    // console.log('tabFlag  aaaa---', store.state.tabFlag)
   } else {
     store.commit('SET_TAB_FLAG', false)
-    // console.log('tabFlag  aaaa---', store.state.tabFlag)
   }
-
-  // console.log('to.name', to.name)
-  // 已登录状态；当路由到 UserLogIn 时，跳转至 Home
-  if (to.name === 'UserLogIn') {
-    // console.log('isLogin:', isLogin)
-    if (isLogin) {
-      // router.push({name: 'Home'})
-      // console.log('已登录，不能跳到登陆页')
-      next('/')
-      return
-    }
-  }
-  next() // 必须使用 next ,执行效果依赖 next 方法的调用参数
 })
 
 export default router
